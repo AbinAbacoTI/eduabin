@@ -1,5 +1,21 @@
 <%- include('templates/header.ejs') %>
 
-  <h1>Index</h1>
-
-<%- include('templates/footer.ejs') %>
+  <h1 class="text-2xl">Index</h1>
+  <div class="container mx-auto">
+  <section class="flex lg:justify-between lg:flex-wrap md:flex-wrap">
+    <% for(var i=1; i<=10; i++){ %>
+      <div class="shadow-md rounded-md overflow-hidden w-11/12 h-64 sm:w-5/12 md:w-1/4 lg:w-1/5 xl:w-1/5 mb-5">
+        <div class="w-auto   h-40 bg-gray-600">
+          <img src="" alt="imagen-curso" />
+        </div>
+        <div class=" w-auto h-24">
+          <div class=" m-2 mt-4 text-center">
+            <h2 class="text-lg font-bold">Titulo del curso</h2>
+            <span>profesor del curso</span>
+          </div>
+        </div>
+      </div>
+      <% } %>
+  </section>
+</div>
+  <%- include('templates/footer.ejs') %>
