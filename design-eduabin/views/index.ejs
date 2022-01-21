@@ -1,5 +1,21 @@
 <%- include('templates/header.ejs') %>
 
-  <h1>Index</h1>
-
-<%- include('templates/footer.ejs') %>
+  <h1 class="text-2xl">Cursos</h1>
+  <div class="md:container md:mx-auto">
+    <section class="flex flex-wrap justify-center">
+      <% for(var i=1; i<=10; i++){ %>
+        <div class="shadow-md rounded-md overflow-hidden w-11/12 h-auto sm:w-5/12 md:w-1/4 lg:w-1/5 xl:w-1/5 m-3">
+          <div class="w-auto h-40 flex-none overflow-hidden bg-no-repeat bg-cover bg-center"
+            style="background-image: url('https://crehana-public-catalog.imgix.net/images/courses/promo-images/5f3bd2b6/af6eb884.jpeg');"
+            title="imagen-curso"></div>
+          <div class=" w-auto h-auto">
+            <div class=" my-1 text-center">
+              <h2 class="text-lg lg:text-base font-semibold">Curso de desarrollo</h2>
+              <span class="text-sm">profesor del curso</span>
+            </div>
+          </div>
+        </div>
+        <% } %>
+    </section>
+  </div>
+  <%- include('templates/footer.ejs') %>

@@ -6,10 +6,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EduAbin</title>
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/Header.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <span class="font-bold">Navbar</span>
-    </nav>
-  </header>
+  <header class="header">
+
+    <div class = "Top-Bar" >
+
+      <!--Logo-->
+      <div class = "Logo">
+        <img src = "./img/logo_lineas.png"/>
+      </div>
+      
+
+      <!--Search Bar-->
+      <div class = "Search-Bar">
+        <div class="pt-2 relative mx-auto text-gray-600">
+          <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-6 rounded-lg text-sm  focus:outline-none"
+            type="search" name="search" placeholder="Search" style="width: 100%;">
+          <button type="submit" class="absolute right-0 top-0 mt-5 mr-4">
+            <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+              viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+              width="512px" height="512px">
+              <path
+                d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!--Contactanos-->
+      <div class = "Contactanos">
+        <nav class="hidden md:flex space-x-10">
+          <div class="relative">
+            <button type="button" class="text-white-500 group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-expanded="false">
+              <span>Contactanos</span>
+              <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+    </div>
+
+    <div class = "Top-Bar-2" >
+    
+        <nav class="hidden md:flex space-x-10">
+          <div class="relative">
+            <button type="button" class="text-white-500 group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-expanded="false">
+              <span>Cursos</span>
+              <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+
+        <nav class="hidden md:flex space-x-10">
+          <div class="relative">
+            <button type="button" class="text-white-500 group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-expanded="false">
+              <span>Nosotros</span>
+              <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+      
+        <nav class="hidden md:flex space-x-10">
+          <div class="relative">
+            <button type="button" class="text-white-500 group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-expanded="false">
+              <span>Asesoria</span>
+              <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </nav>
+
+        <a>Login/Registrer</a>
+        
+    </div>
+
+    
+    <!--
+    <div class="containernav logo-nav-container">
+        <a href="#" class="logo"><img src="static/images/logo.png" alt="" width="300" height="100px"></a>
+        <span class="menu-icon"><img class="iconmenu" src="static/icons/list.png" alt=""></span>
+        <nav class="navigation">
+            <ul class="show">
+                <li><a href="">Inicio</a></li>
+                <li><a href="">Servicios</a></li>
+                <li><a href="">Productos</a></li>
+                <li><a href="">Nuestros Cliente</a></li>
+                <li><img src="" width="30" height="30">
+                    &nbsp<label>serviciocliente@bitioperu.com</label><br>
+                    <img src="" width="30" height="30">
+                    &nbsp<label>+51 958 387 992</label></li>
+                <li><a href="" target="_blank"><img src="" width="30" height="30" >
+                    &nbsp<label>Siguenos en Facebook</label></a></li>
+                <li><a href="" target="_blank"><img src="" width="50" height="30" >
+                    &nbsp<label>Siguenos en WhatsApp</label></a></li>
+            </ul>
+        </nav>
+    </div>-->
+</header>
