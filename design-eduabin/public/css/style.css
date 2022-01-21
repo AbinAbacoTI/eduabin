@@ -1943,6 +1943,11 @@ video {
   background-color: rgba(116, 42, 42, var(--bg-opacity));
 }
 
+.bg-orange-nec {
+  --bg-opacity: 1;
+  background-color: rgb(245, 158, 11);
+}
+
 .bg-orange-100 {
   --bg-opacity: 1;
   background-color: #fffaf0;
