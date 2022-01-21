@@ -1,11 +1,16 @@
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
-  purge: [],
+  future: {},
+  content: [
+    './views/*.ejs',
+    './views/templates/*.ejs'
+  ],
   theme: {
-    extend: {},
+    extend: {
+      height:{
+        '575':'575px',
+        '600':'600px'
+      }
+    },
   },
   variants: {},
   plugins: [],
