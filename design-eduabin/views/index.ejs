@@ -1,6 +1,24 @@
 <%- include('templates/header.ejs') %>
 
-  <h1 class="text-2xl">Cursos</h1>
+  <div class="swiper abinSwiper w-11/12 h-600 ">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide text-center text-lg flex justify-center items-center">
+        <img src="https://edu.abin.world/wp-content/uploads/2022/01/001-edu-abin.jpg" alt=""
+          class="block w-full h-full object-cover">
+      </div>
+      <div class="swiper-slide  text-center text-lg  flex justify-center items-center">
+        <img src="https://edu.abin.world/wp-content/uploads/2022/01/002-edu-abin-1.jpg" alt=""
+          class="block w-full h-full object-cover">
+      </div>
+      <div class="swiper-slide  text-center text-lg  flex justify-center items-center">
+        <img src="https://edu.abin.world/wp-content/uploads/2022/01/003-edu-abin-1.jpg" alt=""
+          class="block w-full h-full object-cover">
+      </div>
+    </div>
+    <div class="swiper-button-next text-gray-300"></div>
+    <div class="swiper-button-prev text-gray-300"></div>
+  </div>
+
   <div class="md:container md:mx-auto">
     <section class="flex flex-wrap justify-center">
       <% for(var i=1; i<=10; i++){ %>
