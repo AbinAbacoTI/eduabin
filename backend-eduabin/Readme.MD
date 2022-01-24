@@ -1,19 +1,19 @@
 # EduAbin - Backend
 
-####Initial virtual env
+#### Start virtual environment
 
 `py -m venv venv`
 
-#### Activate virtual 
+#### Activate virtual environment
 `.venv\Scripts\activate`
 
 ### Install dependencies
 ``pip install -r requeriments.txt``
 
 
-###Start Server
+### Start Server
 `(venv) py manage.py runserver`
 
 ------------
-###Add dependencies
+### Add dependencies
 `pip freeze > requirements.txt`
