@@ -10,6 +10,8 @@
 ### Install dependencies
 ``pip install -r requeriments.txt``
 
+### Start services
+``docker-compose up -d``
 
 ### Start Server
 `(venv) py manage.py runserver`
