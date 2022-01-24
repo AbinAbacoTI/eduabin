@@ -4,6 +4,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Using PostGreSQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -14,3 +15,13 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     }
 }
+
+'''
+#Using SQLite
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+'''
