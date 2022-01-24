@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=eduabin
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=email@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=pass
+    ports:
+      - 5050:80
