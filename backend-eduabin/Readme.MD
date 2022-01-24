@@ -8,7 +8,7 @@
 `.venv\Scripts\activate`
 
 ### Install dependencies
-``pip install -r requeriments.txt``
+``pip install -r requirements.txt``
 
 ### Start services
 ``docker-compose up -d``
