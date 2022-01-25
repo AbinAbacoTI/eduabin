@@ -112,6 +112,7 @@ class Topic(models.Model):
     topic_name = models.CharField(max_length=255)
     video = models.FileField(upload_to='topic_videos', null=True,verbose_name='Video de Tema', validators=[FileExtensionValidator(allowed_extensions=['mp4']) ])
     objectives = models.CharField(max_length=1000)
+    files = models.FileField(upload_to='topic_files')
     def __str__(self):
         return self.topic_name
 
@@ -130,7 +131,7 @@ class Additional_material(models.Model):
 
 class Question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    sub_topic = models.ForeignKey(Sub_topic, on_delete=models.CASCADE)
     date = models.DateTimeField('published date')
     question = models.TextField()
     answer = models.TextField()
