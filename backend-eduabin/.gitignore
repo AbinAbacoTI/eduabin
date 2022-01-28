@@ -1,2 +1,8 @@
 #Eduardo's virtual enviroment
 myvenv/
+venv/
+.env
+.idea
+postgres_data
+config
+courses
