@@ -37,16 +37,16 @@ class Course(models.Model):
         students = get_user_model().objects.filter(paid_courses=self)
         return len(students)
     
-    def get_tottal_lectures(self):
+    def get_total_lectures(self):
         lectures=0
-        for section in self.course_section:
+        for section in self.course_section.all():
             lectures += len(section.episode.all())
         return lectures
     
     def total_course_length(self):
         length=Decimal(0.0)
-        for section in self.course_section:
-            for episode in section.episode.all():
+        for section in self.course_section.all():
+            for episode in section.episodes.all():
                 length+=episode.length
         return get_timer(length, type='short')
     

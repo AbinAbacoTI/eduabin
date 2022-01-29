@@ -1,4 +1,6 @@
-
+# Django Migrations
+courses/migrations/
+users/migrations/
 .idea
 ### Django ###
 *.log
