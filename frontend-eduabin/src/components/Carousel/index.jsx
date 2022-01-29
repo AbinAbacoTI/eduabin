@@ -12,13 +12,13 @@ export default function Carousel () {
       <Swiper navigation={ true }
               className="w-11/12 h-600 rounded-lg">
         <SwiperSlide>
-          <Image src="https://edu.abin.world/wp-content/uploads/2022/01/001-edu-abin.jpg"
+          <Image src="https://edu.abin.world/wp-content/uploads/2022/01/portadas3_Mesa-de-trabajo-1-1024x294.jpg"
             alt="Slider image 1"
             layout="fill"
             className="object-cover"/>
         </SwiperSlide>
         <SwiperSlide>
-          <Image src="https://edu.abin.world/wp-content/uploads/2022/01/001-edu-abin.jpg"
+          <Image src="https://edu.abin.world/wp-content/uploads/2022/01/portadas3_Mesa-de-trabajo-1-1024x294.jpg"
               alt="Slider image 2"
               layout="fill"
               className="object-cover"/>
