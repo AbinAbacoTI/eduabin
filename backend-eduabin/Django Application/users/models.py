@@ -32,15 +32,15 @@ class UserManager(BaseUserManager):
 
         return user
         
-#Administrador
+#Se genera el  Modelo del Administrador
 class Admin(AbstractBaseUser, PermissionsMixin):
-    name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255, unique=True)
-    created = models.DateTimeField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
-    notifications = models.ManyToManyField('Notification', blank=True)
-    history = models.ManyToManyField('History', blank=True)
-    is_staff = models.BooleanField(default=False)
+    name = models.CharField(max_length=255)                             # Nombre del Administrador
+    email = models.EmailField(max_length=255, unique=True)              # Email del Administrador
+    created = models.DateTimeField(auto_now_add=True)                   # Fecha de Creacion del Administrador
+    update = models.DateTimeField(auto_now=True)                        # Fecha de Actualizacion del Administrador
+    notifications = models.ManyToManyField('Notification', blank=True)  # Notificaciones del Administrador
+    history = models.ManyToManyField('History', blank=True)             # Historia del Administrador
+    is_staff = models.BooleanField(default=False)                       # Reconocer si es Administrador
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']

@@ -8,13 +8,13 @@ from courses.views import (CoursesHomeView,
                             GetCartDetail,
                             CourseStudy)
 from django.urls import path
-
+# URLs de las vistas de la aplicacion Curso
 urlpatterns = [
-    path('', CoursesHomeView.as_view()),
-    path('search/<str:search_term>/', SearchCourse.as_view()),
-    path('<uuid:sector_uuid>/', SectorCourse.as_view()),
-    path('detail/<uuid:course_uuid>/',CourseDetail.as_view()),
-    path('comment/<course_uuid>/', AddComment.as_view()),
-    path('cart/', GetCartDetail.as_view()),
-    path('study/<uuid:course_uuid>/', CourseStudy.as_view()),
+    path('', CoursesHomeView.as_view()),                        # Home
+    path('search/<str:search_term>/', SearchCourse.as_view()),  # Vista de busqueda de curso
+    path('<uuid:sector_uuid>/', SectorCourse.as_view()),        # Vista de Sector 
+    path('detail/<uuid:course_uuid>/',CourseDetail.as_view()),  # Vista de Detalles del Curso
+    path('comment/<course_uuid>/', AddComment.as_view()),       # Vista de Comentarios
+    path('cart/', GetCartDetail.as_view()),                     # vista de adiciones al Carrito
+    path('study/<uuid:course_uuid>/', CourseStudy.as_view()),   # Vista de Cursos Comprados
 ]
