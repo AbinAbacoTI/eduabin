@@ -1,19 +1,25 @@
 module.exports = {
-  root: true,
   env: {
     browser: true,
-    amd: true,
-    node: true,
-    es6: true
+    es2021: true,
+    node: true
   },
   extends: [
-    'eslint:recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:prettier:recommended',
-    'next',
-    'next/core-web-vitals'
+    'plugin:react/recommended',
+    'standard'
+  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module'
+  },
+  plugins: [
+    'react'
   ],
   rules: {
-    'semi': ['error','always']
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off'
   }
 }
