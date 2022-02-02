@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from courses.models import Sector, Course
-from users.models import Student
+from users.models import Student, User
 from .serializers import (CourseDisplaySerializer, 
                           CourseUnpaidSerializer,
                           CourseListSerializer,
@@ -11,6 +11,7 @@ from .serializers import (CourseDisplaySerializer,
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework import response
+from rest_framework.permissions import IsAuthenticated
 
 from django.http import  HttpResponseBadRequest, HttpResponseNotAllowed
 from django.db.models import Q
@@ -79,6 +80,7 @@ class SearchCourse(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 class AddComment(APIView):
+    permission_classes=[IsAuthenticated]
     def post(self, request, course_uuid):
         try:
             course=Course.objects.get(course_uuid=course_uuid)
@@ -96,9 +98,7 @@ class AddComment(APIView):
         serializer=CommentSerializer(data=content)
 
         if serializer.is_valid():
-            author=Student.objects.get(id=1)
-            comment=serializer.save(user=author)
-            #comment=serializer.save(user=request.user)
+            comment=serializer.save(user=request.user)
             course.comments.add(comment)
             return Response(status=status.HTTP_201_CREATED)
         else:
@@ -144,7 +144,7 @@ class CourseStudy(APIView):
             course=Course.objects.get(course_uuid=course_uuid)
         except Course.DoesNotExist:
             return HttpResponseBadRequest('course does not exist')
-        request.user=Student.objects.get(id=1)
+        request.user=Student.objects.get(user_id=1)
         user_course=request.user.paid_courses.filter(course_uuid=course_uuid)
 
         if not user_course:

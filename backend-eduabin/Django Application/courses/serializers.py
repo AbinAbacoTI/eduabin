@@ -1,11 +1,11 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from .models import Additional_material, Course, Comment, Module, Sub_topic, Topic
-from users.serializers import TeacherSerializer, StudentSerializer
+from users.serializers import TeacherSerializer, StudentSerializer, UserSerializer
 
 class CourseDisplaySerializer(ModelSerializer):
     student_no = serializers.IntegerField(source='get_enrolled_student')
-    author = TeacherSerializer()
+    author = UserSerializer()
     image_url = serializers.CharField(source='get_absolute_image_url')
 
     class Meta:
@@ -20,7 +20,7 @@ class CourseDisplaySerializer(ModelSerializer):
         ]
 
 class CommentSerializer(ModelSerializer):
-    user=StudentSerializer(read_only=True)
+    user=UserSerializer(read_only=True)
     class Meta:
         model=Comment
         exclude=[
@@ -91,7 +91,7 @@ class ModulePaidSerializer(ModelSerializer):
 
 class CourseUnpaidSerializer(ModelSerializer):
     comments=CommentSerializer(many=True)
-    author=TeacherSerializer()
+    author=UserSerializer()
     modules=ModuleUnPaidSerializer(many=True)
     student_no=serializers.IntegerField(source='get_enrolled_student')
     total_modules=serializers.IntegerField(source='get_total_modules')
@@ -106,7 +106,7 @@ class CourseUnpaidSerializer(ModelSerializer):
 
 class CoursePaidSerializer(ModelSerializer):
     comments=CommentSerializer(many=True)
-    author=TeacherSerializer()
+    author=UserSerializer()
     modules=ModulePaidSerializer(many=True)
     student_no=serializers.IntegerField(source='get_enrolled_student')
     total_modules=serializers.IntegerField(source='get_total_modules')
@@ -121,7 +121,7 @@ class CoursePaidSerializer(ModelSerializer):
 
 class CourseListSerializer(ModelSerializer):
     student_no=serializers.IntegerField(source='get_enrolled_student')
-    author=TeacherSerializer()
+    author=UserSerializer()
     description=serializers.CharField(source='get_brief_description')
     total_modules=serializers.IntegerField(source='get_total_modules')
     class Meta: 
@@ -138,7 +138,7 @@ class CourseListSerializer(ModelSerializer):
         ]
 
 class CartItemSerializer(ModelSerializer):
-    author=StudentSerializer()
+    author=UserSerializer()
     image_url=serializers.CharField(source='get_absolute_image_url')
     class Meta:
         model=Course

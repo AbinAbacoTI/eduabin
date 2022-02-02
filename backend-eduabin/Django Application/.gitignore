@@ -1,7 +1,10 @@
 # Django Migrations
 courses/migrations/
 users/migrations/
+payments/migrations/
 .idea
+# Stripe
+stripe.exe
 ### Django ###
 *.log
 *.pot

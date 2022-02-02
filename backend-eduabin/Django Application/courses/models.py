@@ -1,9 +1,9 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
-from django.contrib.auth import get_user_model
 from decimal import Decimal
 from .helpers import get_timer
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.apps import apps
 from mutagen.mp4 import MP4, MP4StreamInfoError
 import uuid
@@ -32,7 +32,7 @@ class Course(models.Model):
     course_name = models.CharField(max_length=255)
     main_image = models.ImageField(upload_to='course_image')
     description = models.TextField()
-    author = models.ForeignKey(settings.AUTH_TEACHER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     valoration = models.IntegerField()
     price = models.DecimalField(max_digits=5,decimal_places=2)
     objectives = models.TextField()
@@ -131,7 +131,7 @@ class Additional_material(models.Model):
         return 'http://localhost:8000'+self.file.url
 
 class Question(models.Model):
-    user = models.ForeignKey(settings.AUTH_STUDENT_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField('published date')
     question = models.TextField()
     answer = models.TextField()
@@ -139,6 +139,6 @@ class Question(models.Model):
         return self.question
 
 class Comment(models.Model):
-    user = models.ForeignKey(settings.AUTH_STUDENT_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     message = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

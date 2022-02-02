@@ -32,14 +32,19 @@ class UserManager(BaseUserManager):
 
         return user
         
-#Administrador
-class Admin(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
+    USER_TYPE_CHOICES = (
+        (1, 'student'),
+        (2, 'teacher'),
+        (3, 'admin'),
+    )
+
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     notifications = models.ManyToManyField('Notification', blank=True)
-    history = models.ManyToManyField('History', blank=True)
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
@@ -50,28 +55,19 @@ class Admin(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return self.name + " " + self.email
         
-class History(models.Model):
-    areas = (
-        ('state_one','Users'),
-        ('state_two','Courses'),
-        ('state_three','Payments')
-    )
-    action = models.CharField(max_length=500)
-    time = models.TimeField()
-    date = models.DateField()
-    area = models.CharField(max_length=15,choices=areas)
-
 #Estudiante
 class Student(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
-    password = models.CharField(max_length=255)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     profile_picture = models.ImageField(upload_to='students_profile')
     bank_accounts = models.ManyToManyField('User_bank_account', blank=True)
     personal_data = models.ManyToManyField('Personal_data', blank=True)
     paid_courses = models.ManyToManyField(Course)
-    notifications = models.ManyToManyField('Notification', blank=True)
+    
+    def get_all_courses(self):
+        courses=[]
+        for course in self.paid_courses.all():
+            courses.append(course.course_uuid)
+        return courses
 
 class User_bank_account(models.Model):
     number = models.CharField(max_length=16)
@@ -85,21 +81,32 @@ class Personal_data(models.Model):
     dni = models.CharField(max_length=8)
 
 #Profesor
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    curriculum = models.FileField(upload_to='curriculum', null=True,verbose_name='curriculum')
+    profile_picture = models.ImageField(upload_to='profile_picture')
+    baccount = models.ForeignKey('Teacher_bank_account', on_delete=models.CASCADE)
+    birthday = models.DateField()
+    cellphone_number = models.IntegerField()
+    
 class Teacher_bank_account(models.Model):
     bank_name = models.CharField(max_length=255)
     number_account = models.IntegerField()
-
-class Teacher(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
-    password = models.CharField(max_length=255)
-    curriculum = models.FileField(upload_to='curriculum', null=True,verbose_name='curriculum')
-    profile_picture = models.ImageField(upload_to='profile_picture')
-    baccount = models.ForeignKey(Teacher_bank_account, on_delete=models.CASCADE)
-    birthday = models.DateField()
-    cellphone_number = models.IntegerField()
-    notifications = models.ManyToManyField('Notification', blank=True)
+    
+#Administrador
+class History(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    areas = (
+        ('state_one','Users'),
+        ('state_two','Courses'),
+        ('state_three','Payments')
+    )
+    action = models.CharField(max_length=500)
+    time = models.TimeField()
+    date = models.DateField()
+    area = models.CharField(max_length=15,choices=areas)
 
 class Notification(models.Model):
     user_from = models.CharField(max_length=255)
