@@ -29,9 +29,11 @@ class UserLoginSerializer(ModelSerializer):
         fields='__all__'
 
 class UserAuthSerializer(ModelSerializer):
-    #student=Student.objects.get(user_id=1)
-    #courses=serializers.ListField(source="get_all_courses")
-    #user=UserLoginSerializer()
+    paid_courses=serializers.SerializerMethodField('get_paid_courses')
+
+    def get_paid_courses(self, User):
+        return Student.objects.get(user=User.id).get_all_courses()
+
     class Meta:
         model=User
-        fields='__all__'
+        fields=["name", "id", "email", "paid_courses"]

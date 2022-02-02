@@ -100,7 +100,7 @@ class Topic(models.Model):
     objectives = models.TextField()                                             # Objetivos del Tema
     files = models.ManyToManyField('Additional_material', blank=True)           # Archivos del Tema
     sub_topics = models.ManyToManyField('Sub_topic', blank=True)                # Subtema del Tema
-    length = models.DecimalField(max_digits=10,decimal_places=2)                # Duracion del Tema
+    length = models.DecimalField(max_digits=10,decimal_places=2, blank=True)                # Duracion del Tema
 
     def __str__(self):                      # Muestra el Nombre del Tema  
         return self.topic_name
