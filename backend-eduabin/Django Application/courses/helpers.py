@@ -1,3 +1,5 @@
+
+# Metodo para obtener el tiempo ingresado con formato
 def get_timer(length:float, type:str='long'):
     h = length // 3600
     m = length % 3600 // 60

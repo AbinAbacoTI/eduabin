@@ -3,12 +3,14 @@ from rest_framework import serializers
 from .models import Additional_material, Course, Comment, Module, Sub_topic, Topic
 from users.serializers import TeacherSerializer, StudentSerializer, UserSerializer
 
+# Serializer para los datos de los cursos/Rederizacion (Aun sin Comprar)
 class CourseDisplaySerializer(ModelSerializer):
-    student_no = serializers.IntegerField(source='get_enrolled_student')
-    author = UserSerializer()
-    image_url = serializers.CharField(source='get_absolute_image_url')
+    # campos adicionales para rendericacion
+    student_no = serializers.IntegerField(source='get_enrolled_student')    # Numero de Estudiantes
+    author = UserSerializer()                                            # Autor del Curso(Extraido del Serializer del Profesor)
+    image_url = serializers.CharField(source='get_absolute_image_url')      # Imagen del Curso
 
-    class Meta:
+    class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
         fields=[
             'course_name',
@@ -19,26 +21,32 @@ class CourseDisplaySerializer(ModelSerializer):
             'image_url'
         ]
 
+# Serializer para los Comentarios de los cursos/Rederizacion
 class CommentSerializer(ModelSerializer):
-    user=UserSerializer(read_only=True)
-    class Meta:
+    # Campos adicionales para renderizar/Serializar
+    user=UserSerializer(read_only=True)  # Usuario(Extraido del Serializer "StudentSerializer")
+    class Meta:         # Datos de comentario a Renderizar/Serializar
         model=Comment
         exclude=[
             'id'
         ]
 
+# Serializer para los datos de material adicional/Rederizacion
 class AdditionalMaterialPaidSerializer(ModelSerializer):
-    file=serializers.CharField(source='get_absolute_url')
-    class Meta:
+    # Campos adicionales para renderizar/Serializar
+    file=serializers.CharField(source='get_absolute_url')   # Url del archivo Adicional
+    class Meta:         # Datos de Material Adiccional a Renderizar/Serializar
         model=Additional_material
         fields=[
             'file_name',
             'file'
         ]
 
+# Serializer para los datos de los Subtemas/Rederizacion
 class SubTopicPaidSerializer(ModelSerializer):
-    files=AdditionalMaterialPaidSerializer(many=True)
-    class Meta:
+    # Campos adicionales para renderizar/Serializar
+    files=AdditionalMaterialPaidSerializer(many=True)       # Archivos de material adicional
+    class Meta:         # Datos de Subtema a Renderizar/Serializar
         model=Sub_topic
         fields=[
             'subtopic_name',
@@ -46,18 +54,22 @@ class SubTopicPaidSerializer(ModelSerializer):
             'files'
         ]
 
+# Serializer para los datos de los Temas/Rederizacion   (si no ha pagado)
 class TopicUnpaidSerializer(ModelSerializer):
-    length=serializers.CharField(source='get_video_length_time')
-    class Meta:
+    # Campos adicionales para renderizar/Serializar
+    length=serializers.CharField(source='get_video_length_time')    # tiempo de duracion del Video
+    class Meta:         # Datos de Tema a Renderizar/Serializar
         model=Topic
         exclude=[
-            'video'
+            'video' # Excluye el Video de la Serializacion
         ]
 
+# Serializer para los datos de los Temas/Rederizacion (Si ha pagado)
 class TopicPaidSerializer(ModelSerializer):
-    sub_topics=SubTopicPaidSerializer(many=True)
-    length=serializers.CharField(source='get_video_length_time')
-    class Meta:
+    # Campos adicionales para renderizar/Serializar
+    sub_topics=SubTopicPaidSerializer(many=True) # Subtemas
+    length=serializers.CharField(source='get_video_length_time') # tiempo de duracion del video
+    class Meta:         # Datos de Tema a Renderizar/Serializar
         model=Topic
         fields=[
             'video',
@@ -67,10 +79,12 @@ class TopicPaidSerializer(ModelSerializer):
             'length'
         ]
 
+# Serializer para los datos de los Modulos/Rederizacion (Si no ha pagado)
 class ModuleUnPaidSerializer(ModelSerializer):
-    topics=TopicUnpaidSerializer(many=True)
-    total_duration=serializers.CharField(source='total_length')
-    class Meta:
+    # Campos adicionales para renderizar/Serializar
+    topics=TopicUnpaidSerializer(many=True) # Temas (Sin mostrar el video)
+    total_duration=serializers.CharField(source='total_length') # Duracion total del Tema
+    class Meta:         # Datos de Modulo a Renderizar/Serializar
         model=Module
         fields=[
             'module_name',
@@ -78,10 +92,12 @@ class ModuleUnPaidSerializer(ModelSerializer):
             'total_duration',
         ]
 
+# Serializer para los datos de los Modulos/Rederizacion
 class ModulePaidSerializer(ModelSerializer):
-    topics=TopicPaidSerializer(many=True)
-    total_duration=serializers.CharField(source='total_length')
-    class Meta:
+    # Campos adicionales para renderizar/Serializar
+    topics=TopicPaidSerializer(many=True) # Temas
+    total_duration=serializers.CharField(source='total_length') # Duracion total del Tema
+    class Meta:         # Datos de Modulo a Renderizar/Serializar
         model=Module
         fields=[
             'module_name',
@@ -89,42 +105,48 @@ class ModulePaidSerializer(ModelSerializer):
             'total_duration',
         ]
 
+# Serializer para los datos de los cursos/Rederizacion (Si no ha pagado)
 class CourseUnpaidSerializer(ModelSerializer):
-    comments=CommentSerializer(many=True)
-    author=UserSerializer()
-    modules=ModuleUnPaidSerializer(many=True)
-    student_no=serializers.IntegerField(source='get_enrolled_student')
-    total_modules=serializers.IntegerField(source='get_total_modules')
-    total_duration=serializers.CharField(source='total_course_length')
-    image_url=serializers.CharField(source='get_absolute_image_url')
+    # Campos adicionales para renderizar/Serializar
+    comments=CommentSerializer(many=True)                               # Comentarios
+    author=UserSerializer()                                          # Profesor
+    modules=ModuleUnPaidSerializer(many=True)                           # Modulos
+    student_no=serializers.IntegerField(source='get_enrolled_student')  # No. de estudiantes
+    total_modules=serializers.IntegerField(source='get_total_modules')  # Total de Modulos
+    total_duration=serializers.CharField(source='total_course_length')  # Duracion total
+    image_url=serializers.CharField(source='get_absolute_image_url')    # URL de imagen del curso
 
-    class Meta:
+    class Meta:         # Datos de  a Renderizar/Serializar
         model=Course
         exclude=[
             'id',
         ]
 
+# Serializer para los datos de los cursos/Rederizacion (Si ha pagado)
 class CoursePaidSerializer(ModelSerializer):
-    comments=CommentSerializer(many=True)
-    author=UserSerializer()
-    modules=ModulePaidSerializer(many=True)
-    student_no=serializers.IntegerField(source='get_enrolled_student')
-    total_modules=serializers.IntegerField(source='get_total_modules')
-    total_duration=serializers.CharField(source='total_course_length')
-    image_url=serializers.CharField(source='get_absolute_image_url')
+    # Campos adicionales para renderizar/Serializar
+    comments=CommentSerializer(many=True)                               # Comentarios
+    author=UserSerializer()                                             # Profesor
+    modules=ModulePaidSerializer(many=True)                             # Modulos
+    student_no=serializers.IntegerField(source='get_enrolled_student')  # No. de estudiantes
+    total_modules=serializers.IntegerField(source='get_total_modules')  # Total de Modulos
+    total_duration=serializers.CharField(source='total_course_length')  # Duracion Toral
+    image_url=serializers.CharField(source='get_absolute_image_url')    # URL de imagen del curso
 
-    class Meta:
+    class Meta:         # Datos de Curso a Renderizar/Serializar
         model=Course
         exclude=[
             'id',
         ]
 
+# Serializer para los datos de los cursos/Rederizacion
 class CourseListSerializer(ModelSerializer):
-    student_no=serializers.IntegerField(source='get_enrolled_student')
-    author=UserSerializer()
-    description=serializers.CharField(source='get_brief_description')
-    total_modules=serializers.IntegerField(source='get_total_modules')
-    class Meta: 
+    # Campos adicionales para renderizar/Serializar
+    student_no=serializers.IntegerField(source='get_enrolled_student')  # No. de estudiantes
+    author=UserSerializer()                                          # Profesor
+    description=serializers.CharField(source='get_brief_description')   # Descripcion
+    total_modules=serializers.IntegerField(source='get_total_modules')  # Total de Modulos 
+    class Meta:         # Datos de Curso a Renderizar/Serializar
         model=Course
         fields=[
             'course_uuid',
@@ -137,10 +159,12 @@ class CourseListSerializer(ModelSerializer):
             'total_modules'
         ]
 
+# Serializer para los datos del Carrito de Compra/Rederizacion
 class CartItemSerializer(ModelSerializer):
-    author=UserSerializer()
-    image_url=serializers.CharField(source='get_absolute_image_url')
-    class Meta:
+    # Campos adicionales para renderizar/Serializar
+    author=UserSerializer()                                          # Estudiante
+    image_url=serializers.CharField(source='get_absolute_image_url')    # URL de imgamen de carrito
+    class Meta:         # Datos de  a Renderizar/Serializar
         model=Course
         fields=[
             'author',

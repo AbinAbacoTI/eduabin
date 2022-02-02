@@ -1,11 +1,12 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(Sector)
-admin.site.register(Course)
-admin.site.register(Module)
-admin.site.register(Topic)
-admin.site.register(Sub_topic)
-admin.site.register(Additional_material)
-admin.site.register(Question)
-admin.site.register(Comment)
+# Se registran los modelos para la gestion de cursos 
+admin.site.register(Sector)                 # Modelo de Sector
+admin.site.register(Course)                 # Modelo de Curso
+admin.site.register(Module)                 # Modelo de Modulo
+admin.site.register(Topic)                  # Modelo de Tema
+admin.site.register(Sub_topic)              # Modelo de Sub-Tema
+admin.site.register(Additional_material)    # Modelo de Material Adicional
+admin.site.register(Question)               # Modelo de Preguntas    
+admin.site.register(Comment)                # MOdelo de Comentarios

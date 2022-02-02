@@ -19,6 +19,7 @@ from django.db.models import Q
 import json
 from decimal import Decimal
 
+# Vista del Home de los Cursos
 class CoursesHomeView(APIView):
     def get(self, request, *args, **kwargs):
         sectors=Sector.objects.order_by('?')[:6]
@@ -40,6 +41,7 @@ class CoursesHomeView(APIView):
         
         return Response(data=sector_response,status=status.HTTP_200_OK)
 
+# Vista de los detalles del curso
 class CourseDetail(APIView):
     def get(self, request, course_uuid, *args, **kwargs):
         course=Course.objects.filter(course_uuid=course_uuid)
@@ -50,7 +52,8 @@ class CourseDetail(APIView):
         serializer=CourseUnpaidSerializer(course[0])
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
-    
+
+# Vista del Sector
 class SectorCourse(APIView):
     def get(self, request, sector_uuid, *args, **kwargs):
         sector=Sector.objects.filter(sector_uuid=sector_uuid)
@@ -70,7 +73,7 @@ class SectorCourse(APIView):
             'sector_name':sector[0].name,
             'total_students':total_students,
         }, status=status.HTTP_200_OK)
-
+# Vista del buscador de Cursos
 class SearchCourse(APIView):
     def get(self, question, search_term):
         print(search_term)
@@ -79,6 +82,7 @@ class SearchCourse(APIView):
         serializer=CourseListSerializer(matches, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+# Vista de Comentarios
 class AddComment(APIView):
     permission_classes=[IsAuthenticated]
     def post(self, request, course_uuid):
@@ -104,6 +108,7 @@ class AddComment(APIView):
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# Vista de adiciones al carrito
 class GetCartDetail(APIView):
     def post(self, request):
         try:
@@ -137,7 +142,8 @@ class GetCartDetail(APIView):
             'cart_detail': serializer.data,
             'cart_total': cart_total,
         }, status=status.HTTP_200_OK)
-
+        
+# Vista de cursos Comprados
 class CourseStudy(APIView):
     def get(self, request, course_uuid):
         try:
