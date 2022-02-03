@@ -8,7 +8,7 @@ from django.apps import apps
 from mutagen.mp4 import MP4, MP4StreamInfoError
 import uuid
 
-# Se genera el modelos del sector
+# Se genera el modelo del sector
 class Sector(models.Model):
     #Campos SECTOR
     name = models.CharField(max_length=255)                             # Nombre del Sector
@@ -19,7 +19,7 @@ class Sector(models.Model):
     def get_image_absolute_url(self):
         return 'http://localhost:8000'+self.sector_image.url            # Obtiene la imagen del Url
 
-# Se genera el modelos para los cursos dentro de los Sectores
+# Se genera el modelo para los cursos dentro de los Sectores
 class Course(models.Model):
     # Estado del Curso: Publico/NO_Publico/Pendiente
     state_one = 'published'
@@ -35,7 +35,7 @@ class Course(models.Model):
     course_name = models.CharField(max_length=255)                                      # Nombre del Curso 
     main_image = models.ImageField(upload_to='course_image')                            # Imagen del Curso
     description = models.TextField()                                                    # Descripcion del Curso
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)   # Autor del Curso
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)      # Autor del Curso
     valoration = models.IntegerField()                                                  # Valoracion del Curso
     price = models.DecimalField(max_digits=5,decimal_places=2)                          # Precion del Curso
     objectives = models.TextField()                                                     # Objetivos del Curso
@@ -92,7 +92,7 @@ class Module(models.Model):
             total+=topic.length
         return get_timer(total, type='min')
 
-# Se genera el Modelos de los Temas del Modulo
+# Se genera el Modelo de los Temas del Modulo
 class Topic(models.Model):
     topic_name = models.CharField(max_length=255)                               # Nombre del Tema
     video = models.FileField(upload_to='topic_videos', null=True,verbose_name='Video de Tema',
@@ -122,7 +122,7 @@ class Topic(models.Model):
         self.length=self.get_video_length()
         return super().save(*args,**kwargs)
 
-# Se genera el Modelos de los SubTemas del Tema
+# Se genera el Modelo de los SubTemas del Tema
 class Sub_topic(models.Model):
     subtopic_name = models.CharField(max_length=255)                    # Nombre del Sub-Tema
     description = models.TextField()                                    # Descripcion del Sub-Tema
