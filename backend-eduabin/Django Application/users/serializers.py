@@ -36,11 +36,11 @@ class UserLoginSerializer(ModelSerializer):
 
 # Serializer para Autentificacion de Usuario/Rederizacion
 class UserAuthSerializer(ModelSerializer):
-    paid_courses=serializers.SerializerMethodField('get_paid_courses')  # Cursos Comprados
+    #paid_courses=serializers.SerializerMethodField('get_paid_courses')  # Cursos Comprados
 
     def get_paid_courses(self, User):   # Metodo para obtener los cursos comprados de un Usuario
         return Student.objects.get(user=User.id).get_all_courses()
 
     class Meta:                         # Datos de Usuario a Renderizar/Serializar
         model=User
-        fields=["name", "id", "email", "paid_courses"]
+        fields=["name", "id", "email"]
