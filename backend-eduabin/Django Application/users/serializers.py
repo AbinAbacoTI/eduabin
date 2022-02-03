@@ -10,10 +10,12 @@ class UserSerializer(ModelSerializer):
             'name',
         ]
         
+# Serializer para Estudiante/Rederizacion
 class StudentSerializer(ModelSerializer):
     class Meta:
-        model = Student
-        fields = [
+        # Campos Adicional
+        model = Student # Modelo Estudiante
+        fields = [      # Datos de Estudiante a Renderizar/Serializar
             '__all__',
         ]
 
@@ -39,12 +41,13 @@ class UserRegistrationSerializer(UserCreateSerializer):
         Student.objects.create(user=user)
         return user
 
+# Serializer para Autentificacion de Usuario/Rederizacion
 class UserAuthSerializer(ModelSerializer):
-    paid_courses=serializers.SerializerMethodField('get_paid_courses')
+    paid_courses=serializers.SerializerMethodField('get_paid_courses')  # Cursos Comprados
 
-    def get_paid_courses(self, User):
+    def get_paid_courses(self, User):   # Metodo para obtener los cursos comprados de un Usuario
         return Student.objects.get(user=User.id).get_all_courses()
 
-    class Meta:
+    class Meta:                         # Datos de Usuario a Renderizar/Serializar
         model=User
         fields=["name", "id", "email", "paid_courses"]

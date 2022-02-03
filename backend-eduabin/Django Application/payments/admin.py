@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register(PaymentIntent)
-admin.site.register(Payment)
+# Registra los modelos a utilizar
+admin.site.register(PaymentIntent)  # Intento de Pago
+admin.site.register(Payment)        # Pago Realizado

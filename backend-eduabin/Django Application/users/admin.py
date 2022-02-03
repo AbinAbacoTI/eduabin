@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 
-# Registra lo Modelo
+# Registra los Modelos
 admin.site.register(User)
 admin.site.register(History)                # Modelo de Historia
 admin.site.register(Student)                # Modelo de Estudiante

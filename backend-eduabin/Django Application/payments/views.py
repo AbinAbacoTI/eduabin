@@ -16,6 +16,8 @@ stripe_api_key=config("STRIPE_APIKEY")
 endpoint_secret="whsec_59aa4d3bf0f83a2aedfe97e70422bcd61eda8f95b88992d2550ab1897441cbb1"
 stripe.api_key=stripe_api_key
 
+# Vista de Manejo de Pagos
+# Almacena los cursos que se estan comprando, crea el intento de pago y el total a pagar
 class PaymentHandler(APIView):
     permission_classes=[IsAuthenticated]
     def post(self, request):
@@ -66,6 +68,8 @@ class PaymentHandler(APIView):
 
         return Response({"url":checkout_session.url})
 
+# Vista de WebHook
+# Verificar que el pago se realizado con exito en la pasarela y luego crear el pago pra que el usuario tenga acceso a los cursos que a comprado
 class WebHook(APIView):
     def post(self, request):
         payload=request.body
