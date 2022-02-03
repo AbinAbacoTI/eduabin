@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from .models import Additional_material, Course, Comment, Module, Sub_topic, Topic
-from users.serializers import TeacherSerializer, StudentSerializer, UserSerializer
+from users.serializers import UserSerializer
 
 # Serializer para los datos de los cursos/Rederizacion (Aun sin Comprar)
 class CourseDisplaySerializer(ModelSerializer):

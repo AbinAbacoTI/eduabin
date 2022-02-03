@@ -7,7 +7,6 @@ from courses.views import (CoursesHomeView,
                             AddComment,
                             GetCartDetail,
                             CourseStudy)
-from django.urls import path
 # URLs de las vistas de la aplicacion Curso
 urlpatterns = [
     path('', CoursesHomeView.as_view()),                        # Home

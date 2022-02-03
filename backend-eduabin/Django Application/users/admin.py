@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import *
 
 # Registra lo Modelo
+admin.site.register(User)
 admin.site.register(History)                # Modelo de Historia
 admin.site.register(Student)                # Modelo de Estudiante
 admin.site.register(User_bank_account)      # Modelo de Cuenta Bancaria del Usuario

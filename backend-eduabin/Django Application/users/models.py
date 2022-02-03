@@ -59,10 +59,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 #Estudiante
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    profile_picture = models.ImageField(upload_to='students_profile')
+    profile_picture = models.ImageField(upload_to='students_profile', blank=True)
     bank_accounts = models.ManyToManyField('User_bank_account', blank=True)
     personal_data = models.ManyToManyField('Personal_data', blank=True)
-    paid_courses = models.ManyToManyField(Course)
+    paid_courses = models.ManyToManyField(Course, blank=True)
     
     def get_all_courses(self):
         courses=[]
@@ -87,7 +87,7 @@ class Teacher(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     curriculum = models.FileField(upload_to='curriculum', null=True,verbose_name='curriculum')
-    profile_picture = models.ImageField(upload_to='profile_picture')
+    profile_picture = models.ImageField(upload_to='profile_picture', blank=True)
     baccount = models.ForeignKey('Teacher_bank_account', on_delete=models.CASCADE)
     birthday = models.DateField()
     cellphone_number = models.IntegerField()
