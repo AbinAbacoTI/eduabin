@@ -52,4 +52,5 @@ class UserAuthSerializer(ModelSerializer):
 
     class Meta:                         # Datos de Usuario a Renderizar/Serializar
         model=User
+
         fields=["name", "user_type", "id", "email", "user_type", "paid_courses"]

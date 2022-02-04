@@ -1,16 +1,37 @@
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
+import AuthContext from 'context/AuthContext'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-const LoginView = () => {
-  const { register, handleSubmit } = useForm()
+export default function RegisterView () {
+  const { handleSubmit, register } = useForm()
+  const [authReady, setAuthReady] = useState(false)
 
-  const onSubmit = data => console.log(data)
+  const { signup, authError, clearUser } = useContext(AuthContext)
+
+  useEffect(() => clearUser(), [])
+
+  const onSubmit = async (data: any) => {
+    setAuthReady(true)
+    await signup(data)
+    setAuthReady(false)
+  }
 
   return (
     <div className='w-full max-w-md'>
       <form onSubmit={handleSubmit(onSubmit)}
         className='sm:shadow-md rounded px-8 py-20'>
+        <div className='mb-4'>
+
+          <input
+            type='text'
+            placeholder='Nombre completo'
+            className='bg-gray-200 appearance-none h-12 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-300'
+            {...register('name')}
+          />
+        </div>
+
         <div className='mb-4'>
           <input
             type='email'
@@ -37,20 +58,13 @@ const LoginView = () => {
         </div>
         <div className='text-center mb-4'>
           <span>
-            ¿No tienes una cuenta?
-            <Link href='/auth/register' className='ml-2 text-orange-600 font-semibold'>
-                Regístrate
+            ¿Ya tienes una cuenta?
+            <Link href='/auth/login' className='ml-2 text-orange-600 font-semibold'>
+                Iniciar sesion
             </Link>
           </span>
-        </div>
-        <div className='text-center text-orange-600 font-semibold'>
-          <Link href='#'>
-              ¿Has olvidado la contraseña?
-          </Link>
         </div>
       </form>
     </div>
   )
 }
-
-export default LoginView

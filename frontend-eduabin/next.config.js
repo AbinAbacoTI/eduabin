@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: true,
-  images:{
+  images: {
     domains: [
       'edu.abin.world'
     ]
