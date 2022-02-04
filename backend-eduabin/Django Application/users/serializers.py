@@ -46,8 +46,10 @@ class UserAuthSerializer(ModelSerializer):
     paid_courses=serializers.SerializerMethodField('get_paid_courses')  # Cursos Comprados
 
     def get_paid_courses(self, User):   # Metodo para obtener los cursos comprados de un Usuario
+        if User.user_type == 3:
+            return []
         return Student.objects.get(user=User.id).get_all_courses()
 
     class Meta:                         # Datos de Usuario a Renderizar/Serializar
         model=User
-        fields=["name", "id", "email", "paid_courses"]
+        fields=["name", "user_type", "id", "email", "user_type", "paid_courses"]

@@ -143,7 +143,6 @@ class Additional_material(models.Model):
 
 # Se genera el Modelo de Preguntas
 class Question(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # Usuario que hizo la pregunta 
     created = models.DateTimeField('published date')                                # Fecha del Publicacion
     question = models.TextField()                                                   # Texto de la pregunta
     answer = models.TextField()                                                     # Respuestas de la pregunta

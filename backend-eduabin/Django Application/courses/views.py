@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from courses.models import Sector, Course
-from users.models import Student, User
+from users.models import Student
 from .serializers import (CourseDisplaySerializer, 
                           CourseUnpaidSerializer,
                           CourseListSerializer,
@@ -10,7 +10,6 @@ from .serializers import (CourseDisplaySerializer,
 
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework import response
 from rest_framework.permissions import IsAuthenticated
 
 from django.http import  HttpResponseBadRequest, HttpResponseNotAllowed
@@ -73,6 +72,7 @@ class SectorCourse(APIView):
             'sector_name':sector[0].name,
             'total_students':total_students,
         }, status=status.HTTP_200_OK)
+
 # Vista del buscador de Cursos
 class SearchCourse(APIView):
     def get(self, question, search_term):

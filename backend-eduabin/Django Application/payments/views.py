@@ -21,6 +21,8 @@ stripe.api_key=stripe_api_key
 class PaymentHandler(APIView):
     permission_classes=[IsAuthenticated]
     def post(self, request):
+        #if request.user.user_type == :
+
         if request.body:
             body=json.loads(request.body)
             if body and len(body):
