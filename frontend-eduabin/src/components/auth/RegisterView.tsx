@@ -1,10 +1,22 @@
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
+import AuthContext from 'context/AuthContext'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function RegisterView () {
   const { handleSubmit, register } = useForm()
-  const onSubmit = data => console.log(data)
+  const [authReady, setAuthReady] = useState(false)
+
+  const { signup, authError, clearUser } = useContext(AuthContext)
+
+  useEffect(() => clearUser(), [])
+
+  const onSubmit = async (data: any) => {
+    setAuthReady(true)
+    await signup(data)
+    setAuthReady(false)
+  }
 
   return (
     <div className='w-full max-w-md'>

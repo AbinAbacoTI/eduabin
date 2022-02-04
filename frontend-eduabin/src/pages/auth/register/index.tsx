@@ -1,7 +1,7 @@
-
 import RegisterView from 'components/auth/RegisterView'
 import Layout from 'components/common/Layouts/Layout'
-import React from 'react'
+import { GetServerSideProps } from 'next'
+import cookie from 'cookie'
 
 const Register = () => {
   return (
@@ -11,6 +11,24 @@ const Register = () => {
       </div>
     </Layout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  if (req.headers.cookie) {
+    const cookies = cookie.parse(req.headers.cookie)
+    if (cookies && cookies.refresh_token) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false
+        }
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }
 
 export default Register
