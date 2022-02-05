@@ -40,6 +40,13 @@ class CoursesHomeView(APIView):
         
         return Response(data=sector_response,status=status.HTTP_200_OK)
 
+class AllCoursesHomeView(APIView):
+    def get(self, request, *args, **kwargs):
+        courses=Course.objects.order_by('?')
+        courses_Serializer=CourseDisplaySerializer(courses,many=True)
+        
+        return Response(data=courses_Serializer.data,status=status.HTTP_200_OK)
+
 # Vista de los detalles del curso
 class CourseDetail(APIView):
     def get(self, request, course_uuid, *args, **kwargs):
@@ -145,7 +152,16 @@ class GetCartDetail(APIView):
         
 # Vista de cursos Comprados
 class CourseStudy(APIView):
+    permission_classes=[IsAuthenticated]
     def get(self, request, course_uuid):
+        role = request.user.user_type
+        if role != 1:
+            response = {
+                'success': False,
+                'status_code': status.HTTP_403_FORBIDDEN,
+                'message': 'You are not authorized to perform this action'
+            }
+            return Response(response, status.HTTP_403_FORBIDDEN)
         try:
             course=Course.objects.get(course_uuid=course_uuid)
         except Course.DoesNotExist:

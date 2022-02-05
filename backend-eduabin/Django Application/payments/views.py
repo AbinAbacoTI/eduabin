@@ -21,7 +21,14 @@ stripe.api_key=stripe_api_key
 class PaymentHandler(APIView):
     permission_classes=[IsAuthenticated]
     def post(self, request):
-        #if request.user.user_type == :
+        role = request.user.user_type
+        if role != 1:
+            response = {
+                'success': False,
+                'status_code': status.HTTP_403_FORBIDDEN,
+                'message': 'You are not authorized to perform this action'
+            }
+            return Response(response, status.HTTP_403_FORBIDDEN)
 
         if request.body:
             body=json.loads(request.body)

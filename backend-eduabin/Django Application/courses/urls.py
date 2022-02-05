@@ -1,6 +1,7 @@
 from django.urls import path
 
 from courses.views import (CoursesHomeView,
+                            AllCoursesHomeView,
                             CourseDetail,
                             SectorCourse,
                             SearchCourse,
@@ -10,6 +11,7 @@ from courses.views import (CoursesHomeView,
 # URLs de las vistas de la aplicacion Curso
 urlpatterns = [
     path('', CoursesHomeView.as_view()),                        # Home
+    path('all', AllCoursesHomeView.as_view()),                     # Home con todos los cursos
     path('search/<str:search_term>/', SearchCourse.as_view()),  # Vista de busqueda de curso
     path('<uuid:sector_uuid>/', SectorCourse.as_view()),        # Vista de Sector 
     path('detail/<uuid:course_uuid>/',CourseDetail.as_view()),  # Vista de Detalles del Curso
