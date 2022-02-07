@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
-import { Link } from "react-scroll";
+import Link from 'components/ui/Link'
+
 
 
 function Navbar() {
@@ -33,8 +34,9 @@ function Navbar() {
 
                 
 									<Link
-										activeClass="Home"
-										to="about"
+										href='/'
+										activeClass="inicio"
+										to="inicio"
 										smooth={true}
 										offset={50}
 										duration={500}
@@ -43,8 +45,9 @@ function Navbar() {
 										Inicio
 									</Link>
 									<Link
-										activeClass="about"
-										to="about"
+										href='/cursos'
+										activeClass="cursos"
+										to="cursos"
 										smooth={true}
 										offset={50}
 										duration={500}
@@ -53,8 +56,9 @@ function Navbar() {
 										Nuestros Cursos
 									</Link>
 									<Link
-										activeClass="work"
-										to="work"
+										href='/eventos'
+										activeClass="eventos"
+										to="eventos"
 										smooth={true}
 										offset={50}
 										duration={500}
@@ -64,8 +68,9 @@ function Navbar() {
 									</Link>
 
 									<Link
-										activeClass="Services"
-										to="work"
+										href='/bussiness'
+										activeClass="bussiness"
+										to="bussiness"
 										smooth={true}
 										offset={50}
 										duration={500}
@@ -75,8 +80,25 @@ function Navbar() {
 									</Link>
 
 									<Link
-										activeClass="contact"
-										to="contact"
+										href='/checkout'
+										activeClass="checkout"
+										to="checkout"
+										smooth={true}
+										offset={50}
+										duration={500}
+										className="cursor-pointer text-orange-600 font-semibold px-3 py-2 text-md hover:font-black"
+									>
+										Mi Cesta
+										<svg className="h-4 w-7 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            								<path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.70711 15.2929C4.07714 15.9229 4.52331 17 5.41421 17H17M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM9 19C9 20.1046 8.10457 21 7 21C5.89543 21 5 20.1046 5 19C5 17.8954 5.89543 17 7 17C8.10457 17 9 17.8954 9 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          								</svg>
+									</Link>
+
+
+									<Link
+										href='/auth/login'
+										activeClass="login"
+										to="checkout"
 										smooth={true}
 										offset={50}
 										duration={500}
@@ -84,6 +106,8 @@ function Navbar() {
 									>
 										Iniciar Sesion
 									</Link>
+
+									
 								</div>
 							</div>
 						</div>
@@ -151,8 +175,8 @@ function Navbar() {
 							>
 								<Link
 									href="/inicio"
-									activeClass="home"
-									to="home"
+									activeClass="inicio"
+									to="inicio"
 									smooth={true}
 									offset={50}
 									duration={500}
@@ -162,8 +186,8 @@ function Navbar() {
 								</Link>
 								<Link
 									href="/cursos"
-									activeClass="about"
-									to="about"
+									activeClass="cursos"
+									to="cursos"
 									smooth={true}
 									offset={50}
 									duration={500}
@@ -174,8 +198,8 @@ function Navbar() {
 
 								<Link
 									href="/eventos"
-									activeClass="work"
-									to="work"
+									activeClass="evento"
+									to="evento"
 									smooth={true}
 									offset={50}
 									duration={500}
@@ -185,8 +209,8 @@ function Navbar() {
 								</Link>
 								<Link
 									href="/bussines"
-									activeClass="services"
-									to="services"
+									activeClass="bussines"
+									to="bussines"
 									smooth={true}
 									offset={50}
 									duration={500}
@@ -196,9 +220,9 @@ function Navbar() {
 								</Link>
 
 								<Link
-									href="/login"
-									activeClass="work"
-									to="work"
+									href="/auth/login"
+									activeClass="login"
+									to="login"
 									smooth={true}
 									offset={50}
 									duration={500}
@@ -208,9 +232,21 @@ function Navbar() {
 								</Link>
 
 								<Link
-									href="/register"
-									activeClass="work"
-									to="work"
+									href="/auth/register"
+									activeClass="registro"
+									to="registro"
+									smooth={true}
+									offset={50}
+									duration={500}
+									className="border-solid border-2 border-sky-50 cursor-pointer hover:bg-red-600 text-black hover:text-white block px-9 py-2 rounded-md text-base font-medium"
+								>
+									Eres Nuevo, Registrate.
+								</Link>
+
+								<Link
+									href="/auth/register"
+									activeClass="registro"
+									to="registro"
 									smooth={true}
 									offset={50}
 									duration={500}
