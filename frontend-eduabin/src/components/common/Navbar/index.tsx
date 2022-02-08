@@ -22,7 +22,7 @@ function Navbar () {
 								<div className="ml-10 flex items-baseline space-x-4">
 
 								<div className=" bg-shadow">
-    								<div className="container h-screen flex justify-center items-center px-4 sm:px-6 lg:px-8">
+    								<div className="container  flex justify-center items-center px-4 sm:px-6 lg:px-8">
         								<div className="relative"> <input type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Busca el curso que quieras..."/>
           								  <div className="absolute top-4 right-3"> <i className="fa fa-search text-shadow-400 z-20 hover:text-shadow-500"></i> </div>
       							    	</div>
@@ -31,9 +31,8 @@ function Navbar () {
 
 									<Link
 										href='/'
-										activeClass="inicio"
 										to="inicio"
-										smooth={true}
+										smooth="true"
 										offset={50}
 										duration={500}
 										className="cursor-pointer text-orange-600 font-semibold px-3 py-2 text-md hover:font-black"
@@ -42,9 +41,8 @@ function Navbar () {
 									</Link>
 									<Link
 										href='/cursos'
-										activeClass="cursos"
 										to="cursos"
-										smooth={true}
+										smooth="true"
 										offset={50}
 										duration={500}
 										className="cursor-pointer hover:bg-orange-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -53,11 +51,10 @@ function Navbar () {
 									</Link>
 									<Link
 										href='/eventos'
-										activeClass="eventos"
 										to="eventos"
-										smooth={true}
+										smooth="true"
 										offset={50}
-										duration={500}
+										duration={5000}
 										className="cursor-pointer hover:bg-orange-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
 									>
 										Eventos
@@ -65,9 +62,8 @@ function Navbar () {
 
 									<Link
 										href='/bussiness'
-										activeClass="bussiness"
 										to="bussiness"
-										smooth={true}
+										smooth="true"
 										offset={50}
 										duration={500}
 										className="cursor-pointer hover:bg-orange-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -77,9 +73,8 @@ function Navbar () {
 
 									<Link
 										href='/checkout'
-										activeClass="checkout"
 										to="checkout"
-										smooth={true}
+										smooth="true"
 										offset={50}
 										duration={500}
 										className="cursor-pointer text-orange-600 font-semibold px-3 py-2 text-md hover:font-black"
@@ -91,10 +86,9 @@ function Navbar () {
 									</Link>
 
 									<Link
-										href='/auth/login'
-										activeClass="login"
+										href="/auth/login"
 										to="checkout"
-										smooth={true}
+										smooth="true"
 										offset={50}
 										duration={500}
 										className="cursor-pointer bg-orange-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-black"
@@ -157,11 +151,11 @@ function Navbar () {
 				<Transition
 					show={isOpen}
 					enter="transition ease-out duration-100 transform"
-					enterFrom="opacity-0 scale-95"
+					enterFrom="opacity-100 scale-95"
 					enterTo="opacity-100 scale-100"
 					leave="transition ease-in duration-75 transform"
 					leaveFrom="opacity-100 scale-100"
-					leaveTo="opacity-0 scale-95"
+					leaveTo="opacity-100 scale-95"
 				>
 					{(ref) => (
 						<div className="md:hidden" id="mobile-menu">
@@ -171,9 +165,8 @@ function Navbar () {
 							>
 								<Link
 									href="/inicio"
-									activeClass="inicio"
 									to="inicio"
-									smooth={true}
+									smooth="true"
 									offset={50}
 									duration={500}
 									className="cursor-pointer hover:bg-orange-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -182,9 +175,8 @@ function Navbar () {
 								</Link>
 								<Link
 									href="/cursos"
-									activeClass="cursos"
 									to="cursos"
-									smooth={true}
+									smooth="true"
 									offset={50}
 									duration={500}
 									className="cursor-pointer hover:bg-orange-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -194,9 +186,8 @@ function Navbar () {
 
 								<Link
 									href="/eventos"
-									activeClass="evento"
 									to="evento"
-									smooth={true}
+									smooth="true"
 									offset={50}
 									duration={500}
 									className="cursor-pointer hover:bg-orange-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -205,9 +196,8 @@ function Navbar () {
 								</Link>
 								<Link
 									href="/bussines"
-									activeClass="bussines"
 									to="bussines"
-									smooth={true}
+									smooth="true"
 									offset={50}
 									duration={500}
 									className="cursor-pointer hover:bg-orange-600 text-black hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -217,9 +207,8 @@ function Navbar () {
 
 								<Link
 									href="/auth/login"
-									activeClass="login"
 									to="login"
-									smooth={true}
+									smooth="true"
 									offset={50}
 									duration={500}
 									className="border-solid border-2 border-sky-50 cursor-pointer hover:bg-red-600 text-black hover:text-white block px-9 py-2 rounded-md text-base font-medium"
@@ -229,9 +218,8 @@ function Navbar () {
 
 								<Link
 									href="/auth/register"
-									activeClass="registro"
 									to="registro"
-									smooth={true}
+									smooth="true"
 									offset={50}
 									duration={500}
 									className="border-solid border-2 border-sky-50 cursor-pointer hover:bg-red-600 text-black hover:text-white block px-9 py-2 rounded-md text-base font-medium"
@@ -241,9 +229,8 @@ function Navbar () {
 
 								<Link
 									href="/auth/register"
-									activeClass="registro"
 									to="registro"
-									smooth={true}
+									smooth="true"
 									offset={50}
 									duration={500}
 									className="border-solid border-2 border-sky-50 cursor-pointer hover:bg-red-600 text-black hover:text-white block px-9 py-2 rounded-md text-base font-medium"
