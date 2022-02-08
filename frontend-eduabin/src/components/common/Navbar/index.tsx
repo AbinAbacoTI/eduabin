@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Transition } from "@headlessui/react";
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable no-tabs */
+import { useState } from 'react'
+import { Transition } from '@headlessui/react'
 import Link from 'components/ui/Link'
 
-
-
-function Navbar() {
-	const [isOpen, setIsOpen] = useState(false);
-	return (
+function Navbar () {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
 		<div>
 			<nav className=" shadow-sm fixed w-full z-full">
 				<div className="w-full">
@@ -16,13 +16,10 @@ function Navbar() {
 								<h1 className=" font-bold text-xl cursor-pointer">
 									Edu<span className="text-orange-500">Abin</span>
 								</h1>
-								
 							</div>
-							 
-              				
+
 							<div className="hidden md:block">
 								<div className="ml-10 flex items-baseline space-x-4">
-
 
 								<div className=" bg-shadow">
     								<div className="container h-screen flex justify-center items-center px-4 sm:px-6 lg:px-8">
@@ -32,7 +29,6 @@ function Navbar() {
    								 	</div>
 								</div>
 
-                
 									<Link
 										href='/'
 										activeClass="inicio"
@@ -90,10 +86,9 @@ function Navbar() {
 									>
 										Mi Cesta
 										<svg className="h-4 w-7 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            								<path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.70711 15.2929C4.07714 15.9229 4.52331 17 5.41421 17H17M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM9 19C9 20.1046 8.10457 21 7 21C5.89543 21 5 20.1046 5 19C5 17.8954 5.89543 17 7 17C8.10457 17 9 17.8954 9 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            								<path d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.70711 15.2929C4.07714 15.9229 4.52331 17 5.41421 17H17M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM9 19C9 20.1046 8.10457 21 7 21C5.89543 21 5 20.1046 5 19C5 17.8954 5.89543 17 7 17C8.10457 17 9 17.8954 9 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           								</svg>
 									</Link>
-
 
 									<Link
 										href='/auth/login'
@@ -107,7 +102,6 @@ function Navbar() {
 										Iniciar Sesion
 									</Link>
 
-									
 								</div>
 							</div>
 						</div>
@@ -120,7 +114,8 @@ function Navbar() {
 								aria-expanded="false"
 							>
 								<span className="sr-only">Open main menu</span>
-								{!isOpen ? (
+								{!isOpen
+								  ? (
 									<svg
 										className="block h-6 w-6"
 										xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +131,8 @@ function Navbar() {
 											d="M4 6h16M4 12h16M4 18h16"
 										/>
 									</svg>
-								) : (
+								    )
+								  : (
 									<svg
 										className="block h-6 w-6"
 										xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +148,7 @@ function Navbar() {
 											d="M6 18L18 6M6 6l12 12"
 										/>
 									</svg>
-								)}
+								    )}
 							</button>
 						</div>
 					</div>
@@ -260,7 +256,7 @@ function Navbar() {
 				</Transition>
 			</nav>
 		</div>
-	);
+  )
 }
 
-export default Navbar;
+export default Navbar
