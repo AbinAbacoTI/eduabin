@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { addUser, removeUser } from 'rdx/slice/AuthSlice'
+import { addUser, removeUser } from 'rdx/slice/auth.slice'
 import { createContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NEXT_BK_URI } from 'services/servers.service'
@@ -7,7 +7,7 @@ import { NEXT_BK_URI } from 'services/servers.service'
 const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
-  const user = useSelector(state => state.auth.user)
+  const user = useSelector(state => state.authRdc.user)
   const [authError, setAuthError] = useState(null)
   const [authReady, setAuthReady] = useState(false)
 

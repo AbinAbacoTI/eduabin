@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ICourses, ISectorCourse } from 'interfaces/course.interface'
 import { BK_URI } from './servers.service'
 
-const COURSE_URI = '/courses/'
+export const COURSE_URI = '/courses/'
 
 export const getCoursesAll = async () => {
   try {
