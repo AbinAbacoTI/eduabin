@@ -1,0 +1,25 @@
+.root {
+  @apply py-4 flex flex-col outline-none;
+}
+
+.header {
+  @apply flex flex-row items-center bg-orange-500 h-10 px-2 mb-1 rounded-sm;
+}
+
+.header .label {
+  @apply text-base font-medium text-white;
+}
+
+.content {
+  @apply py-3 overflow-hidden pl-8 border-2;
+}
+
+.icon {
+  @apply mr-3 text-white;
+  margin-left: -6px;
+  transition: transform 0.2s ease;
+}
+
+.icon.open {
+  transform: rotate(90deg);
+}

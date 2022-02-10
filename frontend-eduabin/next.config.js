@@ -2,7 +2,8 @@ module.exports = {
   reactStrictMode: true,
   images: {
     domains: [
-      'edu.abin.world'
+      'edu.abin.world',
+      'localhost'
     ]
   }
 }
