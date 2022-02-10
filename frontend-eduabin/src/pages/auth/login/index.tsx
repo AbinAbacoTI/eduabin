@@ -6,7 +6,7 @@ import cookie from 'cookie'
 const Login = () => {
   return (
     <Layout>
-      <div className='flex justify-center content-center items-center'>
+      <div className='flex justify-center content-center items-center p-5 py-36'>
         <LoginView/>
       </div>
     </Layout>

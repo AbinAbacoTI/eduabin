@@ -6,7 +6,7 @@ import cookie from 'cookie'
 const Register = () => {
   return (
     <Layout>
-      <div className='flex justify-center content-center items-center'>
+      <div className='flex justify-center content-center items-center p-5 py-36'>
         <RegisterView/>
       </div>
     </Layout>
