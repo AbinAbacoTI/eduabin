@@ -1,22 +1,24 @@
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
-import AuthContext from 'context/AuthContext'
-import { useContext, useEffect, useState } from 'react'
+import { AuthRegister } from 'interfaces/auth.interface'
+import { useRouter } from 'next/router'
+import { registerUser } from 'rdx/slice/auth.slice'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { useAppSelector } from '../../hooks/rdx.hooks'
 
 export default function RegisterView () {
   const { handleSubmit, register } = useForm()
-  const [authReady, setAuthReady] = useState(false)
+  const dispatch = useDispatch()
+  const router = useRouter()
+  const { user, loading } = useAppSelector(state => state.authRdc)
 
-  const { signup, authError, clearUser } = useContext(AuthContext)
-
-  useEffect(() => clearUser(), [])
-
-  const onSubmit = async (data: any) => {
-    setAuthReady(true)
-    await signup(data)
-    setAuthReady(false)
+  const onSubmit = (data: AuthRegister) => {
+    dispatch(registerUser(data))
   }
+
+  useEffect(() => { if (user) router.push('/') }, [loading])
 
   return (
     <div className='w-full max-w-md'>
@@ -53,7 +55,7 @@ export default function RegisterView () {
         <div className='mb-4'>
           <Button
             className='text-white w-full h-12 font-semibold rounded bg-orange-500 hover:bg-orange-400 transition-all ease-out duration-200'
-            text='Iniciar Sesion'
+            text='Registrate'
           />
         </div>
         <div className='text-center mb-4'>

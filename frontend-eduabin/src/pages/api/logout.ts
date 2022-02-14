@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       path: '/'
     })])
 
-    res.status(204).json({})
+    res.status(204).end()
   } else {
     res.setHeader('Allow', ['POST'])
     res.status(403).json({ message: `Method  ${req.method} not allowed` })

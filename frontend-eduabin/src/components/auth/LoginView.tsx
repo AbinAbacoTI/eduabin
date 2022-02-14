@@ -1,24 +1,25 @@
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
-import AuthContext from 'context/AuthContext'
-import { useContext, useEffect, useState } from 'react'
+import { useAppSelector } from 'hooks/rdx.hooks'
+import { AuthLogin } from 'interfaces/auth.interface'
+import { useRouter } from 'next/router'
+import { login } from 'rdx/slice/auth.slice'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 
 export default function LoginView () {
   const { register, handleSubmit } = useForm()
-  const [authReady, setAuthReady] = useState(false)
+  const router = useRouter()
+  const dispatch = useDispatch()
 
-  const { login, authError, clearUser } = useContext(AuthContext)
+  const { user, loading } = useAppSelector(state => state.authRdc)
 
-  useEffect(() => clearUser(), [])
-
-  const onSubmit = async (data: any) => {
-    setAuthReady(true)
-    const { email, password } = data
-    await login({ email, password })
-    setAuthReady(false)
-    console.log(data)
+  const onSubmit = (data: AuthLogin) => {
+    dispatch(login(data))
   }
+
+  useEffect(() => { if (user) router.push('/') }, [loading])
 
   return (
       <div className='w-full max-w-md'>
