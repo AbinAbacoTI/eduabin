@@ -29,6 +29,6 @@ export const store = configureStore({
 export const makeStore = () => store
 
 export type AppDispatch = typeof store.dispatch
-export type AppRootState = ReturnType<typeof store.getState>
+export type AppRootState = ReturnType<typeof combinedReducer>
 
-export const eduAbinWrapper = createWrapper(makeStore, { debug: true })
+export const eduAbinWrapper = createWrapper(makeStore, { debug: false })
