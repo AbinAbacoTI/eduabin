@@ -12,7 +12,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       )
       const data = await resp.json()
-      console.log(data)
       if (resp.ok) {
         res.setHeader('Set-Cookie', [cookie.serialize('refresh_token', data.refresh, {
           httpOnly: true,
@@ -30,6 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         })])
         res.status(200).json({})
       }
+      res.status(401).end()
     } catch ({ response: { status, data } }) {
       res.status(status).json(data)
     }

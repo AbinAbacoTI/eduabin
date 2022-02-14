@@ -1,16 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import Link from 'components/ui/Link'
 import CartShoppingRegular from 'components/icons/CartShoppingRegular'
 import Bars from 'components/icons/Bars'
 import Times from 'components/icons/Times'
 import Search from 'components/icons/Search'
+import { useDispatch } from 'react-redux'
+import { fetchUser, logout } from 'rdx/slice/auth.slice'
+import Router from 'next/router'
+import { useAppSelector } from '../../../hooks/rdx.hooks'
 
 const Navbar = () => {
+  const dispatch = useDispatch()
+  useEffect(() => { dispatch(fetchUser()) }, [])
+
+  const { user } = useAppSelector(state => state.authRdc)
   const [isOpen, setIsOpen] = useState(false)
+
+  const handleLogout = () => {
+    dispatch(logout())
+    Router.push('/')
+  }
   return (
     <div>
-      <nav className=" shadow-sm fixed w-full z-full">
+      <nav className="shadow-sm fixed w-full z-full bg-white">
         <div className="w-full">
           <div className="flex items-center h-20 w-full">
             <div className="flex items-center  mx-20  justify-between w-full">
@@ -42,7 +55,7 @@ const Navbar = () => {
                     Inicio
                   </Link>
                   <Link
-                    href='/cursos'
+                    href='/courses'
                     to="cursos"
                     smooth="true"
                     offset={50}
@@ -84,18 +97,29 @@ const Navbar = () => {
                     Mi Cesta
                     <CartShoppingRegular className="h-4 w-7 "/>
                   </Link>
-
-                  <Link
-                    href="/auth/login"
-                    to="checkout"
-                    smooth="true"
-                    offset={50}
-                    duration={500}
-                    className="cursor-pointer bg-orange-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-black"
-                  >
-                    Iniciar Sesion
-                  </Link>
-
+                  {
+                    !user
+                      ? (
+                    <Link
+                      href="/auth/login"
+                      to="checkout"
+                      smooth="true"
+                      offset={50}
+                      duration={500}
+                      className="cursor-pointer bg-orange-600 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-black"
+                    >
+                      Inicar Sesion
+                    </Link>
+                        )
+                      : (
+                      <>
+                        <span>{user.name}</span>
+                        <button
+                          onClick={() => handleLogout()}
+                        >Cerrar session</button>
+                      </>
+                        )
+                  }
                 </div>
               </div>
             </div>

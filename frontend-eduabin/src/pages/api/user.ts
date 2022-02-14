@@ -10,16 +10,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.status(403).json({ 'message': 'Not authorized' })
       return
     }
-    console.log('user:13: ', req.headers.cookie)
+
     const { refresh_token } = cookie.parse(req.headers.cookie)
-    console.log('user:15: ', refresh_token)
     if (!refresh_token) {
       res.status(403).json({ 'message': 'Not authorized' })
       return
     }
 
     let { access_token } = cookie.parse(req.headers.cookie)
-    console.log('user:22: ', access_token)
+
     if (!access_token) {
       const refreshRes = await refreshToken(req, res)
 
