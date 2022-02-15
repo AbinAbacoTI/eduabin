@@ -1,5 +1,5 @@
+import Card from 'components/Card'
 import SidebarLayout from 'components/common/Layouts/SidebarLayout'
-import Rating from 'components/ui/Rating'
 
 const MyCourses = () => {
   return (
@@ -11,23 +11,27 @@ const MyCourses = () => {
         <section className='bg-gray-100 p-5 rounded-lg'>
           <div>
             <h1 className='text-2xl'>Publicados</h1>
-            <div className='flex'>
-                <div className='border-2 bg-white w-48 h-40 p-2 rounded-md'>
-                  <div>
-                    image
-                  </div>
-                  <div>
-                    <h2>Nombre de curso</h2>
-                  </div>
-                  <div><Rating value={3}/></div>
-                </div>
+            <div className='flex flex-wrap h-96 overflow-hidden overflow-y-scroll'>
+                <Card publicCard={false}/>
+                <Card publicCard={false}/>
+                <Card publicCard={false}/>
+                <Card publicCard={false}/>
             </div>
           </div>
         </section>
-        <section>
+        <section className='bg-gray-100 p-5 my-5'>
           <div>
             <h1 className='text-2xl'>Sin publicar</h1>
-            <div className='flex'></div>
+            <div className='flex flex-wrap h-96 overflow-hidden overflow-y-scroll'>
+                <Card published={false}
+                publicCard={false}/>
+                <Card published={false}
+                publicCard={false}/>
+                <Card published={false}
+                publicCard={false}/>
+                <Card published={false}
+                publicCard={false}/>
+            </div>
           </div>
         </section>
         <section>

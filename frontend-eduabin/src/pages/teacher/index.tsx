@@ -36,7 +36,7 @@ const Teacher = () => {
               </div>
               <div>
                 <div className='w-2/12 text-center'>
-                4<Rating value={4}/>
+                <Rating value={4}/>
                 </div>
               </div>
             </div>
@@ -61,7 +61,7 @@ const Teacher = () => {
               </div>
               <div>
                 <div className='w-2/12 text-center'>
-                4<Rating value={4}/>
+                <Rating value={4}/>
                 </div>
               </div>
             </div>
@@ -86,7 +86,7 @@ const Teacher = () => {
               </div>
               <div>
                 <div className='w-2/12 text-center'>
-                4<Rating value={4}/>
+                <Rating value={4}/>
                 </div>
               </div>
             </div>
