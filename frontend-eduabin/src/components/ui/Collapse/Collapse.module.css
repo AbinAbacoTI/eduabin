@@ -1,5 +1,5 @@
 .root {
-  @apply py-4 flex flex-col outline-none;
+  @apply py-1 flex flex-col outline-none;
 }
 
 .header {
@@ -11,7 +11,7 @@
 }
 
 .content {
-  @apply py-3 overflow-hidden pl-8 border-2;
+  @apply py-3 overflow-hidden px-8 border-2;
 }
 
 .icon {
