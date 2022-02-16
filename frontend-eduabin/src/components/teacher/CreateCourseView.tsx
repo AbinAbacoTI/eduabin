@@ -1,8 +1,8 @@
 
 const CreateCourseView = () => {
   return (
-    <div>
-      <form className="w-4/5 m-auto bg-gray-100 py-10 px-5">
+    <div className="border-2 border-orange-400 flex items-center content-center h-full">
+      <form className="w-11/12 m-auto bg-gray-100 py-10 px-1">
         <div className='flex flex-wrap justify-around items-center '>
           <div className='w-5/12'>
             <div className='p-1'>

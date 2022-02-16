@@ -4,7 +4,7 @@ import CreateCourseView from 'components/teacher/CreateCourseView'
 const Create = () => {
   return (
     <SidebarLayout>
-      <div>
+      <div className='h-full border-2'>
         <CreateCourseView/>
       </div>
     </SidebarLayout>
