@@ -1,13 +1,33 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Additional_material, Course, Comment, Module, Sub_topic, Topic
+from .models import Additional_material, Sector, Course, Comment, Module, Sub_topic, Topic
 from users.serializers import UserSerializer
+import uuid
+
+# Serializer para el sector
+class SectorSerializer(ModelSerializer):
+    class Meta:         # Datos de Sector a renderizar/Serializar
+        model=Sector
+        exclude=[
+            'id'
+        ]
+
+# Serializer para el curso
+class CourseSerializer(ModelSerializer):
+    # campos adicionales para rendericacion
+    author = UserSerializer(read_only=True)                                 # Autor del Curso(Extraido del Serializer del Profesor)
+
+    class Meta:         # Datos de Curso a renderizar/Serializar
+        model=Course
+        exclude=[
+            'id'
+        ]
 
 # Serializer para los datos de los cursos/Rederizacion (Aun sin Comprar)
 class CourseDisplaySerializer(ModelSerializer):
     # campos adicionales para rendericacion
     student_no = serializers.IntegerField(source='get_enrolled_student')    # Numero de Estudiantes
-    author = UserSerializer()                                            # Autor del Curso(Extraido del Serializer del Profesor)
+    author = UserSerializer(read_only=True)                                 # Autor del Curso(Extraido del Serializer del Profesor)
     image_url = serializers.CharField(source='get_absolute_image_url')      # Imagen del Curso
 
     class Meta:         # Datos de Curso a renderizar/Serializar
@@ -87,6 +107,7 @@ class ModuleUnPaidSerializer(ModelSerializer):
     class Meta:         # Datos de Modulo a Renderizar/Serializar
         model=Module
         fields=[
+            'id',
             'module_name',
             'topics',
             'total_duration',
@@ -100,6 +121,7 @@ class ModulePaidSerializer(ModelSerializer):
     class Meta:         # Datos de Modulo a Renderizar/Serializar
         model=Module
         fields=[
+            'id',
             'module_name',
             'topics',
             'total_duration',
