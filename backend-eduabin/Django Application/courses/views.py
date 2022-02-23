@@ -9,7 +9,8 @@ from .serializers import (SectorDisplaySerializer,
                           CourseSerializer,
                           CartItemSerializer,
                           CoursePaidSerializer,
-                          SectorSerializer)
+                          SectorSerializer,
+                          CategorySerializer)
 
 from rest_framework.views import APIView
 from rest_framework import status
@@ -119,11 +120,11 @@ class AddComment(APIView):
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # Vista de agregar sector
-class AddSector(APIView):
+class AddCategory(APIView):
     permission_classes=[IsAuthenticated]
     def post(self, request):
         role = request.user.user_type
-        if role == 4:
+        if role != 3:
             response = {
                 'success': False,
                 'status_code': status.HTTP_403_FORBIDDEN,
@@ -137,10 +138,43 @@ class AddSector(APIView):
         except json.decoder.JSONDecodeError:
             return Response("Please a JSON body", status=status.HTTP_400_BAD_REQUEST)
         
-        serializer=SectorSerializer(data=content)
+        serializer=CategorySerializer(data=content)
 
         if serializer.is_valid():
             course=serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Vista de agregar sector
+class AddSector(APIView):
+    permission_classes=[IsAuthenticated]
+    def post(self, request, category_uuid):
+        role = request.user.user_type
+        if role != 3:
+            response = {
+                'success': False,
+                'status_code': status.HTTP_403_FORBIDDEN,
+                'message': 'You are not authorized to perform this action'
+            }
+            return Response(response, status.HTTP_403_FORBIDDEN)
+        
+        try:
+            category=Category.objects.get(category_uuid=category_uuid)
+        except Sector.DoesNotExist:
+            return HttpResponseBadRequest('sector does not exist')
+
+        try:
+            #content=json.loads(request.body)                      #JSON Entry
+            content=request.data.dict()                            #FormData Entry
+        except json.decoder.JSONDecodeError:
+            return Response("Please a JSON body", status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer=SectorSerializer(data=content)
+
+        if serializer.is_valid():
+            sector=serializer.save()
+            category.related_sector.add(sector)
             return Response(status=status.HTTP_201_CREATED)
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -150,7 +184,7 @@ class AddCourse(APIView):
     permission_classes=[IsAuthenticated]
     def post(self, request, sector_uuid):
         role = request.user.user_type
-        if role == 4:
+        if role != 2:
             response = {
                 'success': False,
                 'status_code': status.HTTP_403_FORBIDDEN,

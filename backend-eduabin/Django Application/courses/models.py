@@ -14,6 +14,8 @@ class Category(models.Model):
     category_uuid=models.UUIDField(default=uuid.uuid4,unique=True)        # ID de la categoría
     category_image = models.ImageField(upload_to='category_image')        # imagen de la categoría
     related_sector = models.ManyToManyField('Sector', blank=True)        # Campo de relación con el sector
+    def __str__(self):
+        return self.name
     #  /media/sector_image/what.png
     def get_image_absolute_url(self):
         return 'http://localhost:8000'+self.category_image.url            # Obtiene la imagen del Url
@@ -53,8 +55,8 @@ class Course(models.Model):
     price = models.DecimalField(max_digits=5,decimal_places=2)                          # Precion del Curso
     objectives = models.TextField()                                                     # Objetivos del Curso
     modules = models.ManyToManyField('Module', blank=True)                              # Modulos del Curso
-    last_update = models.DateField()                                                    # Ultima actualizacion del Curso
-    state = models.CharField(max_length=15, choices=states)                             # Estado del Curso
+    last_update = models.DateField(auto_now_add=True)                                                    # Ultima actualizacion del Curso
+    state = models.CharField(max_length=15, choices=states, default='unpublished')                             # Estado del Curso
     comments = models.ManyToManyField('Comment', blank=True)                            # Comentario del Curso
     course_uuid=models.UUIDField(default=uuid.uuid4,unique=True)                        # ID del Curso
     

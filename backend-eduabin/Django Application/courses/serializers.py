@@ -1,8 +1,16 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Additional_material, Sector, Course, Comment, Module, Sub_topic, Topic
+from .models import Additional_material, Category, Sector, Course, Comment, Module, Sub_topic, Topic
 from users.serializers import UserSerializer
 import uuid
+
+# Serializer para la categoría
+class CategorySerializer(ModelSerializer):
+    class Meta:         # Datos de Sector a renderizar/Serializar
+        model=Category
+        exclude=[
+            'id'
+        ]
 
 # Serializer para el sector
 class SectorSerializer(ModelSerializer):
