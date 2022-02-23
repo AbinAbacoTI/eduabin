@@ -1,7 +1,8 @@
 from rest_framework.response import Response
-from courses.models import Sector, Course
+from courses.models import Category, Sector, Course
 from users.models import Student
-from .serializers import (CourseDisplaySerializer, 
+from .serializers import (SectorDisplaySerializer,
+                          CourseDisplaySerializer, 
                           CourseUnpaidSerializer,
                           CourseListSerializer,
                           CommentSerializer,
@@ -23,24 +24,24 @@ from decimal import Decimal
 # Vista del Home de los Cursos
 class CoursesHomeView(APIView):
     def get(self, request, *args, **kwargs):
-        sectors=Sector.objects.order_by('?')[:6]
+        categories=Category.objects.order_by('?')[:6]
 
-        sector_response = []
+        category_response = []
 
-        for sector in sectors:
-            sector_courses=sector.related_course.order_by('?')[:4]
-            courses_Serializer=CourseDisplaySerializer(sector_courses,many=True)
+        for category in categories:
+            category_sectors=category.related_sector.order_by('?')
+            categories_Serializer=SectorDisplaySerializer(category_sectors,many=True)
         
-            sector_obj={
-                'sector_uuid': sector.sector_uuid,
-                'sector_name': sector.name,
-                'featured_courses': courses_Serializer.data,
-                'sector_image': sector.get_image_absolute_url()
+            category_obj={
+                'category_uuid': category.category_uuid,
+                'category_name': category.name,
+                'featured_sectors': categories_Serializer.data,
+                'category_image': category.get_image_absolute_url()
             }
 
-            sector_response.append(sector_obj)
+            category_response.append(category_obj)
         
-        return Response(data=sector_response,status=status.HTTP_200_OK)
+        return Response(data=category_response,status=status.HTTP_200_OK)
 
 class AllCoursesHomeView(APIView):
     def get(self, request, *args, **kwargs):

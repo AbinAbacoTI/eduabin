@@ -41,6 +41,19 @@ class CourseDisplaySerializer(ModelSerializer):
             'image_url'
         ]
 
+# Serializer para los datos de los sectores/Rederizacion (Aun sin Comprar)
+class SectorDisplaySerializer(ModelSerializer):
+    sector_image = serializers.CharField(source='get_image_absolute_url')      # Imagen del Sector
+    related_course = CourseDisplaySerializer(many=True)
+    class Meta:         # Datos de Curso a renderizar/Serializar
+        model=Sector
+        fields=[
+            'name',
+            'sector_uuid',
+            'sector_image',
+            'related_course'
+        ]
+
 # Serializer para los Comentarios de los cursos/Rederizacion
 class CommentSerializer(ModelSerializer):
     # Campos adicionales para renderizar/Serializar

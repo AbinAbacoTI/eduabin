@@ -8,6 +8,16 @@ from django.apps import apps
 from mutagen.mp4 import MP4, MP4StreamInfoError
 import uuid
 
+#Se genera el modelo de la categoría
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    category_uuid=models.UUIDField(default=uuid.uuid4,unique=True)        # ID de la categoría
+    category_image = models.ImageField(upload_to='category_image')        # imagen de la categoría
+    related_sector = models.ManyToManyField('Sector', blank=True)        # Campo de relación con el sector
+    #  /media/sector_image/what.png
+    def get_image_absolute_url(self):
+        return 'http://localhost:8000'+self.category_image.url            # Obtiene la imagen del Url
+
 # Se genera el modelo del sector
 class Sector(models.Model):
     #Campos SECTOR
@@ -15,6 +25,9 @@ class Sector(models.Model):
     sector_uuid=models.UUIDField(default=uuid.uuid4,unique=True)        # ID del Sector
     related_course = models.ManyToManyField('Course', blank=True)       # Campo de relacion con el curso
     sector_image = models.ImageField(upload_to='sector_image')          # imagen del Sector
+
+    def __str__(self):
+        return self.name
     #  /media/sector_image/what.png
     def get_image_absolute_url(self):
         return 'http://localhost:8000'+self.sector_image.url            # Obtiene la imagen del Url
