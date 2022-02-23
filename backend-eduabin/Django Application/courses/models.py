@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.apps import apps
 from mutagen.mp4 import MP4, MP4StreamInfoError
+from .customized_models import IntegerRangeField
 import uuid
 
 #Se genera el modelo de la categoría
@@ -51,7 +52,7 @@ class Course(models.Model):
     main_image = models.ImageField(upload_to='course_image')                            # Imagen del Curso
     description = models.TextField()                                                    # Descripcion del Curso
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)      # Autor del Curso
-    valoration = models.IntegerField()                                                  # Valoracion del Curso
+    valoration = IntegerRangeField(default=0, min_value=0, max_value=5)                                                  # Valoracion del Curso
     price = models.DecimalField(max_digits=5,decimal_places=2)                          # Precion del Curso
     objectives = models.TextField()                                                     # Objetivos del Curso
     modules = models.ManyToManyField('Module', blank=True)                              # Modulos del Curso
