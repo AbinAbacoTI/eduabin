@@ -131,7 +131,8 @@ class AddSector(APIView):
             return Response(response, status.HTTP_403_FORBIDDEN)
         
         try:
-            content=json.loads(request.body)
+            #content=json.loads(request.body)                      #JSON Entry
+            content=request.data.dict()                            #FormData Entry
         except json.decoder.JSONDecodeError:
             return Response("Please a JSON body", status=status.HTTP_400_BAD_REQUEST)
         
@@ -162,7 +163,8 @@ class AddCourse(APIView):
             return HttpResponseBadRequest('sector does not exist')
         
         try:
-            content=json.loads(request.body)
+            #content=json.loads(request.body)                      #JSON Entry
+            content=request.data.dict()                            #FormData Entry
         except json.decoder.JSONDecodeError:
             return Response("Please a JSON body", status=status.HTTP_400_BAD_REQUEST)
         
