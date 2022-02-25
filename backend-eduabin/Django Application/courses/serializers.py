@@ -1,3 +1,4 @@
+from unicodedata import decimal
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from .models import Additional_material, Category, Sector, Course, Comment, Module, Sub_topic, Topic
@@ -37,6 +38,7 @@ class CourseDisplaySerializer(ModelSerializer):
     student_no = serializers.IntegerField(source='get_enrolled_student')    # Numero de Estudiantes
     author = UserSerializer(read_only=True)                                 # Autor del Curso(Extraido del Serializer del Profesor)
     image_url = serializers.CharField(source='get_absolute_image_url')      # Imagen del Curso
+    discount_price = serializers.DecimalField(source='get_discount_price', max_digits=7, decimal_places=2)
 
     class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
@@ -46,7 +48,9 @@ class CourseDisplaySerializer(ModelSerializer):
             'student_no',
             'author',
             'price',
-            'image_url'
+            'discount',
+            'image_url',
+            'discount_price'
         ]
 
 # Serializer para los datos de los sectores/Rederizacion (Aun sin Comprar)

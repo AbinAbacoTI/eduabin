@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from decimal import Decimal
@@ -60,6 +61,7 @@ class Course(models.Model):
     state = models.CharField(max_length=15, choices=states, default='unpublished')                             # Estado del Curso
     comments = models.ManyToManyField('Comment', blank=True)                            # Comentario del Curso
     course_uuid=models.UUIDField(default=uuid.uuid4,unique=True)                        # ID del Curso
+    discount = IntegerRangeField(null=True, blank=True, min_value=0, max_value=100)                 # Campo de descuento
     
     def __str__(self):                      # Muestra el Nombre del Curso
         return self.course_name
@@ -86,6 +88,11 @@ class Course(models.Model):
     
     def get_absolute_image_url(self):       # Obtiene la Url de la imagen del Curso
         return 'http://localhost:8000' + self.main_image.url
+    
+    def get_discount_price(self):           # Obtiene el precio con descuento del curso
+        if not self.discount: return None   # Si no hay descuento devuelve valor nulo
+        final_price = self.price - ((self.price * self.discount)/100)
+        return final_price
 
 # Se genera el Modelo de los Modulos del Curso
 class Module(models.Model):
