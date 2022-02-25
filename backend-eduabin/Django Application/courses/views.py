@@ -44,6 +44,7 @@ class CoursesHomeView(APIView):
         
         return Response(data=category_response,status=status.HTTP_200_OK)
 
+# Vista para mostrar todos los cursos
 class AllCoursesHomeView(APIView):
     def get(self, request, *args, **kwargs):
         courses=Course.objects.order_by('?')
@@ -115,7 +116,7 @@ class AddComment(APIView):
         if serializer.is_valid():
             comment=serializer.save(user=request.user)
             course.comments.add(comment)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -142,7 +143,7 @@ class AddCategory(APIView):
 
         if serializer.is_valid():
             course=serializer.save()
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -175,7 +176,7 @@ class AddSector(APIView):
         if serializer.is_valid():
             sector=serializer.save()
             category.related_sector.add(sector)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -184,7 +185,7 @@ class AddCourse(APIView):
     permission_classes=[IsAuthenticated]
     def post(self, request, sector_uuid):
         role = request.user.user_type
-        if role != 2:
+        if role == 1:
             response = {
                 'success': False,
                 'status_code': status.HTTP_403_FORBIDDEN,
@@ -208,7 +209,7 @@ class AddCourse(APIView):
         if serializer.is_valid():
             course=serializer.save(author=request.user)
             sector.related_course.add(course)
-            return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
