@@ -1,8 +1,16 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Additional_material, Sector, Course, Comment, Module, Sub_topic, Topic
+from .models import Additional_material, Category, Sector, Course, Comment, Module, Sub_topic, Topic
 from users.serializers import UserSerializer
 import uuid
+
+# Serializer para la categoría
+class CategorySerializer(ModelSerializer):
+    class Meta:         # Datos de Sector a renderizar/Serializar
+        model=Category
+        exclude=[
+            'id'
+        ]
 
 # Serializer para el sector
 class SectorSerializer(ModelSerializer):
@@ -39,6 +47,19 @@ class CourseDisplaySerializer(ModelSerializer):
             'author',
             'price',
             'image_url'
+        ]
+
+# Serializer para los datos de los sectores/Rederizacion (Aun sin Comprar)
+class SectorDisplaySerializer(ModelSerializer):
+    sector_image = serializers.CharField(source='get_image_absolute_url')      # Imagen del Sector
+    related_course = CourseDisplaySerializer(many=True)
+    class Meta:         # Datos de Curso a renderizar/Serializar
+        model=Sector
+        fields=[
+            'name',
+            'sector_uuid',
+            'sector_image',
+            'related_course'
         ]
 
 # Serializer para los Comentarios de los cursos/Rederizacion

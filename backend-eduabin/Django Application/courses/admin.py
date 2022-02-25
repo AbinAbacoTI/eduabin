@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import *
 
 # Se registran los modelos para la gestion de cursos 
+admin.site.register(Category)               # Modelo de Category
 admin.site.register(Sector)                 # Modelo de Sector
 admin.site.register(Course)                 # Modelo de Curso
 admin.site.register(Module)                 # Modelo de Modulo
