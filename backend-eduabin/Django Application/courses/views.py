@@ -1,3 +1,4 @@
+from unicodedata import category
 from rest_framework.response import Response
 from courses.models import Category, Sector, Course
 from users.models import Student
@@ -123,6 +124,26 @@ class AddComment(APIView):
 # Vista de agregar sector
 class AddCategory(APIView):
     permission_classes=[IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        categories=Category.objects.order_by('?')[:6]
+
+        category_response = []
+
+        for category in categories:
+            category_sectors=category.related_sector.order_by('?')
+            categories_Serializer=SectorDisplaySerializer(category_sectors,many=True)
+        
+            category_obj={
+                'category_uuid': category.category_uuid,
+                'category_name': category.name,
+                'category_image': category.get_image_absolute_url()
+            }
+
+            category_response.append(category_obj)
+        
+        return Response(data=category_response,status=status.HTTP_200_OK)
+
     def post(self, request):
         role = request.user.user_type
         if role != 3:
@@ -147,6 +168,19 @@ class AddCategory(APIView):
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def put(self, request, category_uuid, format=None):
+        category = Category.objects.get(category_uuid = category_uuid)
+        serializer = CategorySerializer(category, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+    def delete(self, request, category_uuid, format=None):
+        category = Category.objects.get(category_uuid = category_uuid)
+        category.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
 # Vista de agregar sector
 class AddSector(APIView):
     permission_classes=[IsAuthenticated]

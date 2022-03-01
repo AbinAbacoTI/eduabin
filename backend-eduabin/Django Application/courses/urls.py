@@ -10,7 +10,8 @@ from courses.views import (CoursesHomeView,
                             CourseStudy,
                             AddCourse,
                             AddSector,
-                            AddCategory)
+                            AddCategory,
+                            )
 # URLs de las vistas de la aplicacion Curso
 urlpatterns = [
     path('', CoursesHomeView.as_view()),                        # Home
@@ -22,6 +23,7 @@ urlpatterns = [
     path('cart/', GetCartDetail.as_view()),                     # vista de adiciones al Carrito
     path('study/<uuid:course_uuid>/', CourseStudy.as_view()),   # Vista de Cursos Comprados
     path('addCategory/', AddCategory.as_view()),                # Vista de agregar Categoría
+    path('addCategory/<category_uuid>', AddCategory.as_view()), # Vista de agregar categoria
     path('addSector/<category_uuid>/', AddSector.as_view()),    # Vista de agregar Sector
-    path('addCourse/<sector_uuid>/', AddCourse.as_view()),      # Vista de agregar Curso
+    path('addCourse/<sector_uuid>/', AddCourse.as_view()),      # Vista de agregar Curso    
 ]
