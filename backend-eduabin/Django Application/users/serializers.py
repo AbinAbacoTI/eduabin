@@ -15,8 +15,8 @@ class StudentSerializer(ModelSerializer):
     class Meta:
         # Campos Adicional
         model = Student # Modelo Estudiante
-        fields = [      # Datos de Estudiante a Renderizar/Serializar
-            '__all__',
+        exclude = [      # Datos de Estudiante a Renderizar/Serializar
+            'user',
         ]
 
 class UserRegistrationSerializer(UserCreateSerializer):
@@ -46,13 +46,18 @@ class UserRegistrationSerializer(UserCreateSerializer):
 # Serializer para Autentificacion de Usuario/Rederizacion
 class UserAuthSerializer(ModelSerializer):
     paid_courses=serializers.SerializerMethodField('get_paid_courses')  # Cursos Comprados
+    remuneration=serializers.SerializerMethodField('get_remuneration')  # Cursos Comprados
 
     def get_paid_courses(self, User):   # Metodo para obtener los cursos comprados de un Usuario
-        if User.user_type == 3:
+        if User.user_type != 1:
             return []
         return Student.objects.get(user=User.id).get_all_courses()
+    def get_remuneration(self, User):
+        if User.user_type != 1:
+            return []
+        return Student.objects.get(user=User.id).remuneration
 
     class Meta:                         # Datos de Usuario a Renderizar/Serializar
         model=User
 
-        fields=["name", "user_type", "id", "email", "user_type", "paid_courses"]
+        fields=["name", "user_type", "id", "email", "user_type", "remuneration", "paid_courses"]

@@ -1,3 +1,4 @@
+from unicodedata import decimal
 from django.db import models
 from users.models import User
 from courses.models import Course
@@ -10,6 +11,7 @@ class PaymentIntent(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)  # Usuario
     course=models.ManyToManyField(Course)                   # Curso
     created=models.DateTimeField(auto_now_add=True)         # Fecha de Intento
+    remuneration=models.DecimalField(max_digits=7, decimal_places=2) #Total a remunerar
 
 # Modelos para los pagos
 class Payment(models.Model):

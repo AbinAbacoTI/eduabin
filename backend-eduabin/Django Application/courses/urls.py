@@ -24,6 +24,6 @@ urlpatterns = [
     path('study/<uuid:course_uuid>/', CourseStudy.as_view()),   # Vista de Cursos Comprados
     path('addCategory/', AddCategory.as_view()),                # Vista de agregar Categoría
     path('addCategory/<category_uuid>', AddCategory.as_view()), # Vista de agregar categoria
-    path('addSector/<category_uuid>/', AddSector.as_view()),    # Vista de agregar Sector
-    path('addCourse/<sector_uuid>/', AddCourse.as_view()),      # Vista de agregar Curso    
+    path('addSector/<uuid:category_uuid>/', AddSector.as_view()),    # Vista de agregar Sector
+    path('addCourse/<uuid:sector_uuid>/', AddCourse.as_view()),      # Vista de agregar Curso
 ]

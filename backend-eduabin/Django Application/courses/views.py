@@ -273,13 +273,18 @@ class GetCartDetail(APIView):
         serializer=CartItemSerializer(courses, many=True)
 
         cart_total=Decimal(0.00)
-
+        total_discount=Decimal(0.00)
+        # Obtener el precio total y el total de descuento
         for item in serializer.data:
             cart_total+=Decimal(item.get('price'))
+            if item.get('discount_price') == None: 
+                total_discount+=Decimal(0)
+            else:
+                total_discount+=Decimal(item.get('price'))-Decimal(item.get('discount_price'))
         
         return Response(data={
             'cart_detail': serializer.data,
-            'cart_total': cart_total,
+            'cart_total': cart_total-total_discount
         }, status=status.HTTP_200_OK)
         
 # Vista de cursos Comprados
