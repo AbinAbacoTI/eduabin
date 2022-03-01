@@ -211,11 +211,14 @@ class CartItemSerializer(ModelSerializer):
     # Campos adicionales para renderizar/Serializar
     author=UserSerializer()                                          # Estudiante
     image_url=serializers.CharField(source='get_absolute_image_url')    # URL de imgamen de carrito
+    discount_price=serializers.DecimalField(max_digits=8, decimal_places=2,source='get_discount_price')
     class Meta:         # Datos de  a Renderizar/Serializar
         model=Course
         fields=[
             'author',
             'course_name',
             'price',
+            'discount',
+            'discount_price',
             'image_url'
         ]

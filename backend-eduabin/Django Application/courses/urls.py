@@ -22,6 +22,6 @@ urlpatterns = [
     path('cart/', GetCartDetail.as_view()),                     # vista de adiciones al Carrito
     path('study/<uuid:course_uuid>/', CourseStudy.as_view()),   # Vista de Cursos Comprados
     path('addCategory/', AddCategory.as_view()),                # Vista de agregar Categoría
-    path('addSector/<category_uuid>/', AddSector.as_view()),    # Vista de agregar Sector
-    path('addCourse/<sector_uuid>/', AddCourse.as_view()),      # Vista de agregar Curso
+    path('addSector/<uuid:category_uuid>/', AddSector.as_view()),    # Vista de agregar Sector
+    path('addCourse/<uuid:sector_uuid>/', AddCourse.as_view()),      # Vista de agregar Curso
 ]

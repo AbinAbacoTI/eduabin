@@ -64,16 +64,22 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Student(models.Model):
     # Campos Student
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)   # Tipo de usuario
-    profile_picture = models.ImageField(upload_to='students_profile')               # Foto de Perfil
+    profile_picture = models.ImageField(upload_to='students_profile', blank=True)               # Foto de Perfil
     bank_accounts = models.ManyToManyField('User_bank_account', blank=True)         # Num. Cuenta Bancaria
     personal_data = models.ManyToManyField('Personal_data', blank=True)             # Datos personales
-    paid_courses = models.ManyToManyField(Course, blank=True)                       # Cursos Comprados
+    paid_courses = models.ManyToManyField(Course, blank=True, related_name="paid_courses")          # Cursos Comprados
+    desired_courses = models.ManyToManyField(Course, blank=True, related_name="desired_courses")    # Cursos deseados
+    remuneration = models.DecimalField(default=0, max_digits=7, decimal_places=2)   # Dinero para retribuir
     
     def get_all_courses(self):      # Metodo para obtener todos lo cursos comprados del usuario
         courses=[]
         for course in self.paid_courses.all():
             courses.append(course.course_uuid)
         return courses
+    
+    def add_remuneration(self, amount):  #Metodo para agregar más cantidad a la remuneración acumulada por compras
+        self.remuneration = self.remuneration + amount
+        return super().save()
 
 # Se genera el modelo para la cuenta bancaria del Usuario
 class User_bank_account(models.Model):
