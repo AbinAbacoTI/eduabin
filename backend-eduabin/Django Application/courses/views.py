@@ -246,7 +246,7 @@ class GetCartDetail(APIView):
             if item.get('discount_price') == None: 
                 total_discount+=Decimal(0)
             else:
-                total_discount+=Decimal(item.get('discount_price'))
+                total_discount+=Decimal(item.get('price'))-Decimal(item.get('discount_price'))
         
         return Response(data={
             'cart_detail': serializer.data,
