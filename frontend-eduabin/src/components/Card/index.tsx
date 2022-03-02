@@ -5,7 +5,7 @@ import { FC } from 'react'
 
 const Card: FC<CardProps> = ({ publicCard = true, published = true }) => {
   return (
-        <div className="w-full max-w-sm mx-auto my-2 rounded-md shadow-md overflow-hidden">
+        <div className="bg-white w-full max-w-sm mx-auto my-2 rounded-md shadow-md overflow-hidden">
             <div className="flex items-end justify-end h-56 w-96 relative"
                 >
                 <Image src={'https://edu.abin.world/wp-content/uploads/2022/01/Plan-Publicitario.jpg'}
