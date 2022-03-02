@@ -35,13 +35,18 @@ class PaymentHandler(APIView):
             if body and len(body):
                 course_line_items=[]
                 cart_course=[]
+                total_remuneration=0
                 for item in body:
                     try:
                         course=Course.objects.get(course_uuid=item)
+                        if not course.discount: amount=course.price*100
+                        else:
+                            amount=course.get_discount_price()*100
+                            total_remuneration+=course.price-course.get_discount_price()
                         line_item={
                             "price_data":{
                                 "currency": "usd",
-                                "unit_amount": int(course.price*100),
+                                "unit_amount": int(amount),
                                 "product_data":{
                                     "name": course.course_name,
                                 }
@@ -70,7 +75,8 @@ class PaymentHandler(APIView):
         intent=PaymentIntent.objects.create(
             payment_intent_id=checkout_session.payment_intent,
             checkout_id=checkout_session.id,
-            user=User.objects.get(id=1)
+            user=User.objects.get(id=request.user.id),
+            remuneration=total_remuneration
         )
 
         intent.course.add(*cart_course)
@@ -109,6 +115,7 @@ class WebHook(APIView):
             )
 
             intent.user.student.paid_courses.add(*intent.course.all())
+            intent.user.student.add_remuneration(intent.remuneration)
 
             return Response(status=200)
 
