@@ -1,12 +1,14 @@
 import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit'
 import { createWrapper, HYDRATE } from 'next-redux-wrapper'
 import { courseApiSearch } from 'rdx/services/course.service'
+import { adminSlice } from 'rdx/slice/admin.slice'
 import { authSlice } from 'rdx/slice/auth.slice'
 import { courseSlice } from 'rdx/slice/course.slice'
 
 const combinedReducer = combineReducers({
   courseRdc: courseSlice.reducer,
   authRdc: authSlice.reducer,
+  adminRdc: adminSlice.reducer,
   [courseApiSearch.reducerPath]: courseApiSearch.reducer
 })
 

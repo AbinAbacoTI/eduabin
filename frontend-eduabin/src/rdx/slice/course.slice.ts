@@ -5,7 +5,6 @@ export const getCourses = createAsyncThunk(
   'course/getCourses',
   async (_, thunkAPI) => {
     try {
-      console.log('ingreso course slice')
       return await getCoursesAll()
     } catch (err) {
       thunkAPI.rejectWithValue(err)

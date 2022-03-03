@@ -1,35 +1,32 @@
 export default function Footer () {
   return (
-        <div className="bg-black px-4 py-3 md:px-6 md:py-12 lg:px-20 lg:py-7">
+        <div className="bg-gray-900 px-4 py-3 md:px-6 md:py-12 lg:px-20 lg:py-7">
             <div className="pt-10 flex flex-col xl:flex-row justify-between">
                 <div className="flex flex-col w-full">
                     <div className="flex w-full justify-evenly">
                         <div className="pb-10 md:pb-0">
-                            <h3 className="text-xl cursor-default font-semibold leading-tight text-white mb-8">Seccion 1</h3>
+                            <h3 className="text-2xl cursor-default font-semibold leading-tight text-orange-eduabin mb-8">Seccion 1</h3>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Email Marketing</p>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Website Builder</p>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Market Automation</p>
                         </div>
                         <div className="pb-10 md:pb-0 2xl:pl-20 pl-16">
-                            <h3 className="text-xl cursor-default font-semibold leading-tight text-white mb-8">Seccion 2</h3>
+                            <h3 className="text-2xl cursor-default font-semibold leading-tight text-orange-eduabin mb-8">Seccion 2</h3>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Generate lead</p>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Size Guide</p>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Shipping</p>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Payment Security</p>
                         </div>
                         <div className="pb-10 md:pb-0 2xl:pl-20 pl-16 md:block hidden">
-                            <h3 className="text-xl cursor-default font-semibold leading-tight text-white mb-8">Seccion 3</h3>
+                            <h3 className="text-2xl cursor-default font-semibold leading-tight text-orange-eduabin mb-8">Seccion 3</h3>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Link or Page</p>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Self knowledge</p>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Work from home</p>
-                            <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Engage customers</p>
-                            <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Boost online sales</p>
                         </div>
                         <div className="2xl:pl-20 md:pl-16 md:block hidden">
-                            <h3 className="text-xl cursor-default font-semibold leading-tight text-white mb-8">Seccion 4</h3>
+                            <h3 className="text-2xl cursor-default font-semibold leading-tight text-orange-eduabin mb-8">Seccion 4</h3>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Integration</p>
                             <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Affiliate program</p>
-                            <p className="text-sm cursor-pointer leading-none text-gray-300 mb-6">Agency Partner</p>
                         </div>
                     </div>
                 </div>
