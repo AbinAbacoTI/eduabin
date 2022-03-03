@@ -47,6 +47,19 @@ export default function Sidebar (params) {
                             </div>
                         </Link>
                         <Link
+                            href='/admin/create'
+                            className="flex w-full justify-between text-gray-300 hover:text-gray-700 hover:bg-white cursor-pointer items-center mb-2 border-0 border-gray-300 py-2 px-2 rounded transition-all duration-200">
+                            <div className="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-stack" width={18} height={18} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" />
+                                    <polyline points="12 4 4 8 12 12 20 8 12 4" />
+                                    <polyline points="4 12 12 16 20 12" />
+                                    <polyline points="4 16 12 20 20 16" />
+                                </svg>
+                                <span className="text-sm  ml-2">Crear</span>
+                            </div>
+                        </Link>
+                        <Link
                             href='/teacher/notifications'
                             className="flex w-full justify-between text-gray-300 hover:text-gray-700 hover:bg-white cursor-pointer items-center mb-2 border-0 border-gray-300 py-2 px-2 rounded transition-all duration-200">
                             <div className="flex items-center">

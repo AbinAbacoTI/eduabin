@@ -11,6 +11,16 @@ import Router from 'next/router'
 import { useAppSelector } from '../../../hooks/rdx.hooks'
 
 const Navbar = () => {
+  const [fixed, setFixed] = useState('')
+  const listenScrollEvent = () => {
+    window.scrollY > 10 ? setFixed('fixed') : setFixed('')
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent)
+    return () => {
+      window.addEventListener('scroll', listenScrollEvent)
+    }
+  }, [])
   const dispatch = useDispatch()
   useEffect(() => { dispatch(fetchUser()) }, [])
 
@@ -23,7 +33,7 @@ const Navbar = () => {
   }
   return (
     <div>
-      <nav className="shadow-sm fixed w-full z-full bg-white">
+      <nav className={`shadow-sm w-full bg-white z-10 ${fixed}`}>
         <div className="w-full">
           <div className="flex items-center h-20 w-full">
             <div className="flex items-center  mx-20  justify-between w-full">

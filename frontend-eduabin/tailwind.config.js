@@ -7,6 +7,13 @@ module.exports = {
     extend: {
       height: {
         600: '600px'
+      },
+      width: {
+        306: '306px'
+      },
+      colors: {
+        'orange-eduabin': '#E9581B',
+        'white-ext': '#F2F4F6'
       }
     }
   },

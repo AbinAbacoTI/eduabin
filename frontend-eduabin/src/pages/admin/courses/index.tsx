@@ -41,7 +41,7 @@ const courses = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
               <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">curso xx"</td>
+                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">curso</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">00</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">23/02/2022</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -60,7 +60,7 @@ const courses = () => {
                 </td>
               </tr>
               <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">curso xx"</td>
+                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">curso</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">00</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">23/02/2022</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -79,7 +79,7 @@ const courses = () => {
                 </td>
               </tr>
               <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">curso xx"</td>
+                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">curso</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">00</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">23/02/2022</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -99,7 +99,7 @@ const courses = () => {
                 </td>
               </tr>
               <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">curso xx"</td>
+                <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">curso</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">00</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">23/02/2022</td>
                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -122,7 +122,6 @@ const courses = () => {
 
         </div>
       </div>
-
 
     </SidebarLayout>
   )

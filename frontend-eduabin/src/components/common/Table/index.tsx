@@ -5,10 +5,10 @@ export default function Tabla ({ headers, data }) {
             <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700 rounded-b-lg">
                 <thead className="bg-gray-100 dark:bg-gray-700">
                     <tr>
-                        {headers.map(header => {
+                        {headers.map((header, i) => {
                           return (
                                 <th className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                                    scope="col" key={header}>
+                                    scope="col" key={i}>
                                     {header}
                                 </th>
                           )
@@ -20,9 +20,9 @@ export default function Tabla ({ headers, data }) {
                       return (
                             <tr className="hover:bg-gray-100 dark:hover:bg-gray-700"
                                 key={index}>
-                                {dats.map(dat => {
+                                {dats.map((dat, i) => {
                                   return (<td className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400"
-                                        scope="col" key={dat}>
+                                        scope="col" key={i}>
                                         {dat}
                                     </td>)
                                 })}

@@ -17,7 +17,7 @@ const Quantity:FC<RatingProps> = ({ value = 5 }) => (
       rangeMap(5, (i) => (
         <span
           key={`star_${i}`}
-          className={cn('inline-block ml-1', { 'text-gray-500': i >= Math.floor(value) })}
+          className={cn('inline-block w-4 h-2 ml-1', { 'text-gray-500': i >= Math.floor(value) })}
         >
           <Star/>
         </span>

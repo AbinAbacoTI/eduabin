@@ -27,14 +27,22 @@ export interface ICourses {
   student_no: number;
   author: IAuthor;
   price: string;
+  discount: null;
   image_url: string;
+  discount_price: null;
 }
 
-export interface ISectorCourse {
+export interface ISector {
+  name: string;
   sector_uuid: string;
-  sector_name: string;
-  featured_courses: ICourses[];
   sector_image: string;
+  related_course: ICourses[];
+}
+export interface ICategory {
+  category_uuid: string;
+  category_name: string;
+  featured_sectors: ISector[];
+  category_image: string;
 }
 
 export interface DataCourse {
