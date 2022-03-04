@@ -19,18 +19,18 @@ const course_uuid = ({ course }) => {
           <div className='mb-3 w-full sm:w-2/6 md: lg: xl:'>
             <div className='md:rounded-lg h-60 overflow-hidden'>
               <Image
-                src={course.image_url}
+                src={'/images/marketing-img.jpg'}
                 width={200}
                 height={200}
                 objectFit='cover'
                 layout='responsive'
                 quality='85'
-                alt={course.course_name || 'Course Image'} />
+                alt={ 'Course Image'} />
             </div>
             <div className='px-5 py-2'>
               <div className='md:invisible md:absolute'>
-                <h1 className='text-2xl font-bold my-1'>{course.course_name}</h1>
-                <p>{course.description}</p>
+                <h1 className='text-2xl font-bold my-1'>{/* {course.course_name} */}</h1>
+                <p>{/* {course.description} */}</p>
                 <div className='my-3 px-5 flex'>
                   <div className='flex justify-center'>
                     <div className='inline-block h-10 w-10 rounded-full border-2  bg-black border-primary hover:border-secondary focus:border-secondary transition-colors ease-linear'>
@@ -53,7 +53,7 @@ const course_uuid = ({ course }) => {
                 </div>
               </div>
               <div className='text-center'>
-                <span className='text-3xl font-bold'>S/. {course.price}</span>
+                <span className='text-3xl font-bold'>S/. {/* {course.price} */}</span>
               </div>
               <div className='p-3 flex flex-col items-center'>
                 <button
@@ -70,8 +70,8 @@ const course_uuid = ({ course }) => {
                 </div>
                 <div>
                   <ul className='list-disc  px-5'>
-                    <li>{ course.total_duration } horas de aprendizaje</li>
-                    <li>{ course.total_modules } modulos</li>
+                    <li>{/* { course.total_duration } */} horas de aprendizaje</li>
+                    <li>{/* { course.total_modules } */} modulos</li>
                     <li>12 archivos descargables</li>
                     <li>Acceso por 6 meses</li>
                     <li>1 Assesoria gratiuta</li>
@@ -85,7 +85,7 @@ const course_uuid = ({ course }) => {
             <div className='invisible absolute md:relative md:visible px-8 pt-3'>
               <div className='flex items-center content-center justify-between'>
                 <div>
-                  <h1 className='text-3xl font-bold my-1'>{course.course_name}</h1>
+                  <h1 className='text-3xl font-bold my-1'>{/* {course.course_name} */} Nombre de curso</h1>
                 </div>
                 <div className='flex items-center w-44'>
                   <div className='mx-1'>
@@ -98,7 +98,7 @@ const course_uuid = ({ course }) => {
                   </div>
                 </div>
               </div>
-              <p>{course.description}</p>
+              <p>{/* {course.description} */} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quo voluptatibus libero quaerat. Et consequuntur, quaerat, similique nulla ab explicabo esse, odit dolore quia cupiditate ex soluta eaque! Dignissimos, tenetur?</p>
               <div className='border-2 flex flex-row justify-around content-center items-center my-5'>
                 <div className='my-3 px-5 flex'>
                   <div className='flex justify-center'>
@@ -110,18 +110,18 @@ const course_uuid = ({ course }) => {
                     </div>
                   </div>
                   <div className='py-2 mx-4'>
-                    <h2>{ course.author.name }</h2>
+                    <h2>{/* { course.author.name } */} Profesor name</h2>
                   </div>
                 </div>
                 <div className='flex flex-col items-center'>
                     <Rating value={3} />
                     <div>
-                      <span className='font-semibold'>{ course.student_no} Estudiantes</span>
+                      <span className='font-semibold'>{/* { course.student_no} */} 23 Estudiantes</span>
                     </div>
                 </div>
                 <div>
                     <span>
-                      Actualizado el { course.last_update }
+                      Actualizado el {/* { course.last_update } */}
                     </span>
                 </div>
               </div>
@@ -160,7 +160,7 @@ const course_uuid = ({ course }) => {
   )
 }
 
-export const getServerSideProps = eduAbinWrapper.getServerSideProps(({ dispatch, getState }) => async ({ query }) => {
+/* export const getServerSideProps = eduAbinWrapper.getServerSideProps(({ dispatch, getState }) => async ({ query }) => {
   const uuid = query.course_uuid as string
   await dispatch(getOneCourse(uuid))
   const course = getState().courseRdc.course
@@ -169,6 +169,6 @@ export const getServerSideProps = eduAbinWrapper.getServerSideProps(({ dispatch,
       course
     }
   }
-})
+}) */
 
 export default course_uuid

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { fetchUser, logout } from 'rdx/slice/auth.slice'
 import Router from 'next/router'
 import { useAppSelector } from '../../../hooks/rdx.hooks'
+import Cart from '../Cart'
 
 const Navbar = () => {
   const [fixed, setFixed] = useState('')
@@ -48,7 +49,7 @@ const Navbar = () => {
 
                   <div className=" bg-white">
                     <div className="container  flex justify-center items-center px-4 sm:px-6 lg:px-8">
-                      <div className="relative"> <input type="text" className="h-14 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none" placeholder="Busca el curso que quieras..." />
+                      <div className="relative"> <input type="text" className="h-10 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none border-2" placeholder="Busca el curso que quieras..." />
                         <div className="absolute top-4 right-3"> <i className="fa fa-search text-shadow-400 z-20 hover:text-shadow-500"></i> </div>
                       </div>
                     </div>
@@ -86,17 +87,6 @@ const Navbar = () => {
                   </Link>
 
                   <Link
-                    href='/bussiness'
-                    to="bussiness"
-                    smooth="true"
-                    offset={50}
-                    duration={500}
-                    className="cursor-pointer hover:bg-orange-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Enseña en Adubin
-                  </Link>
-
-                  <Link
                     href='/checkout'
                     to="checkout"
                     smooth="true"
@@ -107,6 +97,7 @@ const Navbar = () => {
                     Mi Cesta
                     <CartShoppingRegular className="h-4 w-7 "/>
                   </Link>
+                  <Cart/>
                   {
                     !user
                       ? (
