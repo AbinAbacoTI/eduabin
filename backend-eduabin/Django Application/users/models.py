@@ -65,10 +65,13 @@ class Student(models.Model):
     # Campos Student
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)   # Tipo de usuario
     profile_picture = models.ImageField(upload_to='students_profile', blank=True)               # Foto de Perfil
+    firstname = models.CharField(max_length=255)
+    lastname = models.CharField(max_length=255)
+    cellphone = models.CharField(max_length=12)
+    country = models.CharField(max_length=150)
     bank_accounts = models.ManyToManyField('User_bank_account', blank=True)         # Num. Cuenta Bancaria
-    personal_data = models.ManyToManyField('Personal_data', blank=True)             # Datos personales
     paid_courses = models.ManyToManyField(Course, blank=True, related_name="paid_courses")          # Cursos Comprados
-    desired_courses = models.ManyToManyField(Course, blank=True, related_name="desired_courses")    # Cursos deseados
+    favorite_courses = models.ManyToManyField(Course, blank=True, related_name="desired_courses")    # Cursos deseados
     remuneration = models.DecimalField(default=0, max_digits=7, decimal_places=2)   # Dinero para retribuir
     
     def get_all_courses(self):      # Metodo para obtener todos lo cursos comprados del usuario
@@ -87,6 +90,7 @@ class User_bank_account(models.Model):
     number = models.CharField(max_length=16)    # Numero de cuenta
 
 # Se genera el modelo para la data personal del Usuario
+'''
 class Personal_data(models.Model):
     firstname = models.CharField(max_length=100)    # Nombre
     lastname = models.CharField(max_length=100)     # Apellido
@@ -94,6 +98,7 @@ class Personal_data(models.Model):
     country = models.CharField(max_length=100)      # Pais
     birthday = models.DateField()                   # Nacimiento
     dni = models.CharField(max_length=8)            # DNI (documento de indentidad)
+'''
 
 # Se genera el modelo para el usuario Profesor
 class Teacher(models.Model):

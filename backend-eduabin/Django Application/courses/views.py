@@ -1,8 +1,9 @@
 from unicodedata import category
 from rest_framework.response import Response
-from courses.models import Category, Sector, Course
+from courses.models import Section, Category, Sector, Course
 from users.models import Student
-from .serializers import (SectorDisplaySerializer,
+from .serializers import (CategoryDisplaySerializer,
+                          SectorDisplaySerializer,
                           CourseDisplaySerializer, 
                           CourseUnpaidSerializer,
                           CourseListSerializer,
@@ -26,6 +27,22 @@ from decimal import Decimal
 # Vista del Home de los Cursos
 class CoursesHomeView(APIView):
     def get(self, request, *args, **kwargs):
+        sections = Section.objects.order_by('?')
+
+        section_response = []
+        for section in sections:
+            section_categories=section.related_category.order_by('?')
+            sections_Serializer=CategoryDisplaySerializer(section_categories,many=True)
+
+            section_obj={
+                'section_uuid': section.section_uuid,
+                'section_name': section.name_section,
+                'featured_categories': sections_Serializer.data
+            }
+
+            section_response.append(section_obj)
+        return Response(data=section_response, status=status.HTTP_200_OK)
+'''
         categories=Category.objects.order_by('?')[:6]
 
         category_response = []
@@ -44,7 +61,7 @@ class CoursesHomeView(APIView):
             category_response.append(category_obj)
         
         return Response(data=category_response,status=status.HTTP_200_OK)
-
+'''
 # Vista para mostrar todos los cursos
 class AllCoursesHomeView(APIView):
     def get(self, request, *args, **kwargs):
