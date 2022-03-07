@@ -1,5 +1,5 @@
-const createuser = () => {
-    return (
+const CreateUser = () => {
+  return (
         <div className="max-w-2xl mx-auto">
         <div className="px-4 md:px-10 py-4 md:py-7">
           <form>
@@ -101,8 +101,7 @@ const createuser = () => {
           </form>
         </div>
       </div>
-        )
-    }
-    
-    export default createuser
-    
+  )
+}
+
+export default CreateUser

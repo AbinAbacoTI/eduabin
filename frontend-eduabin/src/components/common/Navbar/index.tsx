@@ -48,7 +48,7 @@ const Navbar = () => {
                 <div className="ml-10 flex items-baseline space-x-4">
 
                   <div className=" bg-white">
-                    <div className="container  flex justify-center items-center px-4 sm:px-6 lg:px-8">
+                    <div className="container  flex justify-center items-center px-4 mt-4 sm:px-6 lg:px-8">
                       <div className="relative"> <input type="text" className="h-10 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none border-2" placeholder="Busca el curso que quieras..." />
                         <div className="absolute top-4 right-3"> <i className="fa fa-search text-shadow-400 z-20 hover:text-shadow-500"></i> </div>
                       </div>
@@ -97,7 +97,6 @@ const Navbar = () => {
                     Mi Cesta
                     <CartShoppingRegular className="h-4 w-7 "/>
                   </Link>
-                  <Cart/>
                   {
                     !user
                       ? (

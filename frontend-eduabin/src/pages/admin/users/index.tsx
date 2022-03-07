@@ -1,7 +1,9 @@
+import SidebarLayout from 'components/common/Layouts/SidebarLayout'
 
 const users = () => {
   return (
-    <div className="max-w-2xl mx-auto">
+    <SidebarLayout>
+      <div className="max-w-2xl mx-auto">
       <div className="px-4 md:px-10 py-4 md:py-7">
                 <div className="flex items-center justify-between">
                     <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded">
@@ -116,6 +118,7 @@ const users = () => {
           </div>
         </div>
       </div>
+    </SidebarLayout>
   )
 }
 

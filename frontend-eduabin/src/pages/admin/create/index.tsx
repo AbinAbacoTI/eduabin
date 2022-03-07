@@ -1,6 +1,7 @@
 import AddCategoryView from 'components/admin/add/AddCategoryView'
 import AddSectorView from 'components/admin/add/AddSectorView'
 import SidebarLayout from 'components/common/Layouts/SidebarLayout'
+import CreateUser from 'components/createuser/CreateUser'
 import { useAppSelector } from 'hooks/rdx.hooks'
 
 const create = () => {
@@ -14,8 +15,11 @@ const create = () => {
         <div>
          <AddSectorView categories={categories}/>
         </div>
+        <div>
+          <CreateUser/>
+        </div>
       </div>
-      <div className='w-2/4'>
+      {/* <div className='w-2/4'>
        <table className='min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700 rounded-b-lg'>
         <thead>
          <tr className='py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400'>
@@ -34,7 +38,7 @@ const create = () => {
          }
         </tbody>
        </table>
-      </div>
+      </div> */}
     </SidebarLayout>
   )
 }

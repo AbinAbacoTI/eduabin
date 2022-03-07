@@ -86,6 +86,19 @@ export default function Sidebar (params) {
                             </div>
                         </Link>
                         <Link
+                            href='/admin/users'
+                            className="flex w-full justify-between text-gray-300 hover:text-gray-700 hover:bg-white cursor-pointer items-center mb-2 border-0 border-gray-300 py-2 px-2 rounded transition-all duration-200">
+                            <div className="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-stack" width={18} height={18} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" />
+                                    <polyline points="12 4 4 8 12 12 20 8 12 4" />
+                                    <polyline points="4 12 12 16 20 12" />
+                                    <polyline points="4 16 12 20 20 16" />
+                                </svg>
+                                <span className="text-sm  ml-2">Usuarios - admin</span>
+                            </div>
+                        </Link>
+                        <Link
                             href='/teacher/notifications'
                             className="flex w-full justify-between text-gray-300 hover:text-gray-700 hover:bg-white cursor-pointer items-center mb-2 border-0 border-gray-300 py-2 px-2 rounded transition-all duration-200">
                             <div className="flex items-center">
@@ -95,6 +108,18 @@ export default function Sidebar (params) {
                                     <circle cx={12} cy={12} r={3} />
                                 </svg>
                                 <span className="text-sm  ml-2">Notificaciones</span>
+                            </div>
+                        </Link>
+                        <Link
+                            href='/teacher/profile'
+                            className="flex w-full justify-between text-gray-300 hover:text-gray-700 hover:bg-white cursor-pointer items-center mb-2 border-0 border-gray-300 py-2 px-2 rounded transition-all duration-200">
+                            <div className="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-settings" width={18} height={18} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" />
+                                    <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                    <circle cx={12} cy={12} r={3} />
+                                </svg>
+                                <span className="text-sm  ml-2">Perfil</span>
                             </div>
                         </Link>
                     </ul>

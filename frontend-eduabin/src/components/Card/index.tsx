@@ -4,10 +4,11 @@ import Rating from 'components/ui/Rating'
 import { CardProps } from 'interfaces/components.interface'
 import Image from 'next/image'
 import { FC } from 'react'
+import Link from 'components/ui/Link'
 
 const Card: FC<CardProps> = ({ publicCard = true, published = true, name = 'Curso sin nombre' }) => {
   return (
-    <div className="bg-white w-306 h-80 max-w-sm mx-auto my-2 rounded-md shadow-lg overflow-hidden">
+    <Link href={'/courses/course/c4717399-051b-40a4-b9b4-b3df20ec15be'} className="bg-white w-306 h-80 max-w-sm mx-auto my-2 rounded-md shadow-lg overflow-hidden">
       <div className="flex items-end justify-end h-44 w-306 relative"
       >
         <Image src={'/images/marketing-img.jpg'}
@@ -65,7 +66,7 @@ const Card: FC<CardProps> = ({ publicCard = true, published = true, name = 'Curs
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
