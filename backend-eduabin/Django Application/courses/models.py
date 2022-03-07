@@ -10,6 +10,14 @@ from mutagen.mp4 import MP4, MP4StreamInfoError
 from .customized_models import IntegerRangeField
 import uuid
 
+#Se genera el modelo de la seccion
+class Section(models.Model):
+    name_section = models.CharField(max_length=255)
+    section_uuid=models.UUIDField(default=uuid.uuid4,unique=True)        # ID de la categoría
+    related_category = models.ManyToManyField('Category', blank=True)        # Campo de relación con el sector
+    def __str__(self):
+        return self.name_section
+
 #Se genera el modelo de la categoría
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -27,7 +35,8 @@ class Sector(models.Model):
     #Campos SECTOR
     name = models.CharField(max_length=255)                             # Nombre del Sector
     sector_uuid=models.UUIDField(default=uuid.uuid4,unique=True)        # ID del Sector
-    related_course = models.ManyToManyField('Course', blank=True)       # Campo de relacion con el curso
+    related_course = models.ManyToManyField('Course', blank=True, related_name='related_course')       # Campo de relacion con el curso
+    related_division = models.ManyToManyField('Course', blank=True, related_name='related_division')
     sector_image = models.ImageField(upload_to='sector_image')          # imagen del Sector
 
     def __str__(self):
@@ -35,6 +44,18 @@ class Sector(models.Model):
     #  /media/sector_image/what.png
     def get_image_absolute_url(self):
         return 'http://localhost:8000'+self.sector_image.url            # Obtiene la imagen del Url
+
+# Se genera el modelo para las divisiones del curso
+class Division(models.Model):
+    name = models.CharField(max_length=255)
+    division_uuid=models.UUIDField(default=uuid.uuid4,unique=True)        # ID de la categoría
+    division_image = models.ImageField(upload_to='division_image')        # imagen de la categoría
+    related_course = models.ManyToManyField('Course', blank=True)        # Campo de relación con el sector
+    def __str__(self):
+        return self.name
+    #  /media/sector_image/what.png
+    def get_image_absolute_url(self):
+        return 'http://localhost:8000'+self.category_image.url            # Obtiene la imagen del Url
 
 # Se genera el modelo para los cursos dentro de los Sectores
 class Course(models.Model):
@@ -164,6 +185,13 @@ class Additional_material(models.Model):
     def get_absolute_url(self):     # Obtiene la url del Archivo
         return 'http://localhost:8000'+self.file.url
 
+# Se genera el modelo para paquetes
+class Packages(models.Model):
+    pack_name = models.CharField(max_length=255)
+    pack_image = models.ImageField(upload_to='course_image')                            # Imagen del paquete
+    announcement = models.TextField()
+    courses = models.ManyToManyField(Course)
+
 # Se genera el Modelo de Preguntas
 class Question(models.Model):
     created = models.DateTimeField('published date')                                # Fecha del Publicacion
@@ -177,3 +205,11 @@ class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # Usuario que hizo el comentario
     message = models.TextField()                                                    # Mensaje del Comentarios
     created = models.DateTimeField(auto_now_add=True)                               # Fecha de Publicacion
+
+# Se genera el Modelo para Eventos
+class Event(models.Model):
+    event_name = models.CharField(max_length=255)
+    event_image = models.ImageField(upload_to='event_image')
+    descripti = models.TextField()
+    url_meet = models.CharField(max_length=1500)
+    url_form = models.CharField(max_length=1500)
