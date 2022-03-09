@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import Link from 'components/ui/Link'
 import CartShoppingRegular from 'components/icons/CartShoppingRegular'
@@ -10,6 +10,7 @@ import { fetchUser, logout } from 'rdx/slice/auth.slice'
 import Router from 'next/router'
 import { useAppSelector } from '../../../hooks/rdx.hooks'
 import Cart from '../Cart'
+import { AuthContext } from '../../../context/auth/AuthContext'
 
 const Navbar = () => {
   const [fixed, setFixed] = useState('')
@@ -25,7 +26,8 @@ const Navbar = () => {
   const dispatch = useDispatch()
   useEffect(() => { dispatch(fetchUser()) }, [])
 
-  const { user } = useAppSelector(state => state.authRdc)
+  /* const { user } = useAppSelector(state => state.authRdc) */
+  const { user, isLoggedIn } = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false)
 
   const handleLogout = () => {

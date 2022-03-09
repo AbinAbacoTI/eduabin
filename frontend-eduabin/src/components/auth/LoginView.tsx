@@ -1,25 +1,36 @@
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
+import { AuthContext } from 'context'
 import { useAppSelector } from 'hooks/rdx.hooks'
 import { AuthLogin } from 'interfaces/auth.interface'
 import { useRouter } from 'next/router'
 import { login } from 'rdx/slice/auth.slice'
-import { useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { validations } from 'utils'
 
 export default function LoginView () {
-  const { register, handleSubmit } = useForm()
+  const [showError, setShowError] = useState(false)
+  const { loginUser } = useContext(AuthContext)
+
+  const { register, handleSubmit, formState: { errors } } = useForm<AuthLogin>()
   const router = useRouter()
-  const dispatch = useDispatch()
+  /* const dispatch = useDispatch() */
 
-  const { user, loading } = useAppSelector(state => state.authRdc)
+  /* const { user, loading } = useAppSelector(state => state.authRdc) */
 
-  const onSubmit = (data: AuthLogin) => {
-    dispatch(login(data))
+  const onSubmit = async (data: AuthLogin) => {
+    const isValidLogin = await loginUser(data.email, data.password)
+    if (!isValidLogin) {
+      setShowError(true)
+      return
+    }
+
+    router.replace('/')
   }
 
-  useEffect(() => { if (user) router.push('/') }, [loading])
+  /* useEffect(() => { if (user) router.push('/') }, [loading]) */
 
   return (
       <div className='w-full max-w-md'>
@@ -30,8 +41,14 @@ export default function LoginView () {
               type='email'
               placeholder='Email'
               className='bg-gray-200 appearance-none h-12 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-300'
-              {...register('email')}
+              {...register('email', {
+                required: 'Este campo es requerido',
+                validate: validations.isEmail
+              })}
             />
+            <div>
+            { errors.email ? (<span className='text-red-600'>{errors.email?.message}</span>) : <span></span>}
+            </div>
           </div>
 
           <div className='mb-4'>
@@ -39,8 +56,14 @@ export default function LoginView () {
               type='password'
               placeholder='Password'
               className='bg-gray-200 appearance-none h-12 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-300'
-              {...register('password')}
+              {...register('password', {
+                required: 'Este campo es requerido',
+                minLength: { value: 6, message: 'Minimo 6 caracteres' }
+              })}
             />
+            <div>
+            { errors.password ? (<span className='text-red-600'>{errors.password?.message}</span>) : <span></span>}
+            </div>
           </div>
 
           <div className='mb-4'>
