@@ -4,8 +4,13 @@ import Image from 'next/image'
 import Carousel from '../components/common/Carousel'
 import { faPhotoVideo, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useEffect } from 'react'
+import { backendApi } from '../lib'
+import { useCourses } from '../hooks/useCourses'
 
 export default function Home () {
+  const { courses } = useCourses('/courses/all')
+  console.log(courses)
   return (
     <Layout>
       <section>

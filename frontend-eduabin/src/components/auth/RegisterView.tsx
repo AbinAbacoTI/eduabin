@@ -3,22 +3,31 @@ import Link from 'components/ui/Link'
 import { AuthRegister } from 'interfaces/auth.interface'
 import { useRouter } from 'next/router'
 import { registerUser } from 'rdx/slice/auth.slice'
-import { useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../hooks/rdx.hooks'
+import { AuthContext } from '../../context/auth/AuthContext'
+import { validations } from 'utils'
 
 export default function RegisterView () {
-  const { handleSubmit, register } = useForm()
-  const dispatch = useDispatch()
+  const { signInUser } = useContext(AuthContext)
+  const [showError, setShowError] = useState(false)
+  const { handleSubmit, register, formState: { errors } } = useForm<AuthRegister>()
+  /* const dispatch = useDispatch() */
   const router = useRouter()
-  const { user, loading } = useAppSelector(state => state.authRdc)
+  /* const { user, loading } = useAppSelector(state => state.authRdc) */
 
-  const onSubmit = (data: AuthRegister) => {
-    dispatch(registerUser(data))
+  const onSubmit = async (data: AuthRegister) => {
+    const { hasError, message } = await signInUser(data)
+    if (hasError) {
+      setShowError(true)
+      return
+    }
+    router.replace('/')
   }
 
-  useEffect(() => { if (user) router.push('/') }, [loading])
+  /* useEffect(() => { if (user) router.push('/') }, [loading]) */
 
   return (
     <div className='w-full max-w-md'>
@@ -30,8 +39,14 @@ export default function RegisterView () {
             type='text'
             placeholder='Nombre completo'
             className='bg-gray-200 appearance-none h-12 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-300'
-            {...register('name')}
+            {...register('name', {
+              required: 'Campo es requerido',
+              minLength: { value: 3, message: 'Minimo 3 caracteres' }
+            })}
           />
+          <div>
+            { errors.name ? (<span>{errors.name?.message}</span>) : ''}
+          </div>
         </div>
 
         <div className='mb-4'>
@@ -39,8 +54,14 @@ export default function RegisterView () {
             type='email'
             placeholder='Email'
             className='bg-gray-200 appearance-none h-12 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-300'
-            {...register('email')}
+            {...register('email', {
+              required: 'Campo es requerido',
+              validate: validations.isEmail
+            })}
           />
+          <div>
+            { errors.email ? (<span>{errors.email?.message}</span>) : ''}
+          </div>
         </div>
 
         <div className='mb-4'>
@@ -48,8 +69,14 @@ export default function RegisterView () {
             type='password'
             placeholder='Password'
             className='bg-gray-200 appearance-none h-12 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-300'
-            {...register('password')}
+            {...register('password', {
+              required: 'Campo requerido',
+              minLength: { value: 6, message: 'Minimo 6 caracteres' }
+            })}
           />
+          <div>
+            { errors.password ? (<span>{errors.password?.message}</span>) : ''}
+          </div>
         </div>
 
         <div className='mb-4'>
