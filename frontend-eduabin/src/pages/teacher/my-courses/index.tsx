@@ -1,4 +1,4 @@
-import Card from 'components/Card'
+import Card from 'components/Cards/CardCourse'
 import SidebarLayout from 'components/common/Layouts/SidebarLayout'
 
 const MyCourses = () => {

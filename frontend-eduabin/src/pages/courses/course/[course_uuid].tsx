@@ -1,160 +1,126 @@
 
-import Avatar from 'components/common/Avatar'
+import { FavoriteBorderOutlined, PersonOutline } from '@mui/icons-material'
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, IconButton, Rating, Typography } from '@mui/material'
 import Comment from 'components/common/Comment'
 import Layout from 'components/common/Layouts/Layout'
-import CartShopping from 'components/icons/CartShopping'
-import Heart from 'components/icons/Heart'
-import Share from 'components/icons/Share'
-import Collapse from 'components/ui/Collapse'
-import Rating from 'components/ui/Rating'
 import Image from 'next/image'
-import { getOneCourse } from 'rdx/slice/course.slice'
-import { eduAbinWrapper } from 'rdx/store'
 
-const course_uuid = ({ course }) => {
+const course_uuid = () => {
   return (
     <Layout>
-      <div className='container mx-auto my-5 py-20 sm: md:px-3 lg:px-4  lg: xl: xl:px-40'>
-        <div className=' flex flex-wrap justify-center'>
-          <div className='mb-3 w-full sm:w-2/6 md: lg: xl:'>
-            <div className='md:rounded-lg h-60 overflow-hidden'>
-              <Image
-                src={'/images/marketing-img.jpg'}
-                width={200}
-                height={200}
-                objectFit='cover'
-                layout='responsive'
-                quality='85'
-                alt={ 'Course Image'} />
-            </div>
-            <div className='px-5 py-2'>
-              <div className='md:invisible md:absolute'>
-                <h1 className='text-2xl font-bold my-1'>{/* {course.course_name} */}</h1>
-                <p>{/* {course.description} */}</p>
-                <div className='my-3 px-5 flex'>
-                  <div className='flex justify-center'>
-                    <div className='inline-block h-10 w-10 rounded-full border-2  bg-black border-primary hover:border-secondary focus:border-secondary transition-colors ease-linear'>
-                    </div>
-                  </div>
-                  <div className='py-2 mx-4'>
-                    <h2>Nombre del profesor</h2>
-                  </div>
-                </div>
-                <div className='flex flex-col items-center my-4'>
-                  <div>
-                    <span>1,000 Estudiantes</span>
-                  </div>
-                  <div className='flex'>
-                    <div>
-                      <span className='text-base font-bold'></span>
-                    </div>
-                    <Rating value={3.5} />
-                  </div>
-                </div>
-              </div>
-              <div className='text-center'>
-                <span className='text-3xl font-bold'>S/. {/* {course.price} */}</span>
-              </div>
-              <div className='p-3 flex flex-col items-center'>
-                <button
-                  className='my-2 border-2 border-orange-600 w-11/12 h-12 text-white font-bold text-base bg-orange-600'
-                >Comprar ahora</button>
-                <button
-                  className='border-2 border-orange-600 w-11/12 h-12 text-orange-600 font-bold text-base bg-white'
-                >Agregar al carrito</button>
-              </div>
+      <section className='w-full h-400 relative'>
+        <Image src={'/images/bg202203.jpg'}
+          layout='fill'
+          className='object-bottom object-cover pointer-events-none brightness-50'
+        />
+        <div className='h-full py-16 relative z-1 flex items-center justify-center'>
+          <div className='px-20 text-white text-center'>
+            <p className='text-4xl uppercase'>Desarrollo de aplicaciones con Next.js</p>
+            <span>Home / Courses</span>
+          </div>
+        </div>
+      </section>
 
-              <div className='border-2 px-3'>
+      <div className='container mx-auto px-10 py-10'>
+        <div className='grid grid-cols-4 gap-1'>
+          <div className='col-span-3'>
+            <div className='flex justify-between'>
+              <div className='flex items-center justify-around w-2/5 border-2'>
+                <Avatar>H</Avatar>
                 <div>
-                  <h1 className='text-base font-bold'>Informacion del curso</h1>
+                  <Typography textTransform='uppercase'>jhon doe</Typography>
                 </div>
                 <div>
-                  <ul className='list-disc  px-5'>
-                    <li>{/* { course.total_duration } */} horas de aprendizaje</li>
-                    <li>{/* { course.total_modules } */} modulos</li>
-                    <li>12 archivos descargables</li>
-                    <li>Acceso por 6 meses</li>
-                    <li>1 Assesoria gratiuta</li>
-                    <li>Certificado de abin</li>
-                  </ul>
+                  <Typography>Last updated July 18, 2019</Typography>
                 </div>
               </div>
+              <div className='col-span-1 w-3/5'>
+                <a className='hover:text-orange-500 cursor-pointer'>
+                  <FavoriteBorderOutlined/>
+                  Agregar a favoritos
+                </a>
+                <a className='px-6 py-2 bg-blue-700'>
+                  Compartir
+                </a>
+              </div>
+            </div>
+            <div>
+              <h1 className='text-4xl'>The Complete Shopify Aliexpress Dropship</h1>
+            </div>
+            <div className='w-1/3 flex justify-around'>
+              <div>
+                <Rating value={3}/>
+              </div>
+              <div>
+                <PersonOutline fontSize='small' />
+              </div>
+            </div>
+            <div>
+              <div className='border shadow-md p-5 mt-4'>
+                Descipcion del curso
+              </div>
+            </div>
+
+            <div className='border shadow-md p-5 mt-4'>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Neque tempora magni iste enim doloribus placeat eos sint eius asperiores! Laboriosam, dolorum error.
+                  Atque obcaecati ullam autem voluptatibus dolores quasi architecto!</p>
+            </div>
+
+            <div className='border shadow-md p-5 mt-4'>
+              <Accordion>
+                <AccordionSummary
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>Accordion 1</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                    malesuada lacus ex, sit amet blandit leo lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+
+            <div className='border shadow-md p-5'>
+                <div>
+                  Instructor
+                </div>
+                <div className='flex'>
+                  <div className='w-1/4'>
+                    <Avatar
+                      sx={{ width: 80, height: 80 }}
+                    >H</Avatar>
+                  </div>
+                  <div className='w-3/4'>
+                      <div>
+                        <span>details</span>
+                      </div>
+                      <div>
+                        <h2>Afell Liberia</h2>
+                      </div>
+                      <div>
+                        <p>Hello! I am a Seattle/Tacoma, Washington area graphic designer with over
+                          6 years of graphic design experience. I specialize in designing infographics,
+                            icons, brochures, and flyers. Included in my estimate</p>
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+            <div className='border shadow-md p-5'>
+              <span>Comentarios</span>
             </div>
           </div>
-          <div className='w-full sm:w-4/6 md: lg: xl:'>
-            <div className='invisible absolute md:relative md:visible px-8 pt-3'>
-              <div className='flex items-center content-center justify-between'>
-                <div>
-                  <h1 className='text-3xl font-bold my-1'>{/* {course.course_name} */} Nombre de curso</h1>
-                </div>
-                <div className='flex items-center w-44'>
-                  <div className='mx-1'>
-                    <span>Compartir</span>
-                  </div>
-                  <div className='w-20 h-6 flex flex-row justify-around'>
-                    <Share color='orange'/>
-                    <CartShopping color='orange'/>
-                    <Heart color='orange'/>
-                  </div>
-                </div>
-              </div>
-              <p>{/* {course.description} */} Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto quo voluptatibus libero quaerat. Et consequuntur, quaerat, similique nulla ab explicabo esse, odit dolore quia cupiditate ex soluta eaque! Dignissimos, tenetur?</p>
-              <div className='border-2 flex flex-row justify-around content-center items-center my-5'>
-                <div className='my-3 px-5 flex'>
-                  <div className='flex justify-center'>
-                    <div className='inline-block h-10 w-10 rounded-full border-2 border-primary overflow-hidden'>
-                      <Avatar
-                        w={12}
-                        h={12}
-                      />
-                    </div>
-                  </div>
-                  <div className='py-2 mx-4'>
-                    <h2>{/* { course.author.name } */} Profesor name</h2>
-                  </div>
-                </div>
-                <div className='flex flex-col items-center'>
-                    <Rating value={3} />
-                    <div>
-                      <span className='font-semibold'>{/* { course.student_no} */} 23 Estudiantes</span>
-                    </div>
-                </div>
-                <div>
-                    <span>
-                      Actualizado el {/* { course.last_update } */}
-                    </span>
-                </div>
-              </div>
-            </div>
-            <div className='px-8'>
-              <div>
-                <h1 className='text-base font-bold'>Que aprenderas</h1>
-              </div>
-              <div>
-                <h1 className='text-base font-bold'>Obejetivos del curso</h1>
-              </div>
-              <div>
-                <h1 className='text-base font-bold'>Temario</h1>
-                <div>
-                  <Collapse title='Titulo de modulo'>
-                    Contenido de collapse para los curssos
-                  </Collapse>
-                </div>
-              </div>
-            </div>
-            <div className='px-8 flex'>
-              <div>
-                <Avatar
-                    w={12}
-                    h={12}
-                    />
-              </div>
-              <div className='w-full flex items-center'>
-                <Comment/>
-              </div>
+          <div className='col-span-1'>
+            <div className='border-2 rounded p-8'>
+              <span>dsds</span>
             </div>
           </div>
         </div>
+
       </div>
     </Layout>
   )

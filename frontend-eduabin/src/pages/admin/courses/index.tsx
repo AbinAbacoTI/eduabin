@@ -1,5 +1,5 @@
 import SidebarLayout from 'components/common/Layouts/SidebarLayout'
-import Card from 'components/Card/index'
+import Card from 'components/Cards/CardCourse/index'
 
 const courses = () => {
   return (

@@ -4,109 +4,83 @@ import { getCourses, getCoursesSector } from 'rdx/slice/course.slice'
 import { eduAbinWrapper } from '../../rdx/store/index'
 import { Tab } from '@headlessui/react'
 import { ICourses } from '../../interfaces/course.interface'
-import Card from 'components/Card'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper'
+import { Autocomplete, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup, TextField, Typography } from '@mui/material'
+import CardCourse from 'components/Cards/CardCourse'
+import Image from 'next/image'
+import { Search } from '@mui/icons-material'
 
 const Courses = () => {
   return (
     <Layout>
-      <div className='container mx-auto px-10'>
-        <section className='pt-10 flex justify-center'>
-          <div className='w-3/4 h-64 border-2 border-gray-700 rounded-lg flex items-center'>
-            <div className='p-8'>
-              <div>
-                <h2 className='text-2xl font-semibold'>Nombre de la promocion del curso que se esta mostrando</h2>
-              </div>
-              <div className='w-2/3 mt-2'>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia velit in harum vero rerum impedit nisi ipsam, autem, sint magni corrupti dolore. Rerum corrupti laboriosam dolorem officiis totam ut in.</p>
-              </div>
-              <div className='mt-3'>
-                <button className='py-2 px-10 border-2 border-gray-700'>Ver curso</button>
-              </div>
-            </div>
+      <section className='w-full h-400 relative'>
+        <Image src={'/images/bg202203.jpg'}
+          layout='fill'
+          className='object-bottom object-cover pointer-events-none brightness-50'
+        />
+        <div className='h-full py-16 relative z-1 flex items-center justify-center'>
+          <div className='px-20 text-white text-center'>
+            <p className='text-4xl uppercase'>Courses</p>
+            <span>Home / Courses</span>
           </div>
-        </section>
-        <section className='mx-10 my-10'>
-          <div>
-            <div className='px-20'>
-              <h1 className='text-3xl'>Cursos</h1>
-            </div>
-            <div>
-              <div className='flex flex-wrap'>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className='my-10'>
-          <div className='px-56'>
-            <Tab.Group>
-              <Tab.List className='border-b-2'>
-                <Tab className={({ selected }) => `border-orange-eduabin text-orange-eduabin py-2 px-5 ${selected ? 'border-b-4' : 'border-b-2'}`}>Marketing</Tab>
-                <Tab className={({ selected }) => `border-orange-eduabin text-orange-eduabin py-2 px-5 ${selected ? 'border-b-4' : 'border-b-2'}`}>Emprendimiento</Tab>
-              </Tab.List>
-              <Tab.Panels className='p-4'>
-                <Tab.Panel>
-                  <div className='flex justify-between'>
-                    <Card name='marketing 1' />
-                    <Card name='marketing 2' />
-                    <Card name='marketing 3' />
-                  </div>
-                </Tab.Panel>
-                <Tab.Panel>
-                  <div className='flex justify-between'>
-                    <Card name='emprendimiento 1' />
-                    <Card name='emprendimiento 2' />
-                    <Card name='emprendimiento 3' />
-                  </div>
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
-          </div>
-        </section>
-      </div>
-      <section className='my-10 py-10 bg-orange-eduabin'>
-        <div className='px-32'>
-          <p className='text-white text-base text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis pariatur voluptates illo optio corrupti voluptatum dignissimos minima, delectus in nam laudantium tempore facilis ea quo fugiat. Rerum eveniet reprehenderit assumenda!</p>
         </div>
       </section>
-      <div className='container mx-auto px-20'>
-        <section className='my-10'>
-          <div className='px-20'>
-            <Swiper
-              slidesPerView={3}
-              spaceBetween={30}
-              slidesPerGroup={3}
-              loop={true}
-              loopFillGroupWithBlank={true}
-              pagination={{ clickable: true }}
-              navigation={true}
-              modules={[Pagination, Navigation]}
-              className='mySwiper'
-            >
-              <SwiperSlide>
-                <Card />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Card />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Card />
-              </SwiperSlide>
-              <SwiperSlide>
-                <Card />
-              </SwiperSlide>
-              <SwiperSlide><Card /></SwiperSlide>
-              <SwiperSlide><Card /></SwiperSlide>
-            </Swiper>
+      <div className='container mx-auto px-10 py-10'>
+        <section className='flex justify-center'>
+          <div className='w-11/12 grid grid-cols-4'>
+              <div className='col-span-3 grid grid-cols-3 gap-2'>
+                <div className='col-span-3 flex justify-between mb-6'>
+                  <div className='w-2/5'>
+                    <span>2 cursos encontrados</span>
+                  </div>
+                  <div className='w-3/5 flex justify-evenly '>
+                  <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    sx={{ width: 300, boxShadow: '0px 3px 6px 0px rgb(0 0 0 / 9%)' }}
+                    options={[{ label: 'Default' }]}
+                    renderInput={(params) => <TextField {...params} label="Movie" />}
+                  />
+                  <TextField
+                    label="Buscar curso"
+                    sx={{ boxShadow: '0px 3px 6px 0px rgb(0 0 0 / 9%)' }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position='start'>
+                          <Search/>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  </div>
+                </div>
+                <CardCourse/>
+                <CardCourse/>
+                <CardCourse/>
+                <CardCourse/>
+                <CardCourse/>
+                <CardCourse/>
+              </div>
+              <div className='col-span-1'>
+                <div className='border-2 rounded p-8'>
+                <FormControl>
+                  <FormLabel id="demo-controlled-radio-buttons-group">
+                    <Typography fontSize='20px' fontWeight={600} lineHeight='30px'>
+                    Gender
+                    </Typography>
+                  </FormLabel>
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={'female'}
+                  >
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                  </RadioGroup>
+                </FormControl>
+                </div>
+              </div>
           </div>
         </section>
       </div>
