@@ -46,12 +46,17 @@ class UserRegistrationSerializer(UserCreateSerializer):
 # Serializer para Autentificacion de Usuario/Rederizacion
 class UserAuthSerializer(ModelSerializer):
     paid_courses=serializers.SerializerMethodField('get_paid_courses')  # Cursos Comprados
+    favorite_courses=serializers.SerializerMethodField('get_favorite_courses')  # Cursos Comprados
     remuneration=serializers.SerializerMethodField('get_remuneration')  # Cursos Comprados
 
     def get_paid_courses(self, User):   # Metodo para obtener los cursos comprados de un Usuario
         if User.user_type != 1:
             return []
         return Student.objects.get(user=User.id).get_all_courses()
+    def get_favorite_courses(self, User):   # Metodo para obtener los cursos favoritos de un Usuario
+        if User.user_type != 1:
+            return []
+        return Student.objects.get(user=User.id).get_all_favorites()
     def get_remuneration(self, User):
         if User.user_type != 1:
             return []
@@ -60,4 +65,4 @@ class UserAuthSerializer(ModelSerializer):
     class Meta:                         # Datos de Usuario a Renderizar/Serializar
         model=User
 
-        fields=["name", "user_type", "id", "email", "user_type", "remuneration", "paid_courses"]
+        fields=["name", "user_type", "id", "email", "remuneration", "paid_courses", "favorite_courses"]

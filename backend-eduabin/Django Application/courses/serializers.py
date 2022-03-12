@@ -1,13 +1,21 @@
 from unicodedata import decimal
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Additional_material, Category, Sector, Course, Comment, Module, Sub_topic, Topic
+from .models import Additional_material, Division, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic
 from users.serializers import UserSerializer
 import uuid
 
+# Serializer para la seccion
+class SectionSerializer(ModelSerializer):
+    class Meta:         # Datos de Seccion a renderizar/Serializar
+        model=Section
+        exclude=[
+            'id'
+        ]
+
 # Serializer para la categoría
 class CategorySerializer(ModelSerializer):
-    class Meta:         # Datos de Sector a renderizar/Serializar
+    class Meta:         # Datos de Categoria a renderizar/Serializar
         model=Category
         exclude=[
             'id'
@@ -17,6 +25,14 @@ class CategorySerializer(ModelSerializer):
 class SectorSerializer(ModelSerializer):
     class Meta:         # Datos de Sector a renderizar/Serializar
         model=Sector
+        exclude=[
+            'id'
+        ]
+
+# Serializer para la division
+class DivisionSerializer(ModelSerializer):
+    class Meta:         # Datos de Division a renderizar/Serializar
+        model=Division
         exclude=[
             'id'
         ]

@@ -58,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()     # crear un objeto para el manejo de usuarios
 
     def __str__(self) -> str:
-        return self.name + " " + self.email 
+        return self.name + " " + self.email
         
 # Se genera el modelo para el tipo de usuarios ESTUDIANTE
 class Student(models.Model):
@@ -77,6 +77,12 @@ class Student(models.Model):
     def get_all_courses(self):      # Metodo para obtener todos lo cursos comprados del usuario
         courses=[]
         for course in self.paid_courses.all():
+            courses.append(course.course_uuid)
+        return courses
+    
+    def get_all_favorites(self):      # Metodo para obtener todos lo cursos comprados del usuario
+        courses=[]
+        for course in self.favorite_courses.all():
             courses.append(course.course_uuid)
         return courses
     
