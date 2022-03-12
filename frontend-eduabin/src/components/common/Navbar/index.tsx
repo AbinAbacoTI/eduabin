@@ -5,17 +5,13 @@ import CartShoppingRegular from 'components/icons/CartShoppingRegular'
 import Bars from 'components/icons/Bars'
 import Times from 'components/icons/Times'
 import Search from 'components/icons/Search'
-import { useDispatch } from 'react-redux'
-import { fetchUser, logout } from 'rdx/slice/auth.slice'
-import Router from 'next/router'
-import { useAppSelector } from '../../../hooks/rdx.hooks'
-import Cart from '../Cart'
 import { AuthContext } from '../../../context/auth/AuthContext'
+import AvatarAuthMenu from '../AvatarAuthMenu'
 
 const Navbar = () => {
   const [fixed, setFixed] = useState('')
   const listenScrollEvent = () => {
-    window.scrollY > 10 ? setFixed('fixed') : setFixed('')
+    window.scrollY > 10 ? setFixed('bg-white text-black') : setFixed('text-white')
   }
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent)
@@ -23,21 +19,14 @@ const Navbar = () => {
       window.addEventListener('scroll', listenScrollEvent)
     }
   }, [])
-  const dispatch = useDispatch()
-  useEffect(() => { dispatch(fetchUser()) }, [])
 
-  /* const { user } = useAppSelector(state => state.authRdc) */
-  const { user, isLoggedIn } = useContext(AuthContext)
+  const { user, isLoggedIn, logOutUser } = useContext(AuthContext)
   const [isOpen, setIsOpen] = useState(false)
 
-  const handleLogout = () => {
-    dispatch(logout())
-    Router.push('/')
-  }
   return (
     <div>
-      <nav className={`shadow-sm w-full bg-white z-10 ${fixed}`}>
-        <div className="w-full">
+      <nav className={`shadow-sm w-full bg-transparent border-b z-10 fixed  ${fixed}`}>
+        <div className="w-full ">
           <div className="flex items-center h-20 w-full">
             <div className="flex items-center  mx-20  justify-between w-full">
               <div className="flex justify-center items-center flex-shrink-0 ">
@@ -49,7 +38,7 @@ const Navbar = () => {
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
 
-                  <div className=" bg-white">
+                  <div>
                     <div className="container  flex justify-center items-center px-4 mt-4 sm:px-6 lg:px-8">
                       <div className="relative"> <input type="text" className="h-10 w-96 pr-8 pl-5 rounded z-0 focus:shadow focus:outline-none border-2" placeholder="Busca el curso que quieras..." />
                         <div className="absolute top-4 right-3"> <i className="fa fa-search text-shadow-400 z-20 hover:text-shadow-500"></i> </div>
@@ -63,7 +52,7 @@ const Navbar = () => {
                     smooth="true"
                     offset={50}
                     duration={500}
-                    className="cursor-pointer text-orange-600 font-semibold px-3 py-2 text-md hover:font-black"
+                    className="cursor-pointer font-semibold px-3 py-2 text-md"
                   >
                     Inicio
                   </Link>
@@ -73,7 +62,7 @@ const Navbar = () => {
                     smooth="true"
                     offset={50}
                     duration={500}
-                    className="cursor-pointer hover:bg-orange-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="cursor-pointer px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Nuestros Cursos
                   </Link>
@@ -83,7 +72,7 @@ const Navbar = () => {
                     smooth="true"
                     offset={50}
                     duration={5000}
-                    className="cursor-pointer hover:bg-orange-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="cursor-pointer px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Eventos
                   </Link>
@@ -100,8 +89,8 @@ const Navbar = () => {
                     <CartShoppingRegular className="h-4 w-7 "/>
                   </Link>
                   {
-                    !user
-                      ? (
+                    !isLoggedIn &&
+                      (
                     <Link
                       href="/auth/login"
                       to="checkout"
@@ -112,15 +101,10 @@ const Navbar = () => {
                     >
                       Inicar Sesion
                     </Link>
-                        )
-                      : (
-                      <>
-                        <span>{user.name}</span>
-                        <button
-                          onClick={() => handleLogout()}
-                        >Cerrar session</button>
-                      </>
-                        )
+                      )
+                  }
+                  {
+                    isLoggedIn && (<AvatarAuthMenu user={user} logOut={logOutUser}/>)
                   }
                 </div>
               </div>

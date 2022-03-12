@@ -5,7 +5,7 @@ import { authReducer } from './authReducer'
 import { frontendApi } from '../../lib/fetchApi'
 import Cookie from 'js-cookie'
 import axios from 'axios'
-
+import { useRouter } from 'next/router'
 export interface AuthState {
   isLoggedIn: boolean;
   user?: IUser
@@ -18,7 +18,7 @@ const AUTH_INITIAL_STATE: AuthState = {
 
 export const AuthProvider:FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE)
-
+  const router = useRouter()
   useEffect(() => {
     checkToken()
   }, [])
@@ -71,11 +71,17 @@ export const AuthProvider:FC = ({ children }) => {
     }
   }
 
+  const logOutUser = () => {
+    Cookie.remove('token')
+    router.reload()
+  }
+
   return (
     <AuthContext.Provider value={{
       ...state,
       loginUser,
-      signInUser
+      signInUser,
+      logOutUser
     }}>
       { children }
     </AuthContext.Provider>
