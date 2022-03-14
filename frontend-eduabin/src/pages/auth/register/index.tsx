@@ -1,7 +1,7 @@
 import RegisterView from 'components/auth/RegisterView'
 import Layout from 'components/common/Layouts/Layout'
 import { GetServerSideProps } from 'next'
-import cookie from 'cookie'
+import { getSession } from 'next-auth/react'
 
 const Register = () => {
   return (
@@ -13,19 +13,17 @@ const Register = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  if (req.headers.cookie) {
-    const cookies = cookie.parse(req.headers.cookie)
-    if (cookies && cookies.refresh_token) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false
-        }
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+  const session = await getSession({ req })
+  const { p = '/' } = query
+  if (session) {
+    return {
+      redirect: {
+        destination: p.toString(),
+        permanent: false
       }
     }
   }
-
   return {
     props: {}
   }

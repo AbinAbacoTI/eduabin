@@ -1,4 +1,3 @@
-
 import Layout from 'components/common/Layouts/Layout'
 import Image from 'next/image'
 import Carousel from '../components/common/Carousel'

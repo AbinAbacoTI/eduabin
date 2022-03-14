@@ -1,36 +1,29 @@
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
-import { AuthContext } from 'context'
-import { useAppSelector } from 'hooks/rdx.hooks'
 import { AuthLogin } from 'interfaces/auth.interface'
 import { useRouter } from 'next/router'
-import { login } from 'rdx/slice/auth.slice'
-import { useContext, useEffect, useState } from 'react'
+import { signIn, getProviders } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
 import { validations } from 'utils'
 
 export default function LoginView () {
   const [showError, setShowError] = useState(false)
-  const { loginUser } = useContext(AuthContext)
+  const [providers, setProviders] = useState<any>({})
+  useEffect(() => {
+    getProviders().then(prov => {
+      setProviders(prov)
+    })
+  }, [])
 
   const { register, handleSubmit, formState: { errors } } = useForm<AuthLogin>()
   const router = useRouter()
-  /* const dispatch = useDispatch() */
-
-  /* const { user, loading } = useAppSelector(state => state.authRdc) */
 
   const onSubmit = async (data: AuthLogin) => {
-    const isValidLogin = await loginUser(data.email, data.password)
-    if (!isValidLogin) {
-      setShowError(true)
-      return
-    }
+    const { email, password } = data
 
-    router.replace('/')
+    await signIn('credentials', { email, password })
   }
-
-  /* useEffect(() => { if (user) router.push('/') }, [loading]) */
 
   return (
       <div className='w-full max-w-md'>
@@ -80,10 +73,26 @@ export default function LoginView () {
               </Link>
             </span>
           </div>
-          <div className='text-center text-orange-600 font-semibold'>
+          <div className='text-center mb-4 text-orange-600 font-semibold'>
             <Link href='#'>
                 ¿Has olvidado la contraseña?
             </Link>
+          </div>
+          <div className='flex flex-col pt-2 border-t-2'>
+              {
+                Object.values(providers).map((provider:any) => {
+                  if (provider.id === 'credentials') return (<div key='credentials'></div>)
+                  return (
+                    <button
+                      key={provider.id}
+                      onClick={() => signIn(provider.id)}
+                      className="border-2 border-gray-500 rounded-xl h-10 m-1"
+                    >
+                      { provider.name }
+                    </button>
+                  )
+                })
+              }
           </div>
         </form>
       </div>

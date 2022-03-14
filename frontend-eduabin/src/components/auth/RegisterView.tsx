@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { useAppSelector } from '../../hooks/rdx.hooks'
 import { AuthContext } from '../../context/auth/AuthContext'
 import { validations } from 'utils'
+import { signIn } from 'next-auth/react'
 
 export default function RegisterView () {
   const { signInUser } = useContext(AuthContext)
@@ -19,12 +20,13 @@ export default function RegisterView () {
   /* const { user, loading } = useAppSelector(state => state.authRdc) */
 
   const onSubmit = async (data: AuthRegister) => {
+    const { email, password } = data
     const { hasError, message } = await signInUser(data)
     if (hasError) {
       setShowError(true)
       return
     }
-    router.replace('/')
+    await signIn('credentials', { email, password })
   }
 
   /* useEffect(() => { if (user) router.push('/') }, [loading]) */

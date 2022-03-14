@@ -1,7 +1,7 @@
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/react'
 import LoginView from 'components/auth/LoginView'
 import Layout from 'components/common/Layouts/Layout'
-import { GetServerSideProps } from 'next'
-import cookie from 'cookie'
 
 const Login = () => {
   return (
@@ -12,16 +12,15 @@ const Login = () => {
     </Layout>
   )
 }
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  if (req.headers.cookie) {
-    const cookies = cookie.parse(req.headers.cookie)
-    console.log('Cookies login', cookies)
-    if (cookies && cookies.refresh_token) {
-      return {
-        redirect: {
-          destination: '/',
-          permanent: false
-        }
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+  const session = await getSession({ req })
+
+  const { p = '/' } = query
+  if (session) {
+    return {
+      redirect: {
+        destination: p.toString(),
+        permanent: false
       }
     }
   }
