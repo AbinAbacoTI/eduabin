@@ -14,6 +14,7 @@ import uuid
 class Section(models.Model):
     name_section = models.CharField(max_length=255)
     section_uuid=models.UUIDField(default=uuid.uuid4,unique=True)        # ID de la categoría
+    section_image = models.ImageField(upload_to='section_image')        # imagen de la sección
     related_category = models.ManyToManyField('Category', blank=True)        # Campo de relación con el sector
     def __str__(self):
         return self.name_section
@@ -36,7 +37,7 @@ class Sector(models.Model):
     name = models.CharField(max_length=255)                             # Nombre del Sector
     sector_uuid=models.UUIDField(default=uuid.uuid4,unique=True)        # ID del Sector
     related_course = models.ManyToManyField('Course', blank=True, related_name='related_course')       # Campo de relacion con el curso
-    related_division = models.ManyToManyField('Course', blank=True, related_name='related_division')
+    related_division = models.ManyToManyField('Division', blank=True, related_name='related_division')
     sector_image = models.ImageField(upload_to='sector_image')          # imagen del Sector
 
     def __str__(self):
