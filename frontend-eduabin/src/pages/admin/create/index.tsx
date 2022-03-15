@@ -23,8 +23,8 @@ const create = () => {
        <table className='min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700 rounded-b-lg'>
         <thead>
          <tr className='py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400'>
-          <th>Nombre</th>
-          <th>Imagen</th>
+          <th>Name</th>
+          <th>Image</th>
          </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@ const create = () => {
           categories.map(category => (
            <tr key={`category-create-${category.category_uuid}`}>
              <td>{category.category_name}</td>
-             <td>por definir</td>
+             <td>por defined </td>
            </tr>
           ))
          }

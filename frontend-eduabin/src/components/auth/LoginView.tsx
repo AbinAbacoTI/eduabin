@@ -1,23 +1,15 @@
+import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
+import { AuthLogin } from 'interfaces/auth.interface'
+import { validations } from 'utils'
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
-import { AuthLogin } from 'interfaces/auth.interface'
-import { useRouter } from 'next/router'
-import { signIn, getProviders } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { validations } from 'utils'
 
 export default function LoginView () {
   const [showError, setShowError] = useState(false)
-  const [providers, setProviders] = useState<any>({})
-  useEffect(() => {
-    getProviders().then(prov => {
-      setProviders(prov)
-    })
-  }, [])
 
   const { register, handleSubmit, formState: { errors } } = useForm<AuthLogin>()
-  const router = useRouter()
 
   const onSubmit = async (data: AuthLogin) => {
     const { email, password } = data
@@ -77,22 +69,6 @@ export default function LoginView () {
             <Link href='#'>
                 ¿Has olvidado la contraseña?
             </Link>
-          </div>
-          <div className='flex flex-col pt-2 border-t-2'>
-              {
-                Object.values(providers).map((provider:any) => {
-                  if (provider.id === 'credentials') return (<div key='credentials'></div>)
-                  return (
-                    <button
-                      key={provider.id}
-                      onClick={() => signIn(provider.id)}
-                      className="border-2 border-gray-500 rounded-xl h-10 m-1"
-                    >
-                      { provider.name }
-                    </button>
-                  )
-                })
-              }
           </div>
         </form>
       </div>

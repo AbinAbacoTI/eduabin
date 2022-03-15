@@ -1,12 +1,11 @@
-import { IUser } from 'interfaces'
 import { FC, useEffect, useReducer } from 'react'
 import { useSession, signOut } from 'next-auth/react'
+import axios from 'axios'
+import Cookie from 'js-cookie'
+import { IUser } from 'interfaces'
 import { AuthContext } from './AuthContext'
 import { authReducer } from './authReducer'
 import { frontendApi } from '../../lib/fetchApi'
-import Cookie from 'js-cookie'
-import axios from 'axios'
-import { useRouter } from 'next/router'
 export interface AuthState {
   isLoggedIn: boolean;
   user?: IUser
@@ -20,18 +19,12 @@ const AUTH_INITIAL_STATE: AuthState = {
 export const AuthProvider:FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE)
   const { data, status } = useSession()
-  const router = useRouter()
 
   useEffect(() => {
     if (status === 'authenticated') {
-      console.log({ user: data?.user })
       dispatch({ type: '[auth]-login', payload: data?.user as IUser })
     }
   }, [status, data])
-  /*
-  useEffect(() => {
-    checkToken()
-  }, []) */
 
   const checkToken = async () => {
     if (!Cookie.get('token')) return
@@ -83,8 +76,7 @@ export const AuthProvider:FC = ({ children }) => {
 
   const logOutUser = () => {
     signOut()
-    /* Cookie.remove('token')
-    router.reload() */
+    /* Cookie.remove('token') */
   }
 
   return (

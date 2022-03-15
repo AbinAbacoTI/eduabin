@@ -1,5 +1,4 @@
 import NextAuth from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 import { checkUser } from '../../../helpers/checkUser'
 
@@ -22,10 +21,6 @@ export default NextAuth({
       async authorize (credentials) {
         return await checkUser(credentials.email, credentials.password)
       }
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET
     })
   ],
   pages: {
@@ -43,7 +38,7 @@ export default NextAuth({
         token.accessToken = account.access_token
         switch (account.type) {
           case 'oauth':
-            // check User or create User
+            // check User or create User with social networks
             break
           case 'credentials':
             token.user = user

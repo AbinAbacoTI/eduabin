@@ -25,6 +25,4 @@ export const checkUser = async (email: string, password: string) => {
   }
 }
 
-export const checkOrCreateUserToOauth = async (oAuthEmail: string, oAuthName: string) => {
-
-}
+export const checkOrCreateUserToOauth = async (oAuthEmail: string, oAuthName: string) => { }
