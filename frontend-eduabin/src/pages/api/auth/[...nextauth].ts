@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { checkUser } from '../../../helpers/checkUser'
+import { NextAuthJwt, NextAuthSession } from '../../../interfaces'
 
 export default NextAuth({
   providers: [
@@ -33,7 +34,7 @@ export default NextAuth({
     updateAge: 86400
   },
   callbacks: {
-    async jwt ({ token, account, user }) {
+    async jwt ({ token, account, user }: NextAuthJwt) {
       if (account) {
         token.accessToken = account.access_token
         switch (account.type) {
@@ -41,15 +42,16 @@ export default NextAuth({
             // check User or create User with social networks
             break
           case 'credentials':
-            token.user = user
+            token.user.user = user
             break
         }
       }
       return token
     },
-    async session ({ session, token, user }) {
+    async session ({ session, token, user }: NextAuthSession) {
       session.accessToken = token.accessToken
-      session.user = token.user
+      session.user.token = token.user.token
+      session.user.user = token.user.user
       return session
     }
   }

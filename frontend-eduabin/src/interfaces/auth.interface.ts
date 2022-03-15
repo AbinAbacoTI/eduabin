@@ -1,3 +1,4 @@
+import { Account, Session } from 'next-auth/core/types'
 
 export interface AuthRegister {
   name: string
@@ -17,4 +18,27 @@ export interface IUser {
   email: string;
   remuneration: [];
   paid_courses: []
+}
+
+export interface NextAuthJwt{
+  token: {
+    user: {
+      user: IUser
+    },
+    accessToken: string
+  },
+  account: Account,
+  user: any
+}
+
+export interface NextAuthSession {
+  session: Session,
+  token: {
+    user: {
+      user: IUser,
+      token: string
+    },
+    accessToken: string
+  },
+  user: any
 }

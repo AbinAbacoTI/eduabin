@@ -1,6 +1,7 @@
-import { backendApi } from 'lib'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { AuthLogin, IUser } from '../../../interfaces/auth.interface'
+import { backendApi } from 'lib'
+import Cookie from 'js-cookie'
 
 type Data =
 | { msg: string }
@@ -26,7 +27,6 @@ const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     const { data } = await backendApi.post<{ refresh:string, access: string }>('/auth/jwt/create/', { email: email.toLocaleLowerCase(), password })
     const { access } = data
-    console.log('access_token', access)
     const user = await userData(access)
 
     return res.status(200).json({

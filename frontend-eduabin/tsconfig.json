@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "typeRoots": ["./src/types"],
     "target": "es5",
     "lib": [
       "dom",
@@ -28,5 +29,5 @@
 , "src/context/AuthContext.js"  ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }

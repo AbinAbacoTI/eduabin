@@ -20,9 +20,10 @@ export const AuthProvider:FC = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, AUTH_INITIAL_STATE)
   const { data, status } = useSession()
 
+  Cookie.set('token', data?.user.token)
   useEffect(() => {
     if (status === 'authenticated') {
-      dispatch({ type: '[auth]-login', payload: data?.user as IUser })
+      dispatch({ type: '[auth]-login', payload: data?.user.user })
     }
   }, [status, data])
 
@@ -76,13 +77,12 @@ export const AuthProvider:FC = ({ children }) => {
 
   const logOutUser = () => {
     signOut()
-    /* Cookie.remove('token') */
+    Cookie.remove('token')
   }
 
   return (
     <AuthContext.Provider value={{
       ...state,
-      loginUser,
       signInUser,
       logOutUser
     }}>

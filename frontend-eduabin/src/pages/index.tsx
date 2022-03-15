@@ -3,7 +3,7 @@ import Layout from 'components/common/Layouts/Layout'
 import Carousel from '../components/common/Carousel'
 import CardCourse from 'components/Cards/CardCourse'
 import Link from 'components/ui/Link'
-import { useSections } from 'hooks/useSections'
+import { useSections } from 'hooks'
 
 export default function Home () {
   const { sections, isLoading, isError } = useSections()
