@@ -1,33 +1,26 @@
+import { useContext, useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
+import { AuthContext } from '../../context/auth/AuthContext'
+import { AuthRegister } from 'interfaces/auth.interface'
+import { validations } from 'utils'
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
-import { AuthRegister } from 'interfaces/auth.interface'
-import { useRouter } from 'next/router'
-import { registerUser } from 'rdx/slice/auth.slice'
-import { useContext, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { useAppSelector } from '../../hooks/rdx.hooks'
-import { AuthContext } from '../../context/auth/AuthContext'
-import { validations } from 'utils'
 
 export default function RegisterView () {
   const { signInUser } = useContext(AuthContext)
   const [showError, setShowError] = useState(false)
   const { handleSubmit, register, formState: { errors } } = useForm<AuthRegister>()
-  /* const dispatch = useDispatch() */
-  const router = useRouter()
-  /* const { user, loading } = useAppSelector(state => state.authRdc) */
 
   const onSubmit = async (data: AuthRegister) => {
+    const { email, password } = data
     const { hasError, message } = await signInUser(data)
     if (hasError) {
       setShowError(true)
       return
     }
-    router.replace('/')
+    await signIn('credentials', { email, password })
   }
-
-  /* useEffect(() => { if (user) router.push('/') }, [loading]) */
 
   return (
     <div className='w-full max-w-md'>

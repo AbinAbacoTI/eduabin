@@ -1,10 +1,12 @@
-
-import Layout from 'components/common/Layouts/Layout'
 import Image from 'next/image'
+import Layout from 'components/common/Layouts/Layout'
 import Carousel from '../components/common/Carousel'
 import CardCourse from 'components/Cards/CardCourse'
+import Link from 'components/ui/Link'
+import { useSections } from 'hooks/useSections'
 
 export default function Home () {
+  const { sections, isLoading, isError } = useSections()
   return (
     <Layout>
       <section>
@@ -13,24 +15,24 @@ export default function Home () {
       <div className='container mx-auto px-20'>
         <section className='my-10 border-2 flex justify-center'>
           <div className='w-4/6 h-60 grid grid-cols-4 gap-2'>
-            <div className='border-2 col-span-2 rounded-md relative'>
-              <Image src={'/images/bg202203.jpg'}
-                layout='fill'
-                className='object-bottom object-cover pointer-events-none brightness-50'
-              />
-              <div className='relative h-full flex justify-center items-end hover:bg-blue-transparent transition-all duration-150'>
-                <div className='mb-6'>
-                  <h2 className='text-white text-xl'>Nombre de sector</h2>
+          {
+              sections.map(section => (
+                <Link href={`section/${section.section_uuid}`}
+                  key={`section-key-${section.section_uuid}`}
+                  className='border-2 col-span-2 rounded-md relative h-60'
+                >
+                <Image src={section.section_image}
+                  layout='fill'
+                  className='object-bottom object-cover pointer-events-none brightness-50'
+                />
+                <div className='relative h-full flex justify-center items-end hover:bg-blue-transparent transition-all duration-150'>
+                  <div className='mb-6'>
+                    <h2 className='text-white text-xl'>{ section.name_section }</h2>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className='border-2 col-span-2 rounded-md relative'>
-              <Image src={'/images/bg202203.jpg'}
-                layout='fill'
-                className='object-bottom object-cover pointer-events-none brightness-50'
-              />
-              <div>Asa</div>
-            </div>
+              </Link>
+              ))
+            }
           </div>
         </section>
         <section className='border'>

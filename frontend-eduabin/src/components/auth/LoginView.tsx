@@ -1,36 +1,21 @@
+import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
+import { AuthLogin } from 'interfaces/auth.interface'
+import { validations } from 'utils'
 import Button from 'components/ui/Button'
 import Link from 'components/ui/Link'
-import { AuthContext } from 'context'
-import { useAppSelector } from 'hooks/rdx.hooks'
-import { AuthLogin } from 'interfaces/auth.interface'
-import { useRouter } from 'next/router'
-import { login } from 'rdx/slice/auth.slice'
-import { useContext, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { validations } from 'utils'
 
 export default function LoginView () {
   const [showError, setShowError] = useState(false)
-  const { loginUser } = useContext(AuthContext)
 
   const { register, handleSubmit, formState: { errors } } = useForm<AuthLogin>()
-  const router = useRouter()
-  /* const dispatch = useDispatch() */
-
-  /* const { user, loading } = useAppSelector(state => state.authRdc) */
 
   const onSubmit = async (data: AuthLogin) => {
-    const isValidLogin = await loginUser(data.email, data.password)
-    if (!isValidLogin) {
-      setShowError(true)
-      return
-    }
+    const { email, password } = data
 
-    router.replace('/')
+    await signIn('credentials', { email, password })
   }
-
-  /* useEffect(() => { if (user) router.push('/') }, [loading]) */
 
   return (
       <div className='w-full max-w-md'>
@@ -80,7 +65,7 @@ export default function LoginView () {
               </Link>
             </span>
           </div>
-          <div className='text-center text-orange-600 font-semibold'>
+          <div className='text-center mb-4 text-orange-600 font-semibold'>
             <Link href='#'>
                 ¿Has olvidado la contraseña?
             </Link>

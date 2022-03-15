@@ -61,3 +61,10 @@ export interface ISectorCourseById {
   sector_name: string;
   total_students: number;
 }
+
+export interface ISection {
+  name_section: string;
+  section_uuid: string;
+  section_image: string;
+  related_category: number[];
+}
