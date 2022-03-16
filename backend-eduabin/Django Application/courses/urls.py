@@ -7,7 +7,9 @@ urlpatterns = [
     path('all', AllCoursesHomeView.as_view()),                  # Home con todos los cursos
     path('search/<str:search_term>/', SearchCourse.as_view()),  # Vista de busqueda de curso
     path('<uuid:sector_uuid>/', SectorCourse.as_view()),        # Vista de Sector 
-    path('detail/<uuid:course_uuid>/',CourseDetail.as_view()),  # Vista de Detalles del Curso
+    path('detail/section/<uuid:section_uuid>/',SectionDetail.as_view()),# Vista de Detalles de la Sección
+    path('detail/sector/<uuid:sector_uuid>/',SectorDetail.as_view()),  # Vista de Detalles del Sector
+    path('detail/course/<uuid:course_uuid>/',CourseDetail.as_view()),  # Vista de Detalles del Curso
     path('comment/<course_uuid>/', AddComment.as_view()),       # Vista de Comentarios
     path('cart/', GetCartDetail.as_view()),                     # vista de adiciones al Carrito
     path('study/<uuid:course_uuid>/', CourseStudy.as_view()),   # Vista de Cursos Comprados

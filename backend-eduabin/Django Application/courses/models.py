@@ -18,6 +18,9 @@ class Section(models.Model):
     related_category = models.ManyToManyField('Category', blank=True)        # Campo de relación con el sector
     def __str__(self):
         return self.name_section
+    #  /media/sector_image/what.png
+    def get_image_absolute_url(self):
+        return 'http://localhost:8000'+self.section_image.url            # Obtiene la imagen del Url
 
 #Se genera el modelo de la categoría
 class Category(models.Model):

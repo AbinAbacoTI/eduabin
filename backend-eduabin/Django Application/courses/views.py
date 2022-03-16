@@ -3,11 +3,13 @@ from courses.models import Section, Category, Sector, Course
 from users.models import Student
 from .serializers import (CategoryDisplaySerializer,
                           CourseDisplaySerializer, 
+                          SectionUnpaidSerializer,
                           CourseUnpaidSerializer,
                           CourseListSerializer,
                           CommentSerializer,
                           CartItemSerializer,
-                          CoursePaidSerializer)
+                          CoursePaidSerializer,
+                          SectorDisplaySerializer)
 
 from rest_framework.views import APIView
 from rest_framework import status
@@ -65,6 +67,30 @@ class AllCoursesHomeView(APIView):
         courses_Serializer=CourseDisplaySerializer(courses,many=True)
         
         return Response(data=courses_Serializer.data,status=status.HTTP_200_OK)
+
+# Vista de los detalles de la sección
+class SectionDetail(APIView):
+    def get(self, request, section_uuid, *args, **kwargs):
+        section=Section.objects.filter(section_uuid=section_uuid)
+
+        if not section:
+            return HttpResponseBadRequest('section does not exist')
+
+        serializer=SectionUnpaidSerializer(section[0])
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+# Vista de los detalles de la sección
+class SectorDetail(APIView):
+    def get(self, request, sector_uuid, *args, **kwargs):
+        sector=Sector.objects.filter(sector_uuid=sector_uuid)
+
+        if not sector:
+            return HttpResponseBadRequest('sector does not exist')
+
+        serializer=SectorDisplaySerializer(sector[0])
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 # Vista de los detalles del curso
 class CourseDetail(APIView):

@@ -29,21 +29,27 @@ class SectorSerializer(ModelSerializer):
             'id'
         ]
 
-# Serializer para la division
-class DivisionSerializer(ModelSerializer):
-    class Meta:         # Datos de Division a renderizar/Serializar
-        model=Division
-        exclude=[
-            'id'
-        ]
-
 # Serializer para el curso
 class CourseSerializer(ModelSerializer):
     # campos adicionales para rendericacion
     author = UserSerializer(read_only=True)                                 # Autor del Curso(Extraido del Serializer del Profesor)
+    image_url = serializers.CharField(source='get_absolute_image_url')      # Imagen del Curso
 
     class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
+        fields=[
+            'course_name',
+            'author',
+            'image_url',
+            'valoration',
+            'price',
+        ]
+
+# Serializer para la division
+class DivisionSerializer(ModelSerializer):
+    related_course = CourseSerializer(many=True)
+    class Meta:         # Datos de Division a renderizar/Serializar
+        model=Division
         exclude=[
             'id'
         ]
@@ -72,14 +78,36 @@ class CourseDisplaySerializer(ModelSerializer):
 # Serializer para los datos de los sectores/Rederizacion (Aun sin Comprar)
 class SectorDisplaySerializer(ModelSerializer):
     sector_image = serializers.CharField(source='get_image_absolute_url')      # Imagen del Sector
-    related_course = CourseDisplaySerializer(many=True)
+    content = serializers.SerializerMethodField('get_content')  
+    division_exist = serializers.SerializerMethodField('check_division') 
+
+    def get_divisions(self, Sector):
+        sector_divisions = Sector.related_division
+        division_serializer = DivisionSerializer(sector_divisions, many=True)
+        return division_serializer.data
+
+    def get_content(self, Sector):
+        divisions = self.get_divisions(Sector)
+        if divisions == []:
+            sector_courses = Sector.related_course
+            course_serializer = CourseSerializer(sector_courses, many=True)
+            return course_serializer.data
+        return divisions
+
+    def check_division(self, Sector):
+        divisions = self.get_divisions(Sector)
+        if divisions == []:
+            return False
+        return True
+
     class Meta:         # Datos de Sector a renderizar/Serializar
         model=Sector
         fields=[
             'name',
             'sector_uuid',
             'sector_image',
-            'related_course'
+            'content',
+            'division_exist',
         ]
 
 # Serializer para los datos de las categorias/Rederizacion (Aun sin Comprar)
@@ -211,6 +239,39 @@ class CoursePaidSerializer(ModelSerializer):
 
     class Meta:         # Datos de Curso a Renderizar/Serializar
         model=Course
+        exclude=[
+            'id',
+        ]
+
+class SectorUnpaidSerializer(ModelSerializer):
+    # Campos adicionales para renderizar/Serializar
+    image_url=serializers.CharField(source='get_image_absolute_url')    # URL de imagen de la sección
+
+    class Meta:         # Datos de  a Renderizar/Serializar
+        model=Sector
+        exclude=[
+            'id',
+            'related_course',
+            'related_division',
+        ]
+
+class CategoryUnpaidSerializer(ModelSerializer):
+    # Campos adicionales para renderizar/Serializar
+    image_url=serializers.CharField(source='get_image_absolute_url')    # URL de imagen de la sección
+    related_sector=SectorUnpaidSerializer(many=True)
+    class Meta:         # Datos de  a Renderizar/Serializar
+        model=Category
+        exclude=[
+            'id',
+        ]
+
+class SectionUnpaidSerializer(ModelSerializer):
+    # Campos adicionales para renderizar/Serializar
+    image_url=serializers.CharField(source='get_image_absolute_url')    # URL de imagen de la sección
+    related_category=CategoryUnpaidSerializer(many=True)
+
+    class Meta:         # Datos de  a Renderizar/Serializar
+        model=Section
         exclude=[
             'id',
         ]
