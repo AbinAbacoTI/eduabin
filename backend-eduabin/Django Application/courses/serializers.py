@@ -263,6 +263,7 @@ class CategoryUnpaidSerializer(ModelSerializer):
         model=Category
         exclude=[
             'id',
+            'category_image',
         ]
 
 class SectionUnpaidSerializer(ModelSerializer):
@@ -274,7 +275,6 @@ class SectionUnpaidSerializer(ModelSerializer):
         model=Section
         exclude=[
             'id',
-            'category_image',
         ]
 
 # Serializer para los datos de los cursos/Rederizacion
