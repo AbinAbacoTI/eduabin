@@ -3,7 +3,7 @@ import SidebarLayout from 'components/common/Layouts/SidebarLayout'
 const info = () => {
   return (
     <SidebarLayout>
-      <form className="w-11/12 m-auto bg-gray-100 py-10 px-1">
+      <div className="w-11/12 m-auto py-10 px-1">
         <p className="text-4xl">Información de la Cuenta</p>
         <br></br>
         <div className="mb-6">
@@ -65,7 +65,7 @@ const info = () => {
         >
           Guardar Cambios
         </button>
-      </form>
+      </div>
     </SidebarLayout>
   )
 }
