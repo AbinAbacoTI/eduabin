@@ -22,16 +22,16 @@ const profile = () => {
                 >
                     Información de la Cuenta
                 </button>
-                <button
+                <Link href='/teacher/profile/payment-method'
                     className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
                 >
                     Método de Cobro
-                </button>
-                <button
+                </Link>
+                <Link href='/teacher/profile/other-config'
                     className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
                 >
                     Otras configuraciones
-                </button>
+                </Link>
             </div>
         </section><br></br><br></br><br></br><div className="border-2 border-black-400 flex items-center content-center">
                 <form className="w-11/12 m-auto bg-gray-100 py-10 px-1">
