@@ -38,6 +38,7 @@ class CourseSerializer(ModelSerializer):
     class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
         fields=[
+            'id',
             'course_name',
             'author',
             'image_url',
