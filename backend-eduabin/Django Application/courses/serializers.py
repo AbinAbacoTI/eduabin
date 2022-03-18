@@ -50,10 +50,12 @@ class CourseSerializer(ModelSerializer):
 # Serializer para la division
 class DivisionSerializer(ModelSerializer):
     related_course = CourseSerializer(many=True)
+    image_url = serializers.CharField(source='get_image_absolute_url')      # Imagen de División
     class Meta:         # Datos de Division a renderizar/Serializar
         model=Division
         exclude=[
-            'id'
+            'id',
+            'division_image'
         ]
 
 # Serializer para los datos de los cursos/Rederizacion (Aun sin Comprar)
