@@ -38,6 +38,8 @@ class CourseSerializer(ModelSerializer):
     class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
         fields=[
+            'id',
+            'course_uuid',
             'course_name',
             'author',
             'image_url',
@@ -263,6 +265,7 @@ class CategoryUnpaidSerializer(ModelSerializer):
         model=Category
         exclude=[
             'id',
+            'category_image',
         ]
 
 class SectionUnpaidSerializer(ModelSerializer):
