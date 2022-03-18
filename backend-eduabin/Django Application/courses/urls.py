@@ -3,16 +3,16 @@ from django.urls import path
 from courses.views import *
 # URLs de las vistas de la aplicacion Curso
 urlpatterns = [
-    path('', CoursesHomeView.as_view()),                        # Home
-    path('all', AllCoursesHomeView.as_view()),                  # Home con todos los cursos
-    path('search/<str:search_term>/', SearchCourse.as_view()),  # Vista de busqueda de curso
-    path('<uuid:sector_uuid>/', SectorCourse.as_view()),        # Vista de Sector 
-    path('detail/section/<uuid:section_uuid>/',SectionDetail.as_view()),# Vista de Detalles de la Sección
-    path('detail/sector/<uuid:sector_uuid>/',SectorDetail.as_view()),  # Vista de Detalles del Sector
-    path('detail/course/<uuid:course_uuid>/',CourseDetail.as_view()),  # Vista de Detalles del Curso
-    path('comment/<course_uuid>/', AddComment.as_view()),       # Vista de Comentarios
-    path('cart/', GetCartDetail.as_view()),                     # vista de adiciones al Carrito
-    path('study/<uuid:course_uuid>/', CourseStudy.as_view()),   # Vista de Cursos Comprados
+    path('', CoursesHomeView.as_view()),                                        # Home
+    path('all', AllCoursesHomeView.as_view()),                                  # Home con todos los cursos
+    path('search/<str:search_term>/', SearchCourse.as_view()),                  # Vista de busqueda de curso
+    path('<uuid:sector_uuid>/', SectorCourse.as_view()),                        # Vista de Sector 
+    path('detail/section/<uuid:section_uuid>/',SectionDetail.as_view()),        # Vista de Detalles de la Sección
+    path('detail/sector/<uuid:sector_uuid>/',SectorDetail.as_view()),           # Vista de Detalles del Sector
+    path('detail/course/<uuid:course_uuid>/',CourseDetail.as_view()),           # Vista de Detalles del Curso
+    path('comment/<course_uuid>/', AddComment.as_view()),                       # Vista de Comentarios
+    path('cart/', GetCartDetail.as_view()),                                     # vista de adiciones al Carrito
+    path('study/<uuid:course_uuid>/', CourseStudy.as_view()),                   # Vista de Cursos Comprados
     #URLs CRUD seccion
     path('section/list/', ListSectionAPIView.as_view(), name='section_list'),                      # Vista de listar Seccion
     path('section/add/', section.as_view(), name='section_add'),                                   # Vista de agregar Seccion
@@ -38,4 +38,10 @@ urlpatterns = [
     path('course/add/', course.as_view(), name='course_add'),                                       # Vista de agregar Curso
     path('course/update/<uuid:course_uuid>/', course.as_view(), name='course_update'),              # Vista de actualizar Curso
     path('course/delete/<uuid:course_uuid>/', course.as_view(), name='course_delete'),              # Vista de borrar Curso
+    #URLs CRUD Packages
+    path('package/list/', ListPackageAPIView.as_view(), name='package_list'),                       # Vista de listar Paquete
+    path('package/add/', package.as_view(), name='package_add'),                                    # Vista de agregar Paquete      
+    path('package/update/<id>/', package.as_view(), name='package_update'),                         # Vista de actualizar Paquete
+    path('package/delete/<id>/', package.as_view(), name='package_delete'),                         # Vista de borrar Paquete  
+    path('package/content/add/<id>/', AddCourseTooPackage.as_view()),                               # Vista de agregar cursos a paquetes
 ]

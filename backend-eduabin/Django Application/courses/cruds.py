@@ -2,13 +2,14 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from django.urls import resolve
-from courses.models import Section, Category, Sector, Division, Course
+from courses.models import Section, Category, Sector, Division, Course, Packages
 from .serializers import (SectionSerializer,
                           CourseSerializer,
                           SectorSerializer,
                           CategorySerializer,
                           SectionSerializer,
-                          DivisionSerializer)
+                          DivisionSerializer,
+                          PackageSerializer)
 
 from rest_framework.views import APIView
 from rest_framework import status
@@ -367,4 +368,64 @@ class course(APIView):
         except Course.DoesNotExist:
             return HttpResponseBadRequest('course does not exist')
         course.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# Vistas CRUD Package
+class ListPackageAPIView(ListAPIView):
+    queryset = Packages.objects.all()
+    serializer_class = PackageSerializer    
+class package(APIView):
+    permission_classes=[IsAuthenticated]
+
+    def post(self, request):
+        url_name = resolve(request.path).url_name
+        if url_name != 'package_add': return Response("Method not allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        role = request.user.user_type
+        if role != 3:
+            return self.not_authorized()
+        
+        try:
+            #content=json.loads(request.body)                      #JSON Entry
+            content=request.data.dict()                            #FormData Entry
+        except:
+            return Response("Please a Form Data body", status=status.HTTP_400_BAD_REQUEST)
+        
+        serializer=PackageSerializer(data=content)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, id):
+        url_name = resolve(request.path).url_name
+        if url_name != 'package_update': return Response("Method not allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        role = request.user.user_type
+        if role != 3:
+            return self.not_authorized()
+            
+        try:
+            package = Packages.objects.get(id = id)
+        except Packages.DoesNotExist:
+            return HttpResponseBadRequest('package does not exist')
+        serializer = PackageSerializer(package, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+    
+    def delete(self, request, id):
+        url_name = resolve(request.path).url_name
+        if url_name != 'package_delete': return Response("Method not allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        role = request.user.user_type
+        if role != 3:
+            return self.not_authorized()
+        try:            
+            package = Packages.objects.get(id = id)
+        except Course.DoesNotExist:
+            return HttpResponseBadRequest('course does not exist')
+        package.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

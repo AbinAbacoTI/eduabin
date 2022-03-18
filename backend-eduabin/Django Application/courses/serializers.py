@@ -1,7 +1,7 @@
 from unicodedata import decimal
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Additional_material, Division, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic
+from .models import Additional_material, Division, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic, Packages
 from users.serializers import UserSerializer
 import uuid
 
@@ -311,4 +311,34 @@ class CartItemSerializer(ModelSerializer):
             'discount',
             'discount_price',
             'image_url'
+        ]
+
+class PackageCoursesSerializer(ModelSerializer):
+    class Meta:
+        model=Packages
+        fields=[
+            'id',
+            'courses'
+        ]
+        
+class CourseUuidSerializer(ModelSerializer):
+    class Meta:
+        model=Course
+        fields=[
+            'course_uuid',
+            'course_name'
+        ]
+# Serializer para los paquetes de cursos / Renderizacion
+class PackageSerializer(ModelSerializer):
+    # Campos adicionales a renderizar
+    courses=CourseUuidSerializer(many=True,read_only=True)
+    class Meta:         # Datos de Curso a renderizar/Serializar
+        model=Packages
+        fields=[
+            'id',
+            'pack_name',
+            'pack_image',
+            'announcement',
+            'discount',
+            'courses'
         ]

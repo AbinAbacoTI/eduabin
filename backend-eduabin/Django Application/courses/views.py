@@ -9,7 +9,8 @@ from .serializers import (CategoryDisplaySerializer,
                           CommentSerializer,
                           CartItemSerializer,
                           CoursePaidSerializer,
-                          SectorDisplaySerializer)
+                          SectorDisplaySerializer,
+                          PackageCoursesSerializer)
 
 from rest_framework.views import APIView
 from rest_framework import status
@@ -225,3 +226,23 @@ class CourseStudy(APIView):
         serializer=CoursePaidSerializer(course)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+# Vistas cursos agregados a paquetes  
+class AddCourseTooPackage(APIView):
+    permission_classes=[IsAuthenticated]
+
+    def put(self, request, id):
+
+        role = request.user.user_type
+        if role != 3:
+            return self.not_authorized()
+            
+        try:
+            package = Packages.objects.get(id = id)
+        except Packages.DoesNotExist:
+            return HttpResponseBadRequest('package does not exist')
+        serializer = PackageCoursesSerializer(package, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 

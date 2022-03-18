@@ -78,15 +78,15 @@ class Course(models.Model):
     main_image = models.ImageField(upload_to='course_image')                            # Imagen del Curso
     description = models.TextField()                                                    # Descripcion del Curso
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)      # Autor del Curso
-    valoration = IntegerRangeField(default=0, min_value=0, max_value=5)                                                  # Valoracion del Curso
+    valoration = IntegerRangeField(default=0, min_value=0, max_value=5)                 # Valoracion del Curso
     price = models.DecimalField(max_digits=5,decimal_places=2)                          # Precion del Curso
     objectives = models.TextField()                                                     # Objetivos del Curso
     modules = models.ManyToManyField('Module', blank=True)                              # Modulos del Curso
-    last_update = models.DateField(auto_now_add=True)                                                    # Ultima actualizacion del Curso
-    state = models.CharField(max_length=15, choices=states, default='unpublished')                             # Estado del Curso
+    last_update = models.DateField(auto_now_add=True)                                   # Ultima actualizacion del Curso
+    state = models.CharField(max_length=15, choices=states, default='unpublished')      # Estado del Curso
     comments = models.ManyToManyField('Comment', blank=True)                            # Comentario del Curso
     course_uuid=models.UUIDField(default=uuid.uuid4,unique=True)                        # ID del Curso
-    discount = IntegerRangeField(null=True, blank=True, min_value=0, max_value=100)                 # Campo de descuento
+    discount = IntegerRangeField(null=True, blank=True, min_value=0, max_value=100)     # Campo de descuento
     
     def __str__(self):                      # Muestra el Nombre del Curso
         return self.course_name
@@ -195,6 +195,18 @@ class Packages(models.Model):
     pack_image = models.ImageField(upload_to='course_image')                            # Imagen del paquete
     announcement = models.TextField()
     courses = models.ManyToManyField(Course)
+    discount = IntegerRangeField(null=True, blank=True, min_value=0, max_value=100)  
+
+    def __str__(self):
+        return self.pack_name
+    
+    def get_image_absolute_url(self):                                   # Obtiene la Url de la imagen del Curso
+        return 'http://localhost:8000' + self.pack_image.url
+
+    def get_discount_price(self):           # Obtiene el precio con descuento del curso
+        if not self.discount: return None   # Si no hay descuento devuelve valor nulo
+        final_price = self.price - ((self.price * self.discount)/100)
+        return final_price
 
 # Se genera el Modelo de Preguntas
 class Question(models.Model):
