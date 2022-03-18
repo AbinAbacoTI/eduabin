@@ -39,6 +39,7 @@ class CourseSerializer(ModelSerializer):
         model=Course
         fields=[
             'id',
+            'course_uuid',
             'course_name',
             'author',
             'image_url',
