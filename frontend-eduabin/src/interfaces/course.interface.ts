@@ -68,3 +68,37 @@ export interface ISection {
   section_image: string;
   related_category: number[];
 }
+
+export interface Topic {
+  id: number;
+  length: string;
+  topic_name: string;
+  objectives: string;
+  files: any[];
+  sub_topics: number[];
+}
+export interface Module {
+  id: number;
+  module_name: string;
+  topics: Topic[];
+  total_duration: string;
+}
+export interface ICourseDetail {
+  comments: Comment[];
+  author: IAuthor;
+  modules: Module[];
+  student_no: number;
+  total_modules: number;
+  total_duration: string;
+  image_url: string;
+  course_name: string;
+  main_image: string;
+  description: string;
+  valoration: number;
+  price: string;
+  objectives: string;
+  last_update: Date;
+  state: string;
+  course_uuid: string;
+  discount: null;
+}

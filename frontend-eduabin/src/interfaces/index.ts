@@ -1,1 +1,5 @@
 export * from './auth.interface'
+export * from './course.interface'
+export * from './helpers.interface'
+export * from './section.interface'
+export * from './sector.interface'
