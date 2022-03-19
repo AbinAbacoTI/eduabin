@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from .models import Teacher, Student, User
+from courses.models import Course
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer
         
@@ -10,13 +11,30 @@ class UserSerializer(ModelSerializer):
             'name',
         ]
         
+class CourseUuidSerializer(ModelSerializer):
+    class Meta:
+        model=Course
+        fields=[
+            'course_uuid',
+            'course_name'
+        ]
+        
 # Serializer para Estudiante/Rederizacion
 class StudentSerializer(ModelSerializer):
+    favorite_courses=CourseUuidSerializer(many=True)
     class Meta:
         # Campos Adicional
         model = Student # Modelo Estudiante
         exclude = [      # Datos de Estudiante a Renderizar/Serializar
-            'user',
+            'user'
+        ]
+
+# Serializer para agregar a favoritos  
+class AddFavoriteSerializer(ModelSerializer):
+    class Meta:
+        model=Student
+        fields=[
+            'favorite_courses',
         ]
 
 class UserRegistrationSerializer(UserCreateSerializer):

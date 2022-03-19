@@ -68,6 +68,25 @@ class AllCoursesHomeView(APIView):
         
         return Response(data=courses_Serializer.data,status=status.HTTP_200_OK)
 
+# Vista para mostrar todos los cursos
+class AllCoursesFilterView(APIView):
+    def get(self, request, category, *args, **kwargs):
+        category_match=Category.objects.filter(name=category)
+        try:
+            category_data=CategoryDisplaySerializer(category_match, many=True).data[0]['related_sector']
+        except:
+            return Response(data="No coincidences", status=status.HTTP_404_NOT_FOUND)
+        courses = []
+        for sector in category_data:
+            for item in sector['content']:
+                if sector['division_exist']:
+                    for course in item['related_course']:
+                        courses.append(course)
+                else:
+                    courses.append(item)
+        
+        return Response(data=courses,status=status.HTTP_200_OK)
+
 # Vista de los detalles de la sección
 class SectionDetail(APIView):
     def get(self, request, section_uuid, *args, **kwargs):

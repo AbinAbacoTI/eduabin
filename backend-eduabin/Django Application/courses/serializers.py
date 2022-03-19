@@ -38,6 +38,8 @@ class CourseSerializer(ModelSerializer):
     class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
         fields=[
+            'id',
+            'course_uuid',
             'course_name',
             'author',
             'image_url',
@@ -48,10 +50,12 @@ class CourseSerializer(ModelSerializer):
 # Serializer para la division
 class DivisionSerializer(ModelSerializer):
     related_course = CourseSerializer(many=True)
+    image_url = serializers.CharField(source='get_image_absolute_url')      # Imagen de División
     class Meta:         # Datos de Division a renderizar/Serializar
         model=Division
         exclude=[
-            'id'
+            'id',
+            'division_image'
         ]
 
 # Serializer para los datos de los cursos/Rederizacion (Aun sin Comprar)
@@ -263,6 +267,7 @@ class CategoryUnpaidSerializer(ModelSerializer):
         model=Category
         exclude=[
             'id',
+            'category_image',
         ]
 
 class SectionUnpaidSerializer(ModelSerializer):

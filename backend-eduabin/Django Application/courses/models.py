@@ -59,7 +59,7 @@ class Division(models.Model):
         return self.name
     #  /media/sector_image/what.png
     def get_image_absolute_url(self):
-        return 'http://localhost:8000'+self.category_image.url            # Obtiene la imagen del Url
+        return 'http://localhost:8000'+self.division_image.url            # Obtiene la imagen del Url
 
 # Se genera el modelo para los cursos dentro de los Sectores
 class Course(models.Model):

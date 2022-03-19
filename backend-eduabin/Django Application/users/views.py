@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from django.http import  HttpResponseBadRequest, HttpResponseNotAllowed
 from .models import User, Student
-from .serializers import StudentSerializer
+from .serializers import StudentSerializer, AddFavoriteSerializer
 import json
 
 # Vista para CRUD de estudiante
@@ -45,3 +45,17 @@ class StudentCRUD(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class AddFavorites(APIView):
+    permission_classes=[IsAuthenticated]
+
+    def put(self, request, user_id):
+        try:
+            course = Student.objects.get(user_id = user_id)
+        except Student.DoesNotExist:
+            return HttpResponseBadRequest('course does not exist')
+        serializer = AddFavoriteSerializer(course, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 

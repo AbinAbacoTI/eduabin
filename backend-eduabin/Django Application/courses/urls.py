@@ -4,7 +4,8 @@ from courses.views import *
 # URLs de las vistas de la aplicacion Curso
 urlpatterns = [
     path('', CoursesHomeView.as_view()),                        # Home
-    path('all', AllCoursesHomeView.as_view()),                  # Home con todos los cursos
+    path('all/', AllCoursesHomeView.as_view()),                  # Home con todos los cursos
+    path('all/filter/<str:category>/', AllCoursesFilterView.as_view()),                  # Home con todos los cursos
     path('search/<str:search_term>/', SearchCourse.as_view()),  # Vista de busqueda de curso
     path('<uuid:sector_uuid>/', SectorCourse.as_view()),        # Vista de Sector 
     path('detail/section/<uuid:section_uuid>/',SectionDetail.as_view()),# Vista de Detalles de la Sección
