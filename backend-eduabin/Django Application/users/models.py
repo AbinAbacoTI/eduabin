@@ -89,7 +89,9 @@ class Student(models.Model):
     def add_remuneration(self, amount):  #Metodo para agregar más cantidad a la remuneración acumulada por compras
         self.remuneration = self.remuneration + amount
         return super().save()
-
+        
+    def __str__(self) -> str:
+        return self.firstname
 # Se genera el modelo para la cuenta bancaria del Usuario
 class User_bank_account(models.Model):
     # Campos User_bank_account 
