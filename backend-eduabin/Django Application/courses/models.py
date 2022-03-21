@@ -191,10 +191,30 @@ class Additional_material(models.Model):
 
 # Se genera el modelo para paquetes
 class Packages(models.Model):
+    package_uuid = models.UUIDField(default=uuid.uuid4,unique=True)
     pack_name = models.CharField(max_length=255)
     pack_image = models.ImageField(upload_to='course_image')                            # Imagen del paquete
     announcement = models.TextField()
-    courses = models.ManyToManyField(Course)
+    courses = models.ManyToManyField(Course, blank=True)
+    discount = IntegerRangeField(null=True, blank=True, min_value=0, max_value=100)  
+
+    def __str__(self):
+        return self.pack_name
+
+    def get_image_absolute_url(self):                                   # Obtiene la Url de la imagen del Curso
+        return 'http://localhost:8000' + self.pack_image.url
+    
+    def get_total_price(self):
+        total_price = 0
+        for course in self.courses.all():
+            total_price += course.price
+        return total_price
+
+    def get_discount_price(self):           # Obtiene el precio con descuento del curso
+        if not self.discount: return None   # Si no hay descuento devuelve valor nulo
+        price = self.get_total_price()
+        final_price = price - ((price * self.discount)/100)
+        return final_price
 
 # Se genera el Modelo de Preguntas
 class Question(models.Model):

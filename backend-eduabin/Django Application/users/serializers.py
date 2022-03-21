@@ -58,7 +58,7 @@ class UserRegistrationSerializer(UserCreateSerializer):
         #Student.objects.create(user=user, **student)
         user.set_password(password)
         user.save()
-        Student.objects.create(user=user)
+        Student.objects.create(user=user, firstname=user.name)
         return user
 
 # Serializer para Autentificacion de Usuario/Rederizacion

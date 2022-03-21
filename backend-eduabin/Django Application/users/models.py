@@ -90,7 +90,7 @@ class Student(models.Model):
         self.remuneration = self.remuneration + amount
         return super().save()
         
-    def __str__(self) -> str:
+    def __str__(self):
         return self.firstname
 # Se genera el modelo para la cuenta bancaria del Usuario
 class User_bank_account(models.Model):

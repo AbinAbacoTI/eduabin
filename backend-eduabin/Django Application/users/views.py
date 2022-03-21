@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from django.http import  HttpResponseBadRequest, HttpResponseNotAllowed
 from .models import User, Student
+from courses.models import Course
 from .serializers import StudentSerializer, AddFavoriteSerializer
 import json
 
@@ -46,15 +47,38 @@ class StudentCRUD(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class AddFavorites(APIView):
+class favorite_courses(APIView):
     permission_classes=[IsAuthenticated]
 
-    def put(self, request, user_id):
+    def put(self, request):
         try:
-            course = Student.objects.get(user_id = user_id)
+            body=json.loads(request.body)
+        except json.decoder.JSONDecodeError:
+            return HttpResponseBadRequest()
+        
+        if type(body.get('favorite_courses')) != list:
+            return HttpResponseBadRequest()
+        
+        if len(body.get('favorite_courses')) == 0:
+            return Response([])
+        
+        courses_ids=[]
+        for uuid in body.get('favorite_courses'):
+            item = Course.objects.filter(course_uuid=uuid)
+            if not item:
+                return HttpResponseBadRequest()
+            courses_ids.append(item[0].id)
+
+        try:
+            student = Student.objects.get(user = request.user)
         except Student.DoesNotExist:
-            return HttpResponseBadRequest('course does not exist')
-        serializer = AddFavoriteSerializer(course, data=request.data)
+            return HttpResponseBadRequest('student does not exist')
+        
+        ids_obj={
+                'favorite_courses': courses_ids
+            }
+
+        serializer = AddFavoriteSerializer(student, data=ids_obj)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

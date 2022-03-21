@@ -9,7 +9,9 @@ from .serializers import (CategoryDisplaySerializer,
                           CommentSerializer,
                           CartItemSerializer,
                           CoursePaidSerializer,
-                          SectorDisplaySerializer)
+                          SectorDisplaySerializer,
+                          PackageCoursesSerializer,
+                          PackageDisplaySerializer)
 
 from rest_framework.views import APIView
 from rest_framework import status
@@ -40,26 +42,6 @@ class CoursesHomeView(APIView):
 
             section_response.append(section_obj)
         return Response(data=section_response, status=status.HTTP_200_OK)
-'''
-        categories=Category.objects.order_by('?')[:6]
-
-        category_response = []
-
-        for category in categories:
-            category_sectors=category.related_sector.order_by('?')
-            categories_Serializer=SectorDisplaySerializer(category_sectors,many=True)
-        
-            category_obj={
-                'category_uuid': category.category_uuid,
-                'category_name': category.name,
-                'featured_sectors': categories_Serializer.data,
-                'category_image': category.get_image_absolute_url()
-            }
-
-            category_response.append(category_obj)
-        
-        return Response(data=category_response,status=status.HTTP_200_OK)
-'''
 # Vista para mostrar todos los cursos
 class AllCoursesHomeView(APIView):
     def get(self, request, *args, **kwargs):
@@ -244,3 +226,58 @@ class CourseStudy(APIView):
         serializer=CoursePaidSerializer(course)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ShowPackages(APIView):
+    def get(self, request):
+        packages = Packages.objects.order_by('?')
+        serializer = PackageDisplaySerializer(packages, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Vistas cursos agregados a paquetes  
+class AddCourseToPackage(APIView):
+    permission_classes=[IsAuthenticated]
+
+    def not_authorized(self):
+        response = {
+            'success': False,
+            'status_code': status.HTTP_403_FORBIDDEN,
+            'message': 'You are not authorized to perform this action'
+        }
+        return Response(response, status.HTTP_403_FORBIDDEN)
+
+    def put(self, request, package_uuid):
+        role = request.user.user_type
+        if role != 3:
+            return self.not_authorized()
+
+        try:
+            body=json.loads(request.body)
+        except json.decoder.JSONDecodeError:
+            return HttpResponseBadRequest()
+        
+        if type(body.get('courses')) != list:
+            return HttpResponseBadRequest()
+        
+        if len(body.get('courses')) == 0:
+            return Response([])
+        
+        courses_ids=[]
+        for uuid in body.get('courses'):
+            item = Course.objects.filter(course_uuid=uuid)
+            if not item:
+                return HttpResponseBadRequest()
+            courses_ids.append(item[0].id)
+
+        try:
+            package = Packages.objects.get(package_uuid = package_uuid)
+        except Packages.DoesNotExist:
+            return HttpResponseBadRequest('package does not exist')
+        ids_obj={
+                'courses': courses_ids
+            }
+
+        serializer = PackageCoursesSerializer(package, data=ids_obj)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 

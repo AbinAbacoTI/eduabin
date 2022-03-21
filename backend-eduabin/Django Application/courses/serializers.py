@@ -1,8 +1,9 @@
 from unicodedata import decimal
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Additional_material, Division, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic
+from .models import Additional_material, Division, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic, Packages
 from users.serializers import UserSerializer
+from decimal import Decimal
 import uuid
 
 # Serializer para la seccion
@@ -34,6 +35,7 @@ class CourseSerializer(ModelSerializer):
     # campos adicionales para rendericacion
     author = UserSerializer(read_only=True)                                 # Autor del Curso(Extraido del Serializer del Profesor)
     image_url = serializers.CharField(source='get_absolute_image_url')      # Imagen del Curso
+    discount_price = serializers.DecimalField(source='get_discount_price', max_digits=7, decimal_places=2)
 
     class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
@@ -45,6 +47,8 @@ class CourseSerializer(ModelSerializer):
             'image_url',
             'valoration',
             'price',
+            'discount',
+            'discount_price'
         ]
 
 # Serializer para la division
@@ -316,4 +320,52 @@ class CartItemSerializer(ModelSerializer):
             'discount',
             'discount_price',
             'image_url'
+        ]
+
+class PackageCoursesSerializer(ModelSerializer):
+    class Meta:
+        model=Packages
+        fields=[
+            'id',
+            'courses'
+        ]
+
+class CoursePackageSerializer(ModelSerializer):
+    image_url = serializers.CharField(source='get_absolute_image_url')      # Imagen del Curso
+    class Meta:
+        model=Course
+        fields=[
+            'course_name',
+            'course_uuid',
+            'price',
+            'image_url',
+        ]
+        
+# Serializer para los paquetes de cursos / Renderizacion
+class PackageSerializer(ModelSerializer):
+    # Campos adicionales a renderizar
+
+    class Meta:         # Datos de Curso a renderizar/Serializar
+        model=Packages
+        fields= '__all__'
+
+# Serializer para los paquetes de cursos / Renderizacion
+class PackageDisplaySerializer(ModelSerializer):
+    # Campos adicionales a renderizar
+    courses=CoursePackageSerializer(many=True,read_only=True)
+    total_price=serializers.DecimalField(source='get_total_price', decimal_places=2, max_digits=7, read_only=True)
+    discount_price=serializers.DecimalField(source='get_discount_price', decimal_places=2, max_digits=7, read_only=True)
+    pack_image=serializers.CharField(source='get_image_absolute_url')
+
+    class Meta:         # Datos de Curso a renderizar/Serializar
+        model=Packages
+        fields=[
+            'id',
+            'pack_name',
+            'pack_image',
+            'announcement',
+            'discount',
+            'courses',
+            'total_price',
+            'discount_price'
         ]
