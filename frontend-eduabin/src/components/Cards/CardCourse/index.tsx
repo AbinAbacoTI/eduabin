@@ -9,7 +9,7 @@ const CardCourse: FC<CardProps> = () => {
     card: {
       marginTop: '14px',
       marginBottom: '14px',
-      maxWidth: 295,
+      minWidth: 295,
       border: '2px',
       '&:hover': {
         boxShadow: '0px 0px 30px 0px rgb(32 32 32 / 15%)'

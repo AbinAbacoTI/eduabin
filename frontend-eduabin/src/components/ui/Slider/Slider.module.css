@@ -1,0 +1,11 @@
+.carrousel {
+  cursor: grab;
+  overflow: hidden;
+  /* background: rgb(230, 173, 173); */
+  width: 100%;
+}
+.inner-carrousel {
+  display: flex;
+  /* background: lightblue; */
+  padding: 10px;
+}
