@@ -43,7 +43,7 @@ urlpatterns = [
     #URLs CRUD Packages
     path('package/list/', ListPackageAPIView.as_view(), name='package_list'),                       # Vista de listar Paquete
     path('package/add/', package.as_view(), name='package_add'),                                    # Vista de agregar Paquete      
-    path('package/update/<id>/', package.as_view(), name='package_update'),                         # Vista de actualizar Paquete
-    path('package/delete/<id>/', package.as_view(), name='package_delete'),                         # Vista de borrar Paquete  
+    path('package/update/<uuid_package>/', package.as_view(), name='package_update'),                         # Vista de actualizar Paquete
+    path('package/delete/<uuid_package>/', package.as_view(), name='package_delete'),                         # Vista de borrar Paquete  
     path('package/content/add/<package_uuid>/', AddCourseToPackage.as_view()),                               # Vista de agregar cursos a paquetes
 ]

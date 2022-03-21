@@ -406,7 +406,7 @@ class package(APIView):
         else:
             return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, id):
+    def put(self, request, uuid_package):
         url_name = resolve(request.path).url_name
         if url_name != 'package_update': return Response("Method not allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -415,7 +415,7 @@ class package(APIView):
             return self.not_authorized()
 
         try:
-            package = Packages.objects.get(id = id)
+            package = Packages.objects.get(package_uuid = uuid_package)
         except Packages.DoesNotExist:
             return HttpResponseBadRequest('package does not exist')
         serializer = PackageSerializer(package, data=request.data)
@@ -424,7 +424,7 @@ class package(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
-    def delete(self, request, id):
+    def delete(self, request, uuid_package):
         url_name = resolve(request.path).url_name
         if url_name != 'package_delete': return Response("Method not allowed", status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -432,7 +432,7 @@ class package(APIView):
         if role != 3:
             return self.not_authorized()
         try:            
-            package = Packages.objects.get(id = id)
+            package = Packages.objects.get(package_uuid = uuid_package)
         except Course.DoesNotExist:
             return HttpResponseBadRequest('course does not exist')
         package.delete()
