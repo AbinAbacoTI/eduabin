@@ -11,6 +11,10 @@ from courses.models import Course
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from .serializers import PaymentsSerializer
+from django.http import  HttpResponseBadRequest, HttpResponseNotAllowed
+from rest_framework.generics import ListAPIView
+
 
 stripe_api_key=config("STRIPE_APIKEY")
 endpoint_secret="whsec_59aa4d3bf0f83a2aedfe97e70422bcd61eda8f95b88992d2550ab1897441cbb1"
@@ -121,3 +125,23 @@ class WebHook(APIView):
 
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST) 
+
+# Vistas CRUD Package
+class ListPaymentsAPIView(APIView):
+    permission_classes=[IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        role = request.user.user_type
+        if role != 3:
+            response = {
+                'success': False,
+                'status_code': status.HTTP_403_FORBIDDEN,
+                'message': 'You are not authorized to perform this action'
+            }
+            return Response(response, status.HTTP_403_FORBIDDEN)
+        try:
+            payment=Payment.objects.all()
+        except Payment.DoesNotExist:
+            return HttpResponseBadRequest('payment does not exist')
+        payment_Serializer=PaymentsSerializer(payment,many=True)
+
+        return Response(data=payment_Serializer.data,status=status.HTTP_200_OK)
