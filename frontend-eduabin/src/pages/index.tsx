@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Layout from 'components/common/Layouts/Layout'
+import { Layout } from 'components/common/Layouts'
 import Carousel from '../components/common/Carousel'
 import CardCourse from 'components/Cards/CardCourse'
 import Link from 'components/ui/Link'
@@ -8,7 +8,7 @@ import { useSections } from 'hooks'
 export default function Home () {
   const { sections, isLoading, isError } = useSections()
   return (
-    <Layout>
+    <Layout title='Inicio' description='Home Page'>
       <section>
         <Carousel />
       </section>

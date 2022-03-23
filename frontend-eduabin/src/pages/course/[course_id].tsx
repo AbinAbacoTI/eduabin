@@ -1,22 +1,36 @@
 
-import { PersonOutline } from '@mui/icons-material'
-import { Avatar, Rating, Typography } from '@mui/material'
-import Comment from 'components/common/Comment'
-import Layout from 'components/common/Layouts/Layout'
-import Image from 'next/image'
 import { GetServerSideProps, NextPage } from 'next'
+import { useContext, useState } from 'react'
+import Image from 'next/image'
+import { PersonOutline } from '@mui/icons-material'
+import { Avatar, Button, Rating, Typography } from '@mui/material'
+import Comment from 'components/common/Comment'
+import { Layout } from 'components/common/Layouts'
 import { getCourseById } from '../../services/course.service'
 import { ICourseDetail } from '../../interfaces'
 import Collapse from 'components/ui/Collapse'
+import { ICartCourse } from '../../interfaces/cart.interface'
+import { CartContext } from 'context'
+import { useRouter } from 'next/router'
 
 interface Course_Props {
   course: ICourseDetail
 }
 
 const course_uuid: NextPage<Course_Props> = ({ course }) => {
-  console.log(course)
+  const { cart, addCourseToCart } = useContext(CartContext)
+  const courseExistInCart = cart.some(courseInCart => courseInCart === course)
+  const { push } = useRouter()
+  const [tempCartCourse, setTempCartCourse] = useState<ICartCourse>({
+    ...course
+  })
+  const onAddCourse = () => {
+    addCourseToCart(tempCartCourse)
+    /* push('/cart') */
+  }
+
   return (
-    <Layout>
+    <Layout title='Course' description='Course detail description'>
       <section className='w-full h-400 relative'>
         <Image src={'/images/bg202203.jpg'}
           layout='fill'
@@ -88,17 +102,17 @@ const course_uuid: NextPage<Course_Props> = ({ course }) => {
                                   <div>
                                     {
                                       !!sub_topics?.length && (
-                                          <>
-                                            {
-                                              sub_topics.map(subTopic => (
-                                                <div
-                                                  key={`module-$topic-subtopic-${subTopic}`}
-                                                >
-                                                  <span>{subTopic}</span>
-                                                </div>
-                                              ))
-                                            }
-                                          </>
+                                        <>
+                                          {
+                                            sub_topics.map(subTopic => (
+                                              <div
+                                                key={`module-$topic-subtopic-${subTopic}`}
+                                              >
+                                                <span>{subTopic}</span>
+                                              </div>
+                                            ))
+                                          }
+                                        </>
                                       )
                                     }
                                     {
@@ -170,7 +184,16 @@ const course_uuid: NextPage<Course_Props> = ({ course }) => {
           </div>
           <div className='col-span-1'>
             <div className='border-2 rounded p-8'>
-              <span>Lorem</span>
+              <div className='border-2 flex justify-center'>
+                <button
+                  onClick={courseExistInCart ? null : () => onAddCourse()}
+                  className="w-52 h-11 bg-orange-eduabin text-white border-2 border-orange-eduabin hover:bg-transparent hover:text-orange-eduabin transition-all duration-100"
+                >
+                  {
+                    courseExistInCart ? (<span>Ir al carrito</span>) : (<span>Agregar al carrito</span>)
+                  }
+                </button>
+              </div>
             </div>
           </div>
         </div>

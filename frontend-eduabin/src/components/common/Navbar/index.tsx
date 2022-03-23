@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import Link from 'components/ui/Link'
-import CartShoppingRegular from 'components/icons/CartShoppingRegular'
 import Bars from 'components/icons/Bars'
 import Times from 'components/icons/Times'
 import Search from 'components/icons/Search'
 import { AuthContext } from '../../../context/auth/AuthContext'
 import AvatarAuthMenu from '../AvatarAuthMenu'
+import { Badge, IconButton } from '@mui/material'
+import { ShoppingCartOutlined } from '@mui/icons-material'
+import { CartContext } from 'context'
 
 const Navbar = () => {
   const [fixed, setFixed] = useState('')
@@ -21,6 +23,7 @@ const Navbar = () => {
   }, [])
 
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext)
+  const { cart } = useContext(CartContext)
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -85,8 +88,11 @@ const Navbar = () => {
                     duration={500}
                     className="cursor-pointer text-orange-600 font-semibold px-3 py-2 text-md hover:font-black"
                   >
-                    Mi Cesta
-                    <CartShoppingRegular className="h-4 w-7 "/>
+                    <IconButton>
+                      <Badge badgeContent={cart.length} color='primary'>
+                          <ShoppingCartOutlined/>
+                      </Badge>
+                    </IconButton>
                   </Link>
                   {
                     !isLoggedIn &&

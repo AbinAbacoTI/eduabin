@@ -1,9 +1,9 @@
-import Layout from 'components/common/Layouts/Layout'
+import { Layout } from 'components/common/Layouts'
 import Image from 'next/image'
 
 const Contact = () => {
   return (
-    <Layout>
+    <Layout title='Contact' description='Contact Page'>
       <section className='w-full h-400 relative'>
         <Image src={'/images/bg202203.jpg'}
           layout='fill'

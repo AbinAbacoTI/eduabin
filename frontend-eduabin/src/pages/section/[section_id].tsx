@@ -1,4 +1,4 @@
-import Layout from 'components/common/Layouts/Layout'
+import { Layout } from 'components/common/Layouts'
 import Link from 'components/ui/Link'
 import { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
@@ -13,7 +13,7 @@ const Section: NextPage<SectionPageProps> = ({ section }) => {
   const { related_category, name_section } = section
   const { back } = useRouter()
   return (
-    <Layout>
+    <Layout title="Section" description='Section Page'>
       <section className='w-full h-400 relative'>
         <Image src={'/images/bg202203.jpg'}
           layout='fill'

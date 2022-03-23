@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 
 const Link = ({ href, children, ...props }) => {
   return (
-    <NextLink href={href}>
+    <NextLink href={href} passHref>
       <a { ...props }> { children } </a>
     </NextLink>
   )

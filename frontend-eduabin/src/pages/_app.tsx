@@ -1,11 +1,11 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { Provider } from 'react-redux'
-import { eduAbinWrapper, store } from 'rdx/store'
-import 'react-toastify/dist/ReactToastify.css'
-import { SWRConfig } from 'swr'
-import { AuthProvider } from 'context'
 import { SessionProvider } from 'next-auth/react'
+import type { AppProps } from 'next/app'
+import { SWRConfig } from 'swr'
+import { Provider } from 'react-redux'
+import { AuthProvider, CartProvider } from 'context'
+import { store } from 'rdx/store'
+import '../styles/globals.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 function MyApp ({ Component, pageProps }: AppProps) {
   return (
@@ -16,13 +16,15 @@ function MyApp ({ Component, pageProps }: AppProps) {
         }}
       >
         <AuthProvider>
-          <Provider store={store}>
-              <Component {...pageProps} />
-          </Provider>
+          <CartProvider>
+            <Provider store={store}>
+                <Component {...pageProps} />
+            </Provider>
+          </CartProvider>
         </AuthProvider>
       </SWRConfig>
     </SessionProvider>
   )
 }
 
-export default eduAbinWrapper.withRedux(MyApp)
+export default MyApp

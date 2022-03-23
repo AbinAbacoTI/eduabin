@@ -1,4 +1,4 @@
-import Layout from 'components/common/Layouts/Layout'
+import { Layout } from 'components/common/Layouts'
 import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -13,7 +13,7 @@ const sector_uuid = ({ sector }) => {
   console.log(sector)
 
   return (
-    <Layout>
+    <Layout title="Sector" description='Sector Page'>
       <section className='w-full h-400 relative'>
         <Image src={sector_image}
           layout='fill'
