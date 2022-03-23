@@ -7,7 +7,7 @@ import { CartContext } from 'context'
 import { ICartCourse } from 'interfaces'
 
 export const CartList:FC = () => {
-  const { cart, removeCartCourse } = useContext(CartContext)
+  const { cart, removeCartCourse, numberOfCourses } = useContext(CartContext)
 
   const onRemoveCourse = (course: ICartCourse) => {
     removeCartCourse(course)
@@ -15,7 +15,7 @@ export const CartList:FC = () => {
 
   return (
     <>
-    <span>Tienes { cart.length } cursos en tu carrito</span>
+    <span>Tienes { numberOfCourses } cursos en tu carrito</span>
     {
       cart.map(course => (
         <div

@@ -3,7 +3,7 @@ import { ICartCourse } from 'interfaces'
 
 interface ContextProps {
   cart: ICartCourse[],
-  NumberOfCourses: number,
+  numberOfCourses: number,
   subTotal: number,
   discount: number,
   total: number,

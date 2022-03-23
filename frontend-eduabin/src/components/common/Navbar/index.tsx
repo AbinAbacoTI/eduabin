@@ -81,7 +81,7 @@ const Navbar = () => {
                   </Link>
 
                   <Link
-                    href='/checkout'
+                    href='/cart'
                     to="checkout"
                     smooth="true"
                     offset={50}

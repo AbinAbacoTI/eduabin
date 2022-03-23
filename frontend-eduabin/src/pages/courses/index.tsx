@@ -1,4 +1,4 @@
-import Layout from 'components/common/Layouts/Layout'
+import { Layout } from 'components/common/Layouts'
 import Link from 'components/ui/Link'
 import { getCourses, getCoursesSector } from 'rdx/slice/course.slice'
 import { eduAbinWrapper } from '../../rdx/store/index'
@@ -13,7 +13,7 @@ import { Search } from '@mui/icons-material'
 
 const Courses = () => {
   return (
-    <Layout>
+    <Layout title='Courses' description='Courses Page'>
       <section className='w-full h-400 relative'>
         <Image src={'/images/bg202203.jpg'}
           layout='fill'

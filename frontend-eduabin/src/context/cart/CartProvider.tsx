@@ -6,14 +6,14 @@ import { cartReducer } from './cartReducer'
 
 export interface CartState {
   cart: ICartCourse[],
-  NumberOfCourses: number,
+  numberOfCourses: number,
   subTotal: number,
   discount: number,
   total: number
 }
 const CART_INITIAL_STATE: CartState = {
   cart: [],
-  NumberOfCourses: 0,
+  numberOfCourses: 0,
   subTotal: 0,
   discount: 0,
   total: 0
@@ -33,12 +33,15 @@ export const CartProvider:FC = ({ children }) => {
   // TODO: Upload data in store
   useEffect(() => {
     // TODO: Check subtotal value - reduce
+    const numberOfCourses = state.cart.length
     const subTotal = state.cart.reduce((prev, current) => parseFloat(current.price) + prev, 0)
-    const orderSummary = {
+    const cartSummary = {
+      numberOfCourses,
       subTotal,
-      discount: 0
+      discount: 0,
+      total: subTotal
     }
-    console.log(orderSummary)
+    dispatch({ type: '[CART] - Update cart summary', payload: cartSummary })
   }, [state.cart])
 
   const addCourseToCart = (course: ICartCourse) => {
