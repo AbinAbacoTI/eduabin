@@ -1,11 +1,11 @@
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 import LoginView from 'components/auth/LoginView'
-import Layout from 'components/common/Layouts/Layout'
+import { Layout } from 'components/common/Layouts'
 
 const Login = () => {
   return (
-    <Layout>
+    <Layout title='Login' description='Login Page'>
       <div className='flex justify-center content-center items-center p-5 py-36'>
         <LoginView/>
       </div>

@@ -42,7 +42,8 @@ export default NextAuth({
             // check User or create User with social networks
             break
           case 'credentials':
-            token.user.user = user
+            console.log('USER-CREDENTIALS: ', user)
+            token.user = user
             break
         }
       }

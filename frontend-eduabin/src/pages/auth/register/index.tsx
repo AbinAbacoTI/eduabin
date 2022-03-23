@@ -1,11 +1,11 @@
 import RegisterView from 'components/auth/RegisterView'
-import Layout from 'components/common/Layouts/Layout'
+import { Layout } from 'components/common/Layouts'
 import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 
 const Register = () => {
   return (
-    <Layout>
+    <Layout title='Register' description='Register page'>
       <div className='flex justify-center content-center items-center p-5 py-36'>
         <RegisterView/>
       </div>
