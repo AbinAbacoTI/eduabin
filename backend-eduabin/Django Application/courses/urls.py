@@ -14,7 +14,8 @@ urlpatterns = [
     path('comment/<course_uuid>/', AddComment.as_view()),       # Vista de Comentarios
     path('cart/', GetCartDetail.as_view()),                     # vista de adiciones al Carrito
     path('study/<uuid:course_uuid>/', CourseStudy.as_view()),   # Vista de Cursos Comprados
-    path('packages/', ShowPackages.as_view()),   # Vista de paquetes
+    path('packages/', ShowPackages.as_view()),                  # Vista de paquetes
+    path('events/', ShowEvents.as_view()),                      # Vista para mostrar eventos
     #URLs CRUD seccion
     path('section/list/', ListSectionAPIView.as_view(), name='section_list'),                      # Vista de listar Seccion
     path('section/add/', section.as_view(), name='section_add'),                                   # Vista de agregar Seccion

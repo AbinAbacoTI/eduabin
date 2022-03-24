@@ -1,7 +1,7 @@
 from unicodedata import decimal
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Additional_material, Division, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic, Packages
+from .models import Additional_material, Division, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic, Packages, Event
 from users.serializers import UserSerializer
 from decimal import Decimal
 import uuid
@@ -368,4 +368,13 @@ class PackageDisplaySerializer(ModelSerializer):
             'courses',
             'total_price',
             'discount_price'
+        ]
+
+class EventSerializer(ModelSerializer):
+    # Campos adicionales a renderizar
+
+    class Meta:         # Datos de Curso a renderizar/Serializar
+        model=Event
+        exclude=[
+            'id',
         ]

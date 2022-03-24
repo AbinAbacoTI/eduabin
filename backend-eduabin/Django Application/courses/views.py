@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from courses.models import Section, Category, Sector, Course
+from courses.models import Section, Category, Sector, Course, Event
 from users.models import Student
 from .serializers import (CategoryDisplaySerializer,
                           CourseDisplaySerializer, 
@@ -11,7 +11,8 @@ from .serializers import (CategoryDisplaySerializer,
                           CoursePaidSerializer,
                           SectorDisplaySerializer,
                           PackageCoursesSerializer,
-                          PackageDisplaySerializer)
+                          PackageDisplaySerializer,
+                          EventSerializer)
 
 from rest_framework.views import APIView
 from rest_framework import status
@@ -226,12 +227,33 @@ class CourseStudy(APIView):
         serializer=CoursePaidSerializer(course)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
-
+        
+# Vistas mostrar los Paquetes 
 class ShowPackages(APIView):
     def get(self, request):
         packages = Packages.objects.order_by('?')
         serializer = PackageDisplaySerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Vista mostrar lo eventos
+class ShowEvents(APIView):
+    permission_classes=[IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        role = request.user.user_type
+        if role != 3:
+            response = {
+                'success': False,
+                'status_code': status.HTTP_403_FORBIDDEN,
+                'message': 'You are not authorized to perform this action'
+            }
+            return Response(response, status.HTTP_403_FORBIDDEN)
+        try:
+            event=Event.objects.all()
+        except Event.DoesNotExist:
+            return HttpResponseBadRequest('Event does not exist')
+        event_Serializer=EventSerializer(event,many=True)
+
+        return Response(data=event_Serializer.data,status=status.HTTP_200_OK)
 
 # Vistas cursos agregados a paquetes  
 class AddCourseToPackage(APIView):
