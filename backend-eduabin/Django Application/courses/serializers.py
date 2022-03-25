@@ -1,7 +1,7 @@
 from unicodedata import decimal
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Additional_material, Division, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic, Packages, Event
+from .models import Additional_material, Division, Hashtags, Section, Category, Sector, Course, Comment, Module, Sub_topic, Topic, Packages, Event
 from users.serializers import UserSerializer
 from decimal import Decimal
 import uuid
@@ -30,12 +30,20 @@ class SectorSerializer(ModelSerializer):
             'id'
         ]
 
+class HashtagSerializer(ModelSerializer):
+    class Meta:
+        model=Hashtags
+        exclude=[
+            'id'
+        ]
+
 # Serializer para el curso
 class CourseSerializer(ModelSerializer):
     # campos adicionales para rendericacion
     author = UserSerializer(read_only=True)                                 # Autor del Curso(Extraido del Serializer del Profesor)
     image_url = serializers.CharField(source='get_absolute_image_url')      # Imagen del Curso
     discount_price = serializers.DecimalField(source='get_discount_price', max_digits=7, decimal_places=2)
+    hashtag = HashtagSerializer(many=True)
 
     class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
@@ -48,7 +56,8 @@ class CourseSerializer(ModelSerializer):
             'valoration',
             'price',
             'discount',
-            'discount_price'
+            'discount_price',
+            'hashtag',
         ]
 
 # Serializer para la division
@@ -69,6 +78,7 @@ class CourseDisplaySerializer(ModelSerializer):
     author = UserSerializer(read_only=True)                                 # Autor del Curso(Extraido del Serializer del Profesor)
     image_url = serializers.CharField(source='get_absolute_image_url')      # Imagen del Curso
     discount_price = serializers.DecimalField(source='get_discount_price', max_digits=7, decimal_places=2)
+    hashtag = HashtagSerializer(many=True)
 
     class Meta:         # Datos de Curso a renderizar/Serializar
         model=Course
@@ -80,7 +90,8 @@ class CourseDisplaySerializer(ModelSerializer):
             'price',
             'discount',
             'image_url',
-            'discount_price'
+            'discount_price',
+            'hashtag'
         ]
 
 # Serializer para los datos de los sectores/Rederizacion (Aun sin Comprar)

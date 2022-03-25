@@ -77,6 +77,7 @@ class Course(models.Model):
     course_name = models.CharField(max_length=255)                                      # Nombre del Curso 
     main_image = models.ImageField(upload_to='course_image')                            # Imagen del Curso
     description = models.TextField()                                                    # Descripcion del Curso
+    hashtag = models.ManyToManyField('Hashtags', blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)      # Autor del Curso
     valoration = IntegerRangeField(default=0, min_value=0, max_value=5)                                                  # Valoracion del Curso
     price = models.DecimalField(max_digits=5,decimal_places=2)                          # Precion del Curso
@@ -118,6 +119,13 @@ class Course(models.Model):
         if not self.discount: return None   # Si no hay descuento devuelve valor nulo
         final_price = self.price - ((self.price * self.discount)/100)
         return final_price
+
+class Hashtags(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 # Se genera el Modelo de los Modulos del Curso
 class Module(models.Model):

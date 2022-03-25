@@ -15,3 +15,4 @@ admin.site.register(Question)               # Modelo de Preguntas
 admin.site.register(Comment)                # MOdelo de Comentarios
 admin.site.register(Packages)               # MOdelo de Paquetes
 admin.site.register(Event)                  # Modelo de Eventos
+admin.site.register(Hashtags)
