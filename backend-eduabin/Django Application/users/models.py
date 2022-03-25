@@ -69,6 +69,7 @@ class Student(models.Model):
     lastname = models.CharField(max_length=255)
     cellphone = models.CharField(max_length=12)
     country = models.CharField(max_length=150)
+    dni = models.CharField(max_length=8)
     bank_accounts = models.ManyToManyField('User_bank_account', blank=True)         # Num. Cuenta Bancaria
     paid_courses = models.ManyToManyField(Course, blank=True, related_name="paid_courses")          # Cursos Comprados
     favorite_courses = models.ManyToManyField(Course, blank=True, related_name="desired_courses")    # Cursos deseados
